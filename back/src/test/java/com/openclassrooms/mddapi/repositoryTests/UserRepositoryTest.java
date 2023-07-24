@@ -2,11 +2,15 @@ package com.openclassrooms.mddapi.repositoryTests;
 
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.UserRepository;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.Optional;
@@ -14,7 +18,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(SpringExtension.class)      // permet d'utiliser les extensions Spring dont @DataJpaTest
-@DataJpaTest    // configure un contexte de test léger avec seulement les composants nécessaires pour tester les fonctionnalités de persistance de la couche de données.
+@DataJpaTest    // configure un contexte de test léger avec seulement les composants nécessaires pour tester les fonctionnalités sur une bd H2.
 public class UserRepositoryTest {
 
     @Autowired
@@ -23,14 +27,20 @@ public class UserRepositoryTest {
     @Autowired
     private UserRepository userRepository;
 
+
+    private User createNewUser(String email, String username, String password) {
+        User user = new User();
+        user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(password);
+        return user;    
+    }
+
     @Test
     public void testSaveUser() {
         // Créer un nouvel utilisateur
-        User user = new User();
-        user.setEmail("test@example.com");
-        user.setUsername("testuser");
-        user.setPassword("password");
-
+        User user = createNewUser("test@example.com","testuser","password");
+        
         // Enregistrer l'utilisateur dans la base de données
         User savedUser = userRepository.save(user);
 
@@ -40,14 +50,27 @@ public class UserRepositoryTest {
         assertEquals("testuser", savedUser.getUsername());
         assertEquals("password", savedUser.getPassword());
     }
+    @Test
+    public void testFindById() {
+        // Créer un nouvel utilisateur
+        User user = createNewUser("test@example.com","testuser","password");
+        entityManager.persist(user);
+
+        // Récupérer l'ID de l'utilisateur créé
+        Long userId = user.getId();
+
+        // Rechercher l'utilisateur par ID
+        User foundUser = userRepository.findById(userId).orElse(null);
+
+        // Vérifier que l'utilisateur récupéré correspond à l'utilisateur créé
+        assertNotNull(foundUser);
+        assertEquals("testuser", foundUser.getUsername());
+    }
 
     @Test
     public void testFindByUsername() {
         // Créer un nouvel utilisateur
-        User user = new User();
-        user.setEmail("test@example.com");
-        user.setUsername("testuser");
-        user.setPassword("password");
+        User user = createNewUser("test@example.com","testuser","password");
         entityManager.persist(user);
 
         // Rechercher l'utilisateur par nom d'utilisateur
@@ -63,23 +86,84 @@ public class UserRepositoryTest {
 
     @Test
     public void testFindByEmail() {
-        // Créer plusieurs utilisateurs avec des adresses e-mail différentes
-        User user1 = new User(1L, "user1@example.com", "user1", "password");
-        User user2 = new User(2L, "user2@example.com", "user2", "password");
-        User user3 = new User(3L, "user3@example.com", "user3", "password");
-
+        // Créer un nouvel utilisateur
+        User user1 = createNewUser("user1@example.com", "user1", "password1");
         entityManager.persist(user1);
+        User user2 = createNewUser("user2@example.com", "user2", "password2");
         entityManager.persist(user2);
+        User user3 = createNewUser("user3@example.com", "user3", "password3");
         entityManager.persist(user3);
 
-        // Rechercher les utilisateurs par adresse e-mail
-        Optional<User> foundUser = userRepository.findByEmail("user2@example.com");
+        // Rechercher l'utilisateur par email
+        Optional<User> foundUser  = userRepository.findByEmail("user2@example.com");
 
         // Vérifier que l'utilisateur a été trouvé
         assertTrue(foundUser.isPresent()); // Vérifie si l'Optional contient une valeur non nulle
         foundUser.ifPresent(u -> {
             assertEquals("user2", u.getUsername());
-            assertEquals("password", u.getPassword());
+            assertEquals("password2", u.getPassword());
         });
+
+    }
+
+    @Test
+    public void testUpdateUser() {
+        // Créer un nouvel utilisateur
+        User user = createNewUser("test@example.com","testuser","password");
+        entityManager.persist(user);
+
+        // Modifier les informations de l'utilisateur
+        user.setUsername("updateduser");
+        user.setEmail("updated@example.com");
+
+        // Mettre à jour l'utilisateur dans la base de données
+        User updatedUser = userRepository.save(user);
+
+        // Vérifier que les informations de l'utilisateur ont été mises à jour correctement
+        assertEquals("updateduser", updatedUser.getUsername());
+        assertEquals("updated@example.com", updatedUser.getEmail());
+    }
+
+    @Test
+    public void testDeleteUser() {
+        // Créer un nouvel utilisateur
+        User user = createNewUser("test@example.com","testuser","password");
+        entityManager.persist(user);
+
+        // Supprimer l'utilisateur de la base de données
+        userRepository.delete(user);
+
+        // Vérifier que l'utilisateur a été correctement supprimé
+        assertNull(entityManager.find(User.class, user.getId()));
+    }
+
+    @Test
+    public void testUniqueConstraints() {
+        // Créer un utilisateur avec un nom d'utilisateur et une adresse e-mail déjà utilisés
+        User user1 = createNewUser("user1@example.com", "user1", "password1");
+        User user2 = createNewUser("user1@example.com", "user2", "password2");
+
+        // Enregistrer le premier utilisateur dans la base de données
+        userRepository.save(user1);
+
+        // Tenter d'enregistrer le deuxième utilisateur avec les mêmes identifiants
+        assertThrows(DataIntegrityViolationException.class, () -> userRepository.save(user2));
+    }
+
+    @Test
+    public void testPagination() {
+        // Insérer plusieurs utilisateurs dans la base de données de test
+        for (int i = 1; i <= 10; i++) {
+            User user = createNewUser("user" + i + "@example.com","user" + i,"password");
+            entityManager.persist(user);
+        }
+
+        // Récupérer une page d'utilisateurs (2 utilisateurs par page)
+        PageRequest pageable = PageRequest.of(0, 2);
+        Page<User> usersPage = userRepository.findAll(pageable);
+
+        // Vérifier que la pagination fonctionne correctement et renvoie 2 utilisateurs par page
+        assertEquals(2, usersPage.getContent().size());
+        assertEquals(5, usersPage.getTotalPages());
     }
 }

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "USER", uniqueConstraints = {
+@Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email")
 })
 @Data // Génère les getters et setters.
@@ -28,4 +28,6 @@ public class User {
 
     @Column(nullable = false)
     private String password;
+
+
 }
