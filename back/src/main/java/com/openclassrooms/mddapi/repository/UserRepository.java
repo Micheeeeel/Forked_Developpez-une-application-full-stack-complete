@@ -8,11 +8,9 @@ import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Long> {
-    User save(User user);
 
-    Optional<User> findByUsername(String testuser);
+    Optional<User> findByUsername(String user);
 
     Optional<User> findByEmail(String s);
 
-    // Ajoutez ici des méthodes spécifiques au besoin, Spring Data JPA générera les requêtes automatiquement
 }

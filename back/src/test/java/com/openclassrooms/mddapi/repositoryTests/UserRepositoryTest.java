@@ -28,18 +28,11 @@ public class UserRepositoryTest {
     private UserRepository userRepository;
 
 
-    private User createNewUser(String email, String username, String password) {
-        User user = new User();
-        user.setEmail(email);
-        user.setUsername(username);
-        user.setPassword(password);
-        return user;    
-    }
 
     @Test
     public void testSaveUser() {
         // Créer un nouvel utilisateur
-        User user = createNewUser("test@example.com","testuser","password");
+        User user = User.createNewUser("test@example.com","testuser","password");
         
         // Enregistrer l'utilisateur dans la base de données
         User savedUser = userRepository.save(user);
@@ -53,7 +46,7 @@ public class UserRepositoryTest {
     @Test
     public void testFindById() {
         // Créer un nouvel utilisateur
-        User user = createNewUser("test@example.com","testuser","password");
+        User user = User.createNewUser("test@example.com","testuser","password");
         entityManager.persist(user);
 
         // Récupérer l'ID de l'utilisateur créé
@@ -70,7 +63,7 @@ public class UserRepositoryTest {
     @Test
     public void testFindByUsername() {
         // Créer un nouvel utilisateur
-        User user = createNewUser("test@example.com","testuser","password");
+        User user = User.createNewUser("test@example.com","testuser","password");
         entityManager.persist(user);
 
         // Rechercher l'utilisateur par nom d'utilisateur
@@ -87,11 +80,11 @@ public class UserRepositoryTest {
     @Test
     public void testFindByEmail() {
         // Créer un nouvel utilisateur
-        User user1 = createNewUser("user1@example.com", "user1", "password1");
+        User user1 = User.createNewUser("user1@example.com", "user1", "password1");
         entityManager.persist(user1);
-        User user2 = createNewUser("user2@example.com", "user2", "password2");
+        User user2 = User.createNewUser("user2@example.com", "user2", "password2");
         entityManager.persist(user2);
-        User user3 = createNewUser("user3@example.com", "user3", "password3");
+        User user3 = User.createNewUser("user3@example.com", "user3", "password3");
         entityManager.persist(user3);
 
         // Rechercher l'utilisateur par email
@@ -109,7 +102,7 @@ public class UserRepositoryTest {
     @Test
     public void testUpdateUser() {
         // Créer un nouvel utilisateur
-        User user = createNewUser("test@example.com","testuser","password");
+        User user = User.createNewUser("test@example.com","testuser","password");
         entityManager.persist(user);
 
         // Modifier les informations de l'utilisateur
@@ -127,7 +120,7 @@ public class UserRepositoryTest {
     @Test
     public void testDeleteUser() {
         // Créer un nouvel utilisateur
-        User user = createNewUser("test@example.com","testuser","password");
+        User user = User.createNewUser("test@example.com","testuser","password");
         entityManager.persist(user);
 
         // Supprimer l'utilisateur de la base de données
@@ -140,8 +133,8 @@ public class UserRepositoryTest {
     @Test
     public void testUniqueConstraints() {
         // Créer un utilisateur avec un nom d'utilisateur et une adresse e-mail déjà utilisés
-        User user1 = createNewUser("user1@example.com", "user1", "password1");
-        User user2 = createNewUser("user1@example.com", "user2", "password2");
+        User user1 = User.createNewUser("user1@example.com", "user1", "password1");
+        User user2 = User.createNewUser("user1@example.com", "user2", "password2");
 
         // Enregistrer le premier utilisateur dans la base de données
         userRepository.save(user1);
@@ -154,7 +147,7 @@ public class UserRepositoryTest {
     public void testPagination() {
         // Insérer plusieurs utilisateurs dans la base de données de test
         for (int i = 1; i <= 10; i++) {
-            User user = createNewUser("user" + i + "@example.com","user" + i,"password");
+            User user = User.createNewUser("user" + i + "@example.com", "user" + i, "password"); 
             entityManager.persist(user);
         }
 

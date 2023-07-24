@@ -1,15 +1,17 @@
 package com.openclassrooms.mddapi.repository;
 
-import com.openclassrooms.mddapi.model.Subject;
+import com.openclassrooms.mddapi.model.Article;
+
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface SubjectRepository extends JpaRepository<Subject, Long> {
+public interface ArticleRepository extends JpaRepository<Article, Long> {
 
-    Optional<Subject> findByName(String name);
+    Optional<Article> findByTitle(String string);
 
- 
+
 }

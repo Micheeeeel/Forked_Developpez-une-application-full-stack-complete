@@ -6,8 +6,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 
 @Entity
 @Table(name = "subjects", uniqueConstraints = {
@@ -37,4 +35,10 @@ public class Subject {
                 ", name='" + name + '\'' +
                 '}';
     }
+
+    public static Subject createNewSubject(String name) {
+        Subject subject = new Subject();
+        subject.setName(name);
+        return subject;    
+    }  
 }

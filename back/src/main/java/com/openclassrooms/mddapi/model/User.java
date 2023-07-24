@@ -13,7 +13,6 @@ import javax.persistence.*;
 @Data // Génère les getters et setters.
 @NoArgsConstructor  // Génère un constructeur sans paramètre.
 @AllArgsConstructor // Génère un constructeur avec un paramètre pour chaque propriété de la classe.
-
 public class User {
 
     @Id
@@ -29,5 +28,13 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    
+    public static User createNewUser(String email, String username, String password) {
+        User user = new User();
+        user.setEmail(email);
+        user.setUsername(username);
+        user.setPassword(password);
+        return user;    
+    }
 
 }

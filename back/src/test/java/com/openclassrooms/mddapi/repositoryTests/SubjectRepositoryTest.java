@@ -2,8 +2,6 @@ package com.openclassrooms.mddapi.repositoryTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import javax.swing.text.html.Option;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +13,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.openclassrooms.mddapi.model.Subject;
-import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
 import java.util.Optional;
 
@@ -29,16 +26,12 @@ public class SubjectRepositoryTest {
     @Autowired
     private SubjectRepository subjectRepository;
 
-    private Subject createNewSubject(String name) {
-        Subject subject = new Subject();
-        subject.setName(name);
-        return subject;    
-    }   
+
 
     @Test
     public void testCreateSubject() {
         // Créer un nouveau sujet
-        Subject subject = createNewSubject("Java");
+        Subject subject = Subject.createNewSubject("Java");
 
         //Subject subject = new Subject("Java");
 
@@ -71,7 +64,7 @@ public class SubjectRepositoryTest {
     @Test
     public void testFindByName() {
         // Créer un nouveau sujet
-        Subject subject = createNewSubject("Java");
+        Subject subject = Subject.createNewSubject("Java");
         entityManager.persist(subject);
 
         // Rechercher le sujet par nom
@@ -86,7 +79,7 @@ public class SubjectRepositoryTest {
     @Test
     public void testUpdateSubject() {
         // Créer un nouveau sujet
-        Subject subject = createNewSubject("Java");
+        Subject subject = Subject.createNewSubject("Java");
         entityManager.persist(subject);
 
         // Modifier le nom du sujet
@@ -102,7 +95,7 @@ public class SubjectRepositoryTest {
     @Test
     public void testDeleteSubject() {
         // Créer un nouveau sujet
-        Subject subject = createNewSubject("Java");
+        Subject subject = Subject.createNewSubject("Java");
         entityManager.persist(subject);
 
         // Supprimer le sujet de la base de données
@@ -115,8 +108,8 @@ public class SubjectRepositoryTest {
         @Test
     public void testUniqueConstraints() {
         // Créer un sujet avec un nom déjà utilisé
-        Subject subject1 = createNewSubject("Java");
-        Subject subject2 = createNewSubject("Java");
+        Subject subject1 = Subject.createNewSubject("Java");
+        Subject subject2 = Subject.createNewSubject("Java");
 
         // Enregistrer le premier sujet dans la base de données
         subjectRepository.save(subject1);
