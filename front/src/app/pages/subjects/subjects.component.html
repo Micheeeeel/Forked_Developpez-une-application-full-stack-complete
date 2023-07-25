@@ -1,0 +1,17 @@
+<!-- subject.component.html -->
+<div *ngIf="subjects; else loadingTemplate">
+  <h2>Subjects</h2>
+  <ul>
+    <li *ngFor="let subject of subjects" class="subject-item">
+      {{ subject.name }}
+    </li>
+  </ul>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

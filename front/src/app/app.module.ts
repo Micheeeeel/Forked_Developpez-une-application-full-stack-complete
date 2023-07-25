@@ -5,7 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
-import { SubjectsComponent } from './pages/subjects/subjects/subjects.component';
+import { SubjectsComponent } from './pages/subjects/subjects.component';
+import { SubjectService } from './services/subject.service';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent, SubjectsComponent],
@@ -15,7 +16,7 @@ import { SubjectsComponent } from './pages/subjects/subjects/subjects.component'
     BrowserAnimationsModule,
     MatButtonModule,
   ],
-  providers: [],
+  providers: [SubjectService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
