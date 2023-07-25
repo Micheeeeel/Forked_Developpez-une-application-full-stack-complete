@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'src/app/models/Subject';
-import { SubjectService } from 'src/app/services/subject.service';
-
+import { SubjectService } from '../../services/subject.service';
 @Component({
   selector: 'app-subjects-component',
   templateUrl: './subjects.component.html',
