@@ -3,6 +3,7 @@ import { SubjectService } from '../../services/subject.service';
 import { SubjectsComponent } from './subjects.component';
 import { of } from 'rxjs/internal/observable/of';
 import { HttpClientModule } from '@angular/common/http';
+import { throwError } from 'rxjs';
 
 describe('SubjectComponent', () => {
   let component: SubjectsComponent;
@@ -46,5 +47,23 @@ describe('SubjectComponent', () => {
     expect(subjectElements[0].textContent).toContain('Subject 1');
     expect(subjectElements[1].textContent).toContain('Subject 2');
     expect(subjectElements[2].textContent).toContain('Subject 3');
+  });
+
+  it('should handle error when fetching subjects', () => {
+    // Simuler une erreur lors de l'appel au service
+    const subjectService = fixture.debugElement.injector.get(SubjectService);
+    jest
+      .spyOn(subjectService, 'getSubjects')
+      .mockReturnValue(throwError('Error fetching subjects'));
+
+    // Déclencher le changement de détection pour mettre à jour la vue
+    fixture.detectChanges();
+
+    // Vérifier que le message d'erreur est affiché dans le template
+    const errorMessageElement =
+      fixture.nativeElement.querySelector('.error-message');
+    expect(errorMessageElement.textContent).toContain(
+      'Error fetching subjects'
+    );
   });
 });
