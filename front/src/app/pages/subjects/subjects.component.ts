@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subject } from 'src/app/models/Subject';
 import { SubjectService } from '../../services/subject.service';
+import { Observable, interval } from 'rxjs';
 @Component({
   selector: 'app-subjects-component',
   templateUrl: './subjects.component.html',
