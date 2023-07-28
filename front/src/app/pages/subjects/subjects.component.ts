@@ -45,5 +45,8 @@ export class SubjectsComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.destroy$.next(true);
+
+    // Unsubscribe from the subjectService
+    this.destroy$.unsubscribe();
   }
 }
