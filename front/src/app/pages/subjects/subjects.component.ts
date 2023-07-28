@@ -12,25 +12,26 @@ import { takeUntil, tap } from 'rxjs/operators';
 export class SubjectsComponent implements OnInit, OnDestroy {
   subjects: MySubject[] = [];
   errorMessage: string | null = null;
-  // add a rxjs Subject to manage the subscription - make it different than the Subject model
-  private destroy$!: Subject<boolean>;
+
+  // Separate Subjects for each subscription
+  private getSubjectsDestroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private subjectService: SubjectService) {}
 
   ngOnInit(): void {
-    this.destroy$ = new Subject<boolean>();
-
     this.getSubjects();
   }
 
   getSubjects(): void {
     // use interval to test the unsubscribe
-    interval(1000).pipe(tap(console.log), takeUntil(this.destroy$)).subscribe();
+    interval(1000)
+      .pipe(tap(console.log), takeUntil(this.getSubjectsDestroy$))
+      .subscribe();
 
     this.subjectService
       .getSubjects()
       .pipe(
-        takeUntil(this.destroy$),
+        takeUntil(this.getSubjectsDestroy$),
         tap({
           next: (subjects) => {
             this.subjects = subjects;
@@ -44,9 +45,9 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.destroy$.next(true);
+    this.getSubjectsDestroy$.next(true);
 
     // Unsubscribe from the subjectService
-    this.destroy$.unsubscribe();
+    this.getSubjectsDestroy$.unsubscribe();
   }
 }
