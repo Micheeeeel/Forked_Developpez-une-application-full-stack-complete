@@ -1,42 +1,25 @@
 package com.openclassrooms.mddapi.controller;
 
-import java.util.List;
-
+import com.openclassrooms.mddapi.dto.SubjectDTO;
+import com.openclassrooms.mddapi.service.SubjectService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import java.util.List;
 
-import com.openclassrooms.mddapi.model.Subject;
-import com.openclassrooms.mddapi.repository.SubjectRepository;
-
-// javadoc comments
-/**
- * The SubjectController class is the controller of the Subject entity.
- * It allows to get all the subjects from the database.
- * 
- * @see Subject
- * @see SubjectRepository
- * @see RestController
- * @see GetMapping
- * @see Autowired
- * @see List
- * @see SubjectRepository#findAll()
- * @see #getAllSubjects()
- */
 @RestController
+@RequestMapping("/api/subjects")
 public class SubjectController {
+    private final SubjectService subjectService;
 
-    @Autowired 
-    private final SubjectRepository subjectRepository;
-
-    public SubjectController(SubjectRepository subjectRepository) {
-        this.subjectRepository = subjectRepository;
+    @Autowired
+    public SubjectController(SubjectService subjectService) {
+        this.subjectService = subjectService;
     }
 
-    @GetMapping("/subjects")
-    public List<Subject> getAllSubjects() {
-        return subjectRepository.findAll();
+    @GetMapping
+    public List<SubjectDTO> getAllSubjects() {
+        return subjectService.getAllSubjects();
     }
-    
-    
 }

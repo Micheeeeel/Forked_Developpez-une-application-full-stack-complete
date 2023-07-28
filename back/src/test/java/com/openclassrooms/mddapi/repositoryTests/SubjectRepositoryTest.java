@@ -33,8 +33,6 @@ public class SubjectRepositoryTest {
         // Créer un nouveau sujet
         Subject subject = Subject.createNewSubject("Java");
 
-        //Subject subject = new Subject("Java");
-
         // Enregistrer le sujet dans la base de données
         Subject savedSubject = subjectRepository.save(subject);
 

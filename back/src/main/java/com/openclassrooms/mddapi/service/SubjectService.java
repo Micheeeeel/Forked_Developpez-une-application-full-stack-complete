@@ -1,0 +1,28 @@
+package com.openclassrooms.mddapi.service;
+
+import com.openclassrooms.mddapi.dto.SubjectDTO;
+import com.openclassrooms.mddapi.model.Subject;
+import com.openclassrooms.mddapi.repository.SubjectRepository;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Service
+public class SubjectService {
+    private final SubjectRepository subjectRepository;
+
+    @Autowired
+    public SubjectService(SubjectRepository subjectRepository) {
+        this.subjectRepository = subjectRepository;
+    }
+
+    public List<SubjectDTO> getAllSubjects() {
+        List<Subject> subjects = subjectRepository.findAll();
+        return subjects.stream().map(this::convertToDTO).collect(Collectors.toList());
+    }
+
+    private SubjectDTO convertToDTO(Subject subject) {
+        return new SubjectDTO(subject.getId(), subject.getName());
+    }
+}
