@@ -22,7 +22,11 @@ public class SubjectService {
         return subjects.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
-    private SubjectDTO convertToDTO(Subject subject) {
+    public SubjectDTO convertToDTO(Subject subject) {
         return new SubjectDTO(subject.getId(), subject.getName());
+    }
+
+    public Subject createSubject(Subject subject) {
+        return subjectRepository.save(subject);
     }
 }

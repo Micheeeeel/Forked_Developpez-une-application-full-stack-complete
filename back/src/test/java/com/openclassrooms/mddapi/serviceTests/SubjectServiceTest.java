@@ -1,0 +1,78 @@
+package com.openclassrooms.mddapi.serviceTests;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+import com.openclassrooms.mddapi.dto.SubjectDTO;
+import com.openclassrooms.mddapi.model.Subject;
+import com.openclassrooms.mddapi.repository.SubjectRepository;
+import com.openclassrooms.mddapi.service.SubjectService;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+@ExtendWith(MockitoExtension.class)
+public class SubjectServiceTest {
+
+    @Mock   // Créer un mock de SubjectRepository
+    private SubjectRepository subjectRepository;
+
+    @InjectMocks    // Injecter le mock SubjectRepository dans le service
+    private SubjectService subjectService;
+
+    @Test
+    public void testCreateSubject_Success() {
+        // Créer un sujet de test
+        Subject subject = new Subject("Java");
+
+        // Définir le comportement du mock SubjectRepository
+        when(subjectRepository.save(any(Subject.class))).thenReturn(subject);
+
+        // Appeler la méthode createSubject du service
+        Subject createdSubject = subjectService.createSubject(subject);
+
+        // Vérifier que le sujet a été enregistré avec succès
+        assertNotNull(createdSubject);
+        assertEquals("Java", createdSubject.getName());
+    }
+
+    @Test
+    public void testGetAllSubjects() {
+        // Créer une liste de sujets de test
+        List<Subject> subjects = new ArrayList<>();
+        subjects.add(new Subject("Java"));
+        subjects.add(new Subject("JavaScript"));
+
+        // Définir le comportement du mock SubjectRepository
+        when(subjectRepository.findAll()).thenReturn(subjects);
+
+        // Appeler la méthode getAllSubjects du service
+        List<SubjectDTO> retrievedSubjects = subjectService.getAllSubjects();
+
+        // Vérifier que la liste de sujets est renvoyée avec succès
+        assertNotNull(retrievedSubjects);
+        assertEquals(2, retrievedSubjects.size());
+        assertEquals("Java", retrievedSubjects.get(0).getName());
+        assertEquals("JavaScript", retrievedSubjects.get(1).getName());
+    }
+
+    @Test
+    public void testConvertToDTO() {
+        // Créer un sujet de test
+        Subject subject = new Subject("Java");
+
+        // Appeler la méthode convertToDTO du service
+        SubjectDTO subjectDTO = subjectService.convertToDTO(subject);
+
+        // Vérifier que le DTO a été créé correctement
+        assertNotNull(subjectDTO);
+        assertEquals("Java", subjectDTO.getName());
+    }
+}
+

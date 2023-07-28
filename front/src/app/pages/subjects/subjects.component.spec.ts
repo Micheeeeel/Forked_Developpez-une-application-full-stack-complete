@@ -5,7 +5,7 @@ import { of } from 'rxjs/internal/observable/of';
 import { HttpClientModule } from '@angular/common/http';
 import { throwError } from 'rxjs';
 
-describe('SubjectComponent', () => {
+describe('SubjectsComponent', () => {
   let component: SubjectsComponent;
   let fixture: ComponentFixture<SubjectsComponent>;
 
