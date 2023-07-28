@@ -26,7 +26,11 @@ public class SubjectService {
         return new SubjectDTO(subject.getId(), subject.getName());
     }
 
-    public Subject createSubject(Subject subject) {
+    public Subject createSubject(SubjectDTO subjectDTO) {
+        // Convertir le SubjectDTO en entité Subject
+        Subject subject = new Subject(subjectDTO.getName());
+
+        // Enregistrer le sujet dans la base de données
         return subjectRepository.save(subject);
     }
 }

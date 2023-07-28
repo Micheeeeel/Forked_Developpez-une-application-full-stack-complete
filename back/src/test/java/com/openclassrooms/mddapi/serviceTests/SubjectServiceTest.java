@@ -11,6 +11,8 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -27,18 +29,24 @@ public class SubjectServiceTest {
     private SubjectService subjectService;
 
     @Test
-    public void testCreateSubject_Success() {
-        // Créer un sujet de test
-        Subject subject = new Subject("Java");
+    public void testCreateSubject() {
+        // Créer un nouveau sujetDTO
+        SubjectDTO subjectDTO = new SubjectDTO();
+        subjectDTO.setName("Java");
 
-        // Définir le comportement du mock SubjectRepository
-        when(subjectRepository.save(any(Subject.class))).thenReturn(subject);
+        // Créer une entité Subject simulée qui sera renvoyée par la méthode save du mock SubjectRepository
+        Subject simulatedSubject = new Subject();
+        simulatedSubject.setId(1L);
+        simulatedSubject.setName("Java");
 
-        // Appeler la méthode createSubject du service
-        Subject createdSubject = subjectService.createSubject(subject);
+        // Configurer le mock SubjectRepository pour renvoyer la valeur simulée lors de l'appel à la méthode save
+        when(subjectRepository.save(any(Subject.class))).thenReturn(simulatedSubject);
 
-        // Vérifier que le sujet a été enregistré avec succès
-        assertNotNull(createdSubject);
+        // Appeler la méthode createSubject du service avec le sujetDTO
+        Subject createdSubject = subjectService.createSubject(subjectDTO);
+
+        // Vérifier que le sujet a été enregistré avec succès et qu'il possède un ID
+        assertNotNull(createdSubject.getId());
         assertEquals("Java", createdSubject.getName());
     }
 
