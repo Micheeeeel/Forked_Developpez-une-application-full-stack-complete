@@ -12,8 +12,8 @@ describe('SubjectsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SubjectsComponent],
-      imports: [HttpClientModule], // Ajoutez le module ici
-      providers: [SubjectService], // Ajoutez le service ici
+      imports: [HttpClientModule],
+      providers: [SubjectService],
     }).compileComponents();
   });
 
