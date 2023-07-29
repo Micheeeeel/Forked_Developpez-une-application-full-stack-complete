@@ -82,5 +82,39 @@ public class SubjectServiceTest {
         assertNotNull(subjectDTO);
         assertEquals("Java", subjectDTO.getName());
     }
+
+    @Test
+    public void testGetSubjectById_ExistingSubject_ReturnsSubjectDTO() {
+        // Given
+        Long subjectId = 1L;
+        Subject subject = new Subject();
+        subject.setId(subjectId);
+        subject.setName("Java");
+
+        // Define the behavior of the mock subjectRepository
+        when(subjectRepository.findById(subjectId)).thenReturn(Optional.of(subject));
+
+        // When
+        SubjectDTO subjectDTO = subjectService.getSubjectById(subjectId);
+
+        // Then
+        assertEquals(subjectId, subjectDTO.getId());
+        assertEquals("Java", subjectDTO.getName());
+    }
+
+    @Test
+    public void testGetSubjectById_NonExistingSubject_ReturnsNull() {
+        // Given
+        Long subjectId = 1L;
+
+        // Define the behavior of the mock subjectRepository
+        when(subjectRepository.findById(subjectId)).thenReturn(Optional.empty());
+
+        // When
+        SubjectDTO subjectDTO = subjectService.getSubjectById(subjectId);
+
+        // Then
+        assertEquals(null, subjectDTO);
+    }
 }
 

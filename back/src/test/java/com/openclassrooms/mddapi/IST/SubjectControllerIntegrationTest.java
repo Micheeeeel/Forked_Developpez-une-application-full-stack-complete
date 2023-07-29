@@ -1,9 +1,13 @@
 package com.openclassrooms.mddapi.IST;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Optional;
 
+import org.aspectj.lang.annotation.After;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -13,11 +17,14 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.openclassrooms.mddapi.controller.SubjectController;
 import com.openclassrooms.mddapi.dto.SubjectDTO;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
@@ -35,11 +42,16 @@ public class SubjectControllerIntegrationTest {
     @Autowired
     private SubjectRepository subjectRepository;
 
+
     // Nétoyage de la base de données avant chaque test
     @BeforeEach
     public void clearDatabase() {
+        // subjectRepository.deleteAll();
+        // drop table if exists subject;
         subjectRepository.deleteAll();
+
     }
+
 
     @Test
     public void testGetAllSubjects() throws Exception {
@@ -54,6 +66,34 @@ public class SubjectControllerIntegrationTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Java"))
                 .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("JavaScript"));
+    }
+
+    @Test
+    public void testGetSubjectById_ExistingSubject_ReturnsSubjectDTO() throws Exception {
+
+        // save it first into the db
+        Subject subject = new Subject("Java");
+        subjectRepository.save(subject);
+
+        // get the id of the subject (indeed it may not be 1 because of the previous tests)
+        Long subjectId = subject.getId();
+
+        // Perform the HTTP GET request to the API to get the subject by ID
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/subject/{id}", subjectId))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(subjectId))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value("Java"));
+    }
+
+    @Test
+    public void testGetSubjectById_NonExistingSubject_ReturnsNotFound() throws Exception {
+        // get an id that does not exist
+        long subjectId = 1000;
+
+
+        // Perform the HTTP GET request to the API to get the subject by ID, which does not exist yet
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/subject/{id}", subjectId))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
     @Test
@@ -92,6 +132,8 @@ public class SubjectControllerIntegrationTest {
         List<Subject> subjects = subjectRepository.findAll();
         assertEquals(0, subjects.size());
     }
+
+
 
     // Utility method to convert object to JSON string
     private static String asJsonString(final Object obj) {
