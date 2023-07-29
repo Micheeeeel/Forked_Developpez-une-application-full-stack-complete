@@ -124,7 +124,21 @@ public class SubjectControllerIntegrationTest {
         assertEquals(0, subjects.size());
     }
 
+    @Test
+    public void testDeleteSubjectById() throws Exception {
+        // Insert a test subject into the database
+        Subject subject = new Subject("Java");
+        subject = subjectRepository.save(subject);
 
+        // Perform the HTTP DELETE request to delete the subject by ID
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subject.getId()))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.content().string("Subject deleted"));
+
+        // Verify that the subject was deleted from the database
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/subject/{id}", subject.getId()))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    }
 
     // Utility method to convert object to JSON string
     private static String asJsonString(final Object obj) {

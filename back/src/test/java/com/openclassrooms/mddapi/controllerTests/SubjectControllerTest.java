@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -17,6 +18,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.openclassrooms.mddapi.dto.SubjectDTO;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.service.SubjectService;
+
+import static org.mockito.ArgumentMatchers.isNull;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.Arrays;
 import java.util.List;
@@ -92,6 +98,39 @@ public class SubjectControllerTest {
         Mockito.verify(subjectService, Mockito.never()).createSubject(Mockito.any(SubjectDTO.class));
     }
 
+    // test de l'API REST pour supprimer un sujet par son id
+    @Test
+    public void testDeleteSubjectById_ValidId_ReturnsOk() throws Exception {
+        // Given
+        Long subjectId = 1L;
+
+        // When
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subjectId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+
+        // Then
+        verify(subjectService, times(1)).deleteSubjectById(subjectId);
+    }
+
+        @Test
+    public void testDeleteSubjectById_InvalidId_ReturnsNotFound() throws Exception {
+        // Given
+        Long subjectId = 1L;
+
+        // Configure the mock service to throw an exception when deleteSubjectById is called
+        doThrow(new RuntimeException()).when(subjectService).deleteSubjectById(subjectId);
+
+        // When
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subjectId)
+                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(MockMvcResultMatchers.status().isNotFound());
+
+        // Then
+        verify(subjectService, times(1)).deleteSubjectById(subjectId);
+    }
+
+
     // test de l'API REST pour récupérer un sujet par son id
     @Test
     public void testGetSubjectById_ValidId_ReturnsSubject() throws Exception {
@@ -129,6 +168,8 @@ public class SubjectControllerTest {
         // Then
         Mockito.verify(subjectService, Mockito.times(1)).getSubjectById(subjectId);
     }
+
+
 
 
     // Utility method to convert object to JSON string

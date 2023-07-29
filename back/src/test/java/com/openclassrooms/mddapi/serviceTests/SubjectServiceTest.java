@@ -28,6 +28,7 @@ public class SubjectServiceTest {
     @InjectMocks    // Injecter le mock SubjectRepository dans le service
     private SubjectService subjectService;
 
+    // Test de la méthode createSubject du service
     @Test
     public void testCreateSubject() {
         // Créer un nouveau sujetDTO
@@ -50,6 +51,7 @@ public class SubjectServiceTest {
         assertEquals("Java", createdSubject.getName());
     }
 
+    // Test de la méthode getAllSubjects du service
     @Test
     public void testGetAllSubjects() {
         // Créer une liste de sujets de test
@@ -70,6 +72,7 @@ public class SubjectServiceTest {
         assertEquals("JavaScript", retrievedSubjects.get(1).getName());
     }
 
+    // Test de la méthode convertToDTO du service
     @Test
     public void testConvertToDTO() {
         // Créer un sujet de test
@@ -83,6 +86,7 @@ public class SubjectServiceTest {
         assertEquals("Java", subjectDTO.getName());
     }
 
+    // Test de la méthode getSubjectById du service
     @Test
     public void testGetSubjectById_ExistingSubject_ReturnsSubjectDTO() {
         // Given
@@ -102,6 +106,7 @@ public class SubjectServiceTest {
         assertEquals("Java", subjectDTO.getName());
     }
 
+    // Test de la méthode getSubjectById du service
     @Test
     public void testGetSubjectById_NonExistingSubject_ReturnsNull() {
         // Given
@@ -115,6 +120,19 @@ public class SubjectServiceTest {
 
         // Then
         assertEquals(null, subjectDTO);
+    }
+
+    // Test de la méthode deleteSubject du service
+    @Test
+    public void testdeleteSubjectById() {
+        // Given
+        Long subjectId = 1L;
+
+        // When
+        subjectService.deleteSubjectById(subjectId);
+
+        // Then
+        verify(subjectRepository, times(1)).deleteById(subjectId);
     }
 }
 

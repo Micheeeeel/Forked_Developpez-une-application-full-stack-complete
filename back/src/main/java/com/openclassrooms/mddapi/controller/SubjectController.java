@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -46,6 +47,16 @@ public class SubjectController {
             return ResponseEntity.status(HttpStatus.CREATED).body("New Subject created");
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create Subject");
+        }
+    }
+
+        @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSubjectById(@PathVariable Long id) {
+        try {
+            subjectService.deleteSubjectById(id);
+            return ResponseEntity.ok("Subject deleted");
+        } catch (RuntimeException e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found", e);
         }
     }
 }
