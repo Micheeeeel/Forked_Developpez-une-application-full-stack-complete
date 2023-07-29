@@ -12,6 +12,14 @@ export class SubjectService {
   constructor(private http: HttpClient) {}
 
   getSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(`${this.baseUrl}/subjects`);
+    return this.http.get<Subject[]>(`${this.baseUrl}/subject`);
+  }
+
+  addSubject(formValue: { name: string }): void {
+    this.http
+      .post(`${this.baseUrl}/subject`, formValue)
+      .subscribe((response) => {
+        console.log(response);
+      });
   }
 }

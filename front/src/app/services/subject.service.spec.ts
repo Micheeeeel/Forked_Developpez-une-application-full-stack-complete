@@ -40,7 +40,7 @@ describe('SubjectService', () => {
       expect(subjects).toEqual(mockSubjects);
     }); // subscribe to the observable returned by the service
 
-    const request = httpMock.expectOne(`${service.baseUrl}/subjects`); // expect that a request will be made to the specified URL via GET
+    const request = httpMock.expectOne(`${service.baseUrl}/subject`); // expect that a request will be made to the specified URL via GET
     expect(request.request.method).toBe('GET'); // expect that the request will be made via GET
 
     request.flush(mockSubjects); // provide mock data to be returned from the request

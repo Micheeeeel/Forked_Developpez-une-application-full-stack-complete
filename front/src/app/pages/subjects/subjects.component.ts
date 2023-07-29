@@ -3,6 +3,7 @@ import { Subject as MySubject } from 'src/app/models/Subject';
 import { SubjectService } from '../../services/subject.service';
 import { Observable, Subject, interval } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-subjects-component',
@@ -16,7 +17,7 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   // Separate Subjects for each subscription
   private getSubjectsDestroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private subjectService: SubjectService) {}
+  constructor(private subjectService: SubjectService, private router: Router) {}
 
   ngOnInit(): void {
     this.getSubjects();
@@ -42,6 +43,10 @@ export class SubjectsComponent implements OnInit, OnDestroy {
         })
       )
       .subscribe();
+  }
+
+  onAddNewSubject(): void {
+    this.router.navigateByUrl('/create_subject');
   }
 
   ngOnDestroy(): void {
