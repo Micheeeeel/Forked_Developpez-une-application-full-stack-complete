@@ -45,4 +45,40 @@ describe('SubjectService', () => {
 
     request.flush(mockSubjects); // provide mock data to be returned from the request
   });
+
+  it('should add a new subject via POST', () => {
+    const formValue = { name: 'New Subject' };
+    const mockResponse = 'New Subject created';
+
+    service.addSubject(formValue).subscribe((response: string) => {
+      expect(response).toBe('Subject created successfully');
+    });
+
+    const request = httpMock.expectOne(`${service.baseUrl}/subject`);
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual(formValue);
+
+    request.flush(mockResponse, { status: 201, statusText: 'Created' });
+  });
+
+  it('should handle an error when adding a subject', () => {
+    const formValue = { name: 'New Subject' };
+    const mockErrorResponse = 'Failed to create Subject';
+
+    service.addSubject(formValue).subscribe(
+      () => fail('should have thrown an error'),
+      (error: any) => {
+        expect(error.message).toBe('Failed to create Subject');
+      }
+    );
+
+    const request = httpMock.expectOne(`${service.baseUrl}/subject`);
+    expect(request.request.method).toBe('POST');
+    expect(request.request.body).toEqual(formValue);
+
+    request.flush(mockErrorResponse, {
+      status: 500,
+      statusText: 'Internal Server Error',
+    });
+  });
 });
