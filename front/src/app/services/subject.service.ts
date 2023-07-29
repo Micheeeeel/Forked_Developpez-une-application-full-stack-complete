@@ -7,7 +7,7 @@ import { Subject } from '../models/Subject';
   providedIn: 'root',
 })
 export class SubjectService {
-  public baseUrl = 'http://localhost:8080';
+  public baseUrl = 'http://localhost:8080/api';
 
   constructor(private http: HttpClient) {}
 
