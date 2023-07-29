@@ -71,4 +71,29 @@ describe('NewSubjectComponent', () => {
     // and the console.error should log the error message
     expect(consoleErrorMock).toHaveBeenCalledWith(errorMessage);
   });
+
+  it('should disable the submit button if the form is invalid', () => {
+    const submitButton = fixture.nativeElement.querySelector('[type="submit"]');
+
+    // Initially, the form is invalid, so the submit button should be disabled
+    expect(submitButton.disabled).toBe(true);
+
+    // Set invalid values to the form fields
+    component.subjectForm.controls['name'].setValue('');
+    fixture.detectChanges();
+
+    // The form is still invalid, so the submit button should remain disabled
+    expect(submitButton.disabled).toBe(true);
+  });
+
+  it('should enable the submit button if the form is valid', () => {
+    const submitButton = fixture.nativeElement.querySelector('[type="submit"]');
+
+    // Set valid values to the form fields
+    component.subjectForm.controls['name'].setValue('Valid Subject');
+    fixture.detectChanges();
+
+    // The form is valid, so the submit button should be enabled
+    expect(submitButton.disabled).toBe(false);
+  });
 });
