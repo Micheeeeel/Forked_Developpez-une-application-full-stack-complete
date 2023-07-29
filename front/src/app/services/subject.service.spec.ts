@@ -81,4 +81,20 @@ describe('SubjectService', () => {
       statusText: 'Internal Server Error',
     });
   });
+
+  it('should retrieve a subject by ID from the API via GET', () => {
+    const mockSubjectId = '1'; // Corrected type to string
+    const mockSubject: Subject = { id: 1, name: 'Subject 1' }; // Assuming the Subject model has an id of type number
+
+    service.getSubjectById(mockSubjectId).subscribe((subject: Subject) => {
+      expect(subject).toEqual(mockSubject);
+    });
+
+    const request = httpMock.expectOne(
+      `${service.baseUrl}/subject/${mockSubjectId}`
+    );
+    expect(request.request.method).toBe('GET');
+
+    request.flush(mockSubject);
+  });
 });

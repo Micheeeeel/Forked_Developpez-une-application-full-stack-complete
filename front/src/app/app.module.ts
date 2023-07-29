@@ -6,10 +6,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SubjectsComponent } from './pages/subjects/subjects.component';
-import { SubjectService } from './services/subject.service';
 import { HttpClientModule } from '@angular/common/http';
 import { NewSubjectComponent } from './pages/new-subject/new-subject.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SubjectDetailComponent } from './pages/home/subject-detail/subject-detail.component';
+import { SubjectService } from './services/subject.service';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     HomeComponent,
     SubjectsComponent,
     NewSubjectComponent,
+    SubjectDetailComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,9 +1,10 @@
-<!-- subject.component.html -->
 <div *ngIf="subjects; else loadingTemplate">
   <h2>Subjects</h2>
   <ul>
     <li *ngFor="let subject of subjects" class="subject-item">
       {{ subject.name }}
+      <button (click)="onSubjectDetail(subject.id)">Detail</button>
+      <!-- Add the Detail button -->
     </li>
   </ul>
 </div>

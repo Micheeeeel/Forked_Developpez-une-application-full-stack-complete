@@ -15,6 +15,10 @@ export class SubjectService {
     return this.http.get<Subject[]>(`${this.baseUrl}/subject`);
   }
 
+  getSubjectById(subjectId: string): Observable<Subject> {
+    return this.http.get<Subject>(`${this.baseUrl}/subject/${subjectId}`);
+  }
+
   addSubject(formValue: { name: string }): Observable<string> {
     return this.http
       .post(`${this.baseUrl}/subject`, formValue, { responseType: 'text' })

@@ -55,4 +55,8 @@ export class SubjectsComponent implements OnInit, OnDestroy {
     // Unsubscribe from the subjectService
     this.getSubjectsDestroy$.unsubscribe();
   }
+
+  onSubjectDetail(subjectId: number): void {
+    this.router.navigateByUrl(`/subject/${subjectId}`);
+  }
 }

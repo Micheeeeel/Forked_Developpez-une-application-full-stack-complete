@@ -6,6 +6,7 @@ import com.openclassrooms.mddapi.repository.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,6 +23,11 @@ public class SubjectService {
         return subjects.stream().map(this::convertToDTO).collect(Collectors.toList());
     }
 
+    public SubjectDTO getSubjectById(Long id) {
+        Optional<Subject> optionalSubject = subjectRepository.findById(id);
+        return optionalSubject.map(this::convertToDTO).orElse(null);
+    }
+
     public SubjectDTO convertToDTO(Subject subject) {
         return new SubjectDTO(subject.getId(), subject.getName());
     }
@@ -33,4 +39,6 @@ public class SubjectService {
         // Enregistrer le sujet dans la base de données
         return subjectRepository.save(subject);
     }
+
+
 }
