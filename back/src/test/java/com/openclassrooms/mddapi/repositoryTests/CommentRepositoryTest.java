@@ -6,7 +6,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.openclassrooms.mddapi.model.Article;
@@ -14,15 +13,8 @@ import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.CommentRepository;
-import java.util.Date;
 import java.util.Optional;
 
-
-
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-
-import com.openclassrooms.mddapi.repository.SubjectRepository;
 
 @ExtendWith(SpringExtension.class)
 @DataJpaTest
