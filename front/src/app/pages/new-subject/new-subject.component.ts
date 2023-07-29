@@ -24,7 +24,14 @@ export class NewSubjectComponent implements OnInit {
   }
 
   onSubmitForm(): void {
-    this.subjectService.addSubject(this.subjectForm.value);
-    this.router.navigateByUrl('/subjects');
+    this.subjectService.addSubject(this.subjectForm.value).subscribe({
+      next: (message) => {
+        console.log(message); // "Subject created successfully"
+        this.router.navigateByUrl('/subjects');
+      },
+      error: (error) => {
+        console.error(error); // "Failed to create Subject"
+      },
+    });
   }
 }

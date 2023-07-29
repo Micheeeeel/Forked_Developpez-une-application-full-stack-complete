@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, map } from 'rxjs';
 import { Subject } from '../models/Subject';
 
 @Injectable({
@@ -15,11 +15,17 @@ export class SubjectService {
     return this.http.get<Subject[]>(`${this.baseUrl}/subject`);
   }
 
-  addSubject(formValue: { name: string }): void {
-    this.http
-      .post(`${this.baseUrl}/subject`, formValue)
-      .subscribe((response) => {
-        console.log(response);
-      });
+  addSubject(formValue: { name: string }): Observable<string> {
+    return this.http
+      .post(`${this.baseUrl}/subject`, formValue, { responseType: 'text' })
+      .pipe(
+        map((response) => {
+          if (response === 'New Subject created') {
+            return 'Subject created successfully';
+          } else {
+            throw new Error('Failed to create Subject');
+          }
+        })
+      );
   }
 }
