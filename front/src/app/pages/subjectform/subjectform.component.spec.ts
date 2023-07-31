@@ -123,8 +123,11 @@ describe('SubjectFormComponent', () => {
       .mockReturnValue(of(message));
 
     const routerNavigateSpy = jest.spyOn(router, 'navigateByUrl');
-    const consoleErrorMock = jest
-      .spyOn(console, 'error')
+    // const consoleErrorMock = jest
+    //   .spyOn(console, 'error')
+    //   .mockImplementation(() => {});
+    const consoleLogMock = jest
+      .spyOn(console, 'log')
       .mockImplementation(() => {});
 
     // Simulate the behavior of ActivatedRoute
@@ -132,11 +135,14 @@ describe('SubjectFormComponent', () => {
       .spyOn(activatedRoute.snapshot.paramMap, 'get')
       .mockReturnValue(subjectId);
 
+    jest.spyOn(component, 'getSubjectIdFromRoute').mockReturnValue(subjectId);
+
     component.isEdit = true;
     component.subjectForm.setValue(formData);
     component.onSubmitForm();
 
     expect(updateSubjectSpy).toHaveBeenCalledWith(subjectId, formData);
+    expect(consoleLogMock).toHaveBeenCalledWith(message);
     expect(routerNavigateSpy).toHaveBeenCalledWith('/subjects');
   });
 
@@ -154,6 +160,8 @@ describe('SubjectFormComponent', () => {
     jest
       .spyOn(activatedRoute.snapshot.paramMap, 'get')
       .mockReturnValue(subjectId);
+
+    jest.spyOn(component, 'getSubjectIdFromRoute').mockReturnValue(subjectId);
 
     // Create a mock console.error function
     const consoleErrorMock = jest

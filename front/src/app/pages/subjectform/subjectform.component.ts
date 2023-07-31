@@ -29,7 +29,7 @@ export class SubjectFormComponent implements AfterViewInit {
     private route: ActivatedRoute
   ) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.subjectForm = this.formeBuilder.group({
       name: [null, Validators.required],
     });
@@ -52,39 +52,44 @@ export class SubjectFormComponent implements AfterViewInit {
     Promise.resolve().then(() => this.nameInput.nativeElement.focus());
   }
 
+  getSubjectIdFromRoute(): string | null {
+    return this.route.snapshot.paramMap.get('id');
+  }
+
+  handleError(message: string) {
+    console.error(message);
+    this.message = message;
+  }
+
+  handleSuccess(message: string) {
+    console.log(message);
+    this.message = message;
+    this.router.navigateByUrl('/subjects');
+  }
+
+  updateSubject(id: string | null) {
+    if (!id) {
+      this.handleError('No subject id found in the route for editing');
+      return;
+    }
+    this.subjectService.updateSubject(id, this.subjectForm.value).subscribe({
+      next: (message) => this.handleSuccess('Subject updated successfully'),
+      error: (error) => this.handleError('Failed to update Subject'),
+    });
+  }
+
+  createSubject() {
+    this.subjectService.addSubject(this.subjectForm.value).subscribe({
+      next: (message) => this.handleSuccess('Subject created successfully'),
+      error: (error) => this.handleError('Failed to create Subject'),
+    });
+  }
+
   onSubmitForm(): void {
     if (this.isEdit) {
-      // Update the existing subject
-      if (!this.subjectId) {
-        console.error('No subject id found in the route for editing');
-        this.message = 'No subject id found in the route for editing';
-        return;
-      } else {
-        this.subjectService
-          .updateSubject(this.subjectId, this.subjectForm.value)
-          .subscribe({
-            next: (message) => {
-              console.log(message); // "Subject updated successfully"
-              this.message = 'Subject updated successfully';
-              this.router.navigateByUrl('/subjects');
-            },
-            error: (error) => {
-              console.error(error); // "Failed to update Subject"
-            },
-          });
-      }
+      this.updateSubject(this.getSubjectIdFromRoute());
     } else {
-      this.subjectService.addSubject(this.subjectForm.value).subscribe({
-        next: (message) => {
-          console.log(message); // "Subject created successfully"
-          this.message = 'Subject created successfully';
-          this.router.navigateByUrl('/subjects');
-        },
-        error: (error) => {
-          console.error(error); // "Failed to create Subject"
-          this.message = 'Failed to create Subject'; // <-- Add this line
-        },
-      });
+      this.createSubject();
     }
   }
 }
