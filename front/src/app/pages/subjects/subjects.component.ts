@@ -47,7 +47,7 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   }
 
   onAddSubjectForm(): void {
-    this.router.navigateByUrl('/create_subject');
+    this.router.navigateByUrl('/subject-form');
   }
 
   ngOnDestroy(): void {
@@ -75,6 +75,6 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   }
 
   onEditSubject(id: string) {
-    this.subjectService.editSubject(id).subscribe();
+    this.router.navigateByUrl(`/subject-form/${id}`);
   }
 }

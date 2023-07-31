@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SubjectFormComponent } from './subjectform.component';
 import { of, throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SubjectService } from '../../services/subject.service';
@@ -11,11 +11,21 @@ describe('SubjectFormComponent', () => {
   let fixture: ComponentFixture<SubjectFormComponent>;
   let subjectService: SubjectService;
   let router: Router;
+  let activatedRoute: ActivatedRoute;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [SubjectFormComponent],
       imports: [HttpClientTestingModule, ReactiveFormsModule],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            snapshot: { paramMap: { get: jest.fn() } },
+          },
+        },
+        // other providers
+      ],
     }).compileComponents();
   });
 
@@ -24,6 +34,7 @@ describe('SubjectFormComponent', () => {
     component = fixture.componentInstance;
     subjectService = TestBed.inject(SubjectService);
     router = TestBed.inject(Router);
+    activatedRoute = TestBed.inject(ActivatedRoute);
     fixture.detectChanges();
   });
 
@@ -99,5 +110,62 @@ describe('SubjectFormComponent', () => {
 
     // The form is valid, so the submit button should be enabled
     expect(submitButton.disabled).toBe(false);
+  });
+
+  // Test updateSubject when form is submitted with valid data in edit mode
+  it('should call updateSubject when form is submitted with valid data in edit mode', () => {
+    const formData = { name: 'Updated Subject' };
+    const subjectId = '1'; // You can specify any value that makes sense for your tests
+    const message = 'Subject updated successfully';
+
+    const updateSubjectSpy = jest
+      .spyOn(subjectService, 'updateSubject')
+      .mockReturnValue(of(message));
+
+    const routerNavigateSpy = jest.spyOn(router, 'navigateByUrl');
+    const consoleErrorMock = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    // Simulate the behavior of ActivatedRoute
+    jest
+      .spyOn(activatedRoute.snapshot.paramMap, 'get')
+      .mockReturnValue(subjectId);
+
+    component.isEdit = true;
+    component.subjectForm.setValue(formData);
+    component.onSubmitForm();
+
+    expect(updateSubjectSpy).toHaveBeenCalledWith(subjectId, formData);
+    expect(routerNavigateSpy).toHaveBeenCalledWith('/subjects');
+  });
+
+  // Test error handling when updating a subject
+  it('should handle error when updating a subject', () => {
+    const formData = { name: 'Updated Subject' };
+    const subjectId = '1'; // You can specify any value that makes sense for your tests
+    const message = 'Failed to update Subject';
+
+    jest
+      .spyOn(subjectService, 'updateSubject')
+      .mockReturnValue(throwError(message));
+
+    // Simulate the behavior of ActivatedRoute
+    jest
+      .spyOn(activatedRoute.snapshot.paramMap, 'get')
+      .mockReturnValue(subjectId);
+
+    // Create a mock console.error function
+    const consoleErrorMock = jest
+      .spyOn(console, 'error')
+      .mockImplementation(() => {});
+
+    component.isEdit = true;
+    component.subjectForm.setValue(formData);
+    component.onSubmitForm(); // should trigger the error
+
+    // The error handling code in the component's subscribe block should be called
+    // and the console.error should log the error message
+    expect(consoleErrorMock).toHaveBeenCalledWith(message);
   });
 });

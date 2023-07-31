@@ -44,7 +44,17 @@ export class SubjectService {
     );
   }
 
-  editSubject(id: string): Observable<string> {
-    throw new Error('Method not implemented.');
+  updateSubject(id: string, formValue: { name: string }): Observable<string> {
+    return this.http
+      .put(`${this.baseUrl}/subject/${id}`, formValue, { responseType: 'text' })
+      .pipe(
+        map((response) => {
+          if (response === 'Subject updated') {
+            return 'Subject updated successfully';
+          } else {
+            throw new Error('Failed to update Subject');
+          }
+        })
+      );
   }
 }

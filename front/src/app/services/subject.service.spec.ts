@@ -143,4 +143,48 @@ describe('SubjectService', () => {
       statusText: 'Internal Server Error',
     });
   });
+
+  it('should update a subject via PUT', () => {
+    const mockSubjectId = '1';
+    const formValue = { name: 'Updated Subject' };
+    const mockResponse = 'Subject updated';
+
+    service
+      .updateSubject(mockSubjectId, formValue)
+      .subscribe((response: string) => {
+        expect(response).toBe('Subject updated successfully');
+      });
+
+    const request = httpMock.expectOne(
+      `${service.baseUrl}/subject/${mockSubjectId}`
+    );
+    expect(request.request.method).toBe('PUT');
+    expect(request.request.body).toEqual(formValue);
+
+    request.flush(mockResponse);
+  });
+
+  it('should handle an error when updating a subject', () => {
+    const mockSubjectId = '1';
+    const formValue = { name: 'Updated Subject' };
+    const mockErrorResponse = 'Failed to update Subject';
+
+    service.updateSubject(mockSubjectId, formValue).subscribe({
+      next: () => fail('should have thrown an error'),
+      error: (error: any) => {
+        expect(error.message).toBe('Failed to update Subject');
+      },
+    });
+
+    const request = httpMock.expectOne(
+      `${service.baseUrl}/subject/${mockSubjectId}`
+    );
+    expect(request.request.method).toBe('PUT');
+    expect(request.request.body).toEqual(formValue);
+
+    request.flush(mockErrorResponse, {
+      status: 500,
+      statusText: 'Internal Server Error',
+    });
+  });
 });

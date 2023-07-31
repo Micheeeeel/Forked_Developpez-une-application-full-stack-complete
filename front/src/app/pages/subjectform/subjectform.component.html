@@ -17,5 +17,9 @@
   </form>
 </div>
 
+<div *ngIf="message">
+  {{ message }}
+</div>
+
 <!-- Ajoute le lien vers le HomeComponent -->
 <a routerLink="/subjects">Revenir</a>

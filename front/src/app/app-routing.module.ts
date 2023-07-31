@@ -10,7 +10,8 @@ import { SubjectDetailComponent } from './pages/home/subject-detail/subject-deta
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'subjects', component: SubjectsComponent },
-  { path: 'create_subject', component: SubjectFormComponent },
+  { path: 'subject-form', component: SubjectFormComponent },
+  { path: 'subject-form/:id', component: SubjectFormComponent },
   { path: 'subject/:id', component: SubjectDetailComponent },
 
   // Redirection en cas d'URL incorrecte (404 Not Found)
