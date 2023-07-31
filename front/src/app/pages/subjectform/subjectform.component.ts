@@ -1,4 +1,11 @@
-import { Component, NgZone, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  ElementRef,
+  NgZone,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectService } from '../../services/subject.service';
@@ -8,11 +15,12 @@ import { SubjectService } from '../../services/subject.service';
   templateUrl: './SubjectForm.component.html',
   styleUrls: ['./SubjectForm.component.scss'],
 })
-export class SubjectFormComponent implements OnInit {
+export class SubjectFormComponent implements AfterViewInit {
   subjectForm!: FormGroup;
   isEdit: boolean = false;
   message: string | null = null;
   public subjectId: string | null = null;
+  @ViewChild('nameInput', { static: false }) nameInput!: ElementRef;
 
   constructor(
     private formeBuilder: FormBuilder,
@@ -38,6 +46,10 @@ export class SubjectFormComponent implements OnInit {
           this.isEdit = true;
         });
     }
+  }
+
+  ngAfterViewInit(): void {
+    Promise.resolve().then(() => this.nameInput.nativeElement.focus());
   }
 
   onSubmitForm(): void {
