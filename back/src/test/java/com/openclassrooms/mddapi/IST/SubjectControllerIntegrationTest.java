@@ -133,7 +133,7 @@ public class SubjectControllerIntegrationTest {
         // Perform the HTTP DELETE request to delete the subject by ID
         mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subject.getId()))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.content().string("Subject deleted"));
+                .andExpect(MockMvcResultMatchers.content().string("{\"message\": \"Subject deleted successfully\"}"));
 
         // Verify that the subject was deleted from the database
         mockMvc.perform(MockMvcRequestBuilders.get("/api/subject/{id}", subject.getId()))

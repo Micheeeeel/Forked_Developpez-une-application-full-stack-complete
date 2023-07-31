@@ -100,34 +100,29 @@ public class SubjectControllerTest {
 
     // test de l'API REST pour supprimer un sujet par son id
     @Test
-    public void testDeleteSubjectById_ValidId_ReturnsOk() throws Exception {
-        // Given
+    public void testDeleteSubjectById_Success() throws Exception {
         Long subjectId = 1L;
 
-        // When
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subjectId)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        SubjectDTO subjectDTO = new SubjectDTO();
+        subjectDTO.setId(subjectId);
+        subjectDTO.setName("Math");
 
-        // Then
-        verify(subjectService, times(1)).deleteSubjectById(subjectId);
+        Mockito.when(subjectService.getSubjectById(subjectId)).thenReturn(subjectDTO);
+
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subjectId))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.jsonPath("$.message").value("Subject deleted successfully"));
     }
 
-        @Test
-    public void testDeleteSubjectById_InvalidId_ReturnsNotFound() throws Exception {
-        // Given
+    // test de l'API REST pour supprimer un sujet par son id invalide
+    @Test
+    public void testDeleteSubjectById_NotFound() throws Exception {
         Long subjectId = 1L;
 
-        // Configure the mock service to throw an exception when deleteSubjectById is called
-        doThrow(new RuntimeException()).when(subjectService).deleteSubjectById(subjectId);
+        Mockito.when(subjectService.getSubjectById(subjectId)).thenReturn(null);
 
-        // When
-        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subjectId)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
-
-        // Then
-        verify(subjectService, times(1)).deleteSubjectById(subjectId);
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/subject/{id}", subjectId))
+        . andExpect(MockMvcResultMatchers.status().isNotFound());
     }
 
 
