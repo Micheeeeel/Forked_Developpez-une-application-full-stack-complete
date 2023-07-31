@@ -50,6 +50,28 @@ public class SubjectController {
         }
     }
 
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateSubject(@PathVariable Long id, @RequestBody SubjectDTO subjectDTO) {
+        if (subjectDTO.getName() == null || subjectDTO.getName().isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid Subject data");    // 400: bad request
+        }
+    
+        SubjectDTO existingSubject = subjectService.getSubjectById(id);
+        if (existingSubject == null) {
+            return ResponseEntity.notFound().build();   // 404: not found
+        }
+    
+        Subject updatedSubject = subjectService.updateSubject(id, subjectDTO);
+        if (updatedSubject != null) {
+            return ResponseEntity.ok().body("Subject updated");   // 200: ok
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update Subject");    // 500: internal server error
+        }
+    }
+    
+
+
         @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSubjectById(@PathVariable Long id) {
         try {

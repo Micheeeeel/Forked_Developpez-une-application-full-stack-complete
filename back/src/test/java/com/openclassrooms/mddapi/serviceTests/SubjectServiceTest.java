@@ -51,6 +51,29 @@ public class SubjectServiceTest {
         assertEquals("Java", createdSubject.getName());
     }
 
+    @Test
+    public void testUpdateSubject() {
+        // Given
+        Long subjectId = 1L;
+        SubjectDTO subjectDTO = new SubjectDTO();
+        subjectDTO.setName("Updated Java");
+    
+        Subject updatedSubject = new Subject();
+        updatedSubject.setId(subjectId);
+        updatedSubject.setName("Updated Java");
+    
+        // Define the behavior of the mock SubjectRepository
+        when(subjectRepository.save(any(Subject.class))).thenReturn(updatedSubject);
+    
+        // When
+        Subject result = subjectService.updateSubject(subjectId, subjectDTO);
+    
+        // Then
+        assertNotNull(result);
+        assertEquals(subjectId, result.getId());
+        assertEquals("Updated Java", result.getName());
+    }
+
     // Test de la méthode getAllSubjects du service
     @Test
     public void testGetAllSubjects() {

@@ -164,8 +164,77 @@ public class SubjectControllerTest {
         Mockito.verify(subjectService, Mockito.times(1)).getSubjectById(subjectId);
     }
 
+   // test de l'API REST pour mettre à jour un sujet existant
+   @Test
+   public void testUpdateSubject_ValidData_Success() throws Exception {
+       // Given
+       Long subjectId = 1L;
+       SubjectDTO subjectDTO = new SubjectDTO();
+       subjectDTO.setName("Math");
 
+       SubjectDTO existingSubjectDTO = new SubjectDTO();
+       existingSubjectDTO.setId(subjectId);
+       existingSubjectDTO.setName("Science");
 
+       Subject updatedSubject = new Subject();
+       updatedSubject.setId(subjectId);
+       updatedSubject.setName("Math");
+
+       Mockito.when(subjectService.getSubjectById(subjectId)).thenReturn(existingSubjectDTO);
+       Mockito.when(subjectService.updateSubject(Mockito.eq(subjectId), Mockito.any(SubjectDTO.class))).thenReturn(updatedSubject);
+
+       // When
+       mockMvc.perform(MockMvcRequestBuilders.put("/api/subject/{id}", subjectId)
+               .contentType(MediaType.APPLICATION_JSON)
+               .content(asJsonString(subjectDTO)))
+               .andExpect(MockMvcResultMatchers.status().isOk())
+               .andExpect(MockMvcResultMatchers.content().string("Subject updated"));
+
+       // Then
+       Mockito.verify(subjectService, Mockito.times(1)).getSubjectById(subjectId);
+       Mockito.verify(subjectService, Mockito.times(1)).updateSubject(Mockito.eq(subjectId), Mockito.any(SubjectDTO.class));
+   }
+
+    // test de l'API REST pour mettre à jour un sujet avec des données invalides
+    @Test
+    public void testUpdateSubject_InvalidData_Failure() throws Exception {
+        // Given
+        Long subjectId = 1L;
+        SubjectDTO subjectDTO = new SubjectDTO();
+        subjectDTO.setName(""); // Invalid name
+
+        // When
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/subject/{id}", subjectId)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(asJsonString(subjectDTO)))
+                .andExpect(MockMvcResultMatchers.status().isBadRequest())
+                .andExpect(MockMvcResultMatchers.content().string("Invalid Subject data"));
+
+        // Then
+        Mockito.verify(subjectService, Mockito.never()).getSubjectById(subjectId);
+        Mockito.verify(subjectService, Mockito.never()).updateSubject(Mockito.anyLong(), Mockito.any(SubjectDTO.class));
+    }
+
+       // test de l'API REST pour mettre à jour un sujet non existant
+       @Test
+       public void testUpdateSubject_NonExistingSubject_Failure() throws Exception {
+           // Given
+           Long subjectId = 1L;
+           SubjectDTO subjectDTO = new SubjectDTO();
+           subjectDTO.setName("Math");
+   
+           Mockito.when(subjectService.getSubjectById(subjectId)).thenReturn(null);
+   
+           // When
+           mockMvc.perform(MockMvcRequestBuilders.put("/api/subject/{id}", subjectId)
+                   .contentType(MediaType.APPLICATION_JSON)
+                   .content(asJsonString(subjectDTO)))
+                   .andExpect(MockMvcResultMatchers.status().isNotFound());
+   
+           // Then
+           Mockito.verify(subjectService, Mockito.times(1)).getSubjectById(subjectId);
+           Mockito.verify(subjectService, Mockito.never()).updateSubject(Mockito.anyLong(), Mockito.any(SubjectDTO.class));
+       }
 
     // Utility method to convert object to JSON string
     private static String asJsonString(final Object obj) {

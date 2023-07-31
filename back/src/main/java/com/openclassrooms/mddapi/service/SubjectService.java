@@ -44,4 +44,13 @@ public class SubjectService {
         subjectRepository.deleteById(id);
     }
 
+    public Subject updateSubject(Long id, SubjectDTO subjectDTO) {
+        // Convertir le SubjectDTO en entité Subject
+        Subject subject = new Subject(subjectDTO.getName());
+        subject.setId(id);
+
+        // Enregistrer le sujet dans la base de données
+        return subjectRepository.save(subject);
+    }
+
 }
