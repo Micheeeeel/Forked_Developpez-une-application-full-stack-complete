@@ -2,9 +2,22 @@
   <h2>Subjects</h2>
   <ul>
     <li *ngFor="let subject of subjects" class="subject-item">
-      {{ subject.name }}
-      <button (click)="onSubjectDetail(subject.id)">Detail</button>
-      <!-- Add the Detail button -->
+      <span>{{ subject.name }}</span>
+      <div class="buttons">
+        <button (click)="onSubjectDetail(subject.id)">Detail</button>
+        <button
+          class="edit-button"
+          (click)="onEditSubject(subject.id.toString())"
+        >
+          Editer
+        </button>
+        <button
+          class="delete-button"
+          (click)="onDeleteSubject(subject.id.toString())"
+        >
+          Delete
+        </button>
+      </div>
     </li>
   </ul>
 </div>

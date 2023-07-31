@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, map } from 'rxjs';
+import { Observable, catchError, map, throwError } from 'rxjs';
 import { Subject } from '../models/Subject';
 
 @Injectable({
@@ -31,5 +31,20 @@ export class SubjectService {
           }
         })
       );
+  }
+
+  deleteSubject(subjectId: string): Observable<string> {
+    const url = `${this.baseUrl}/subject/${subjectId}`;
+
+    return this.http.delete<string>(url).pipe(
+      catchError((error) => {
+        console.error('Erreur lors de la suppression du sujet :', error);
+        throw new Error(error);
+      })
+    );
+  }
+
+  editSubject(id: string): Observable<string> {
+    throw new Error('Method not implemented.');
   }
 }

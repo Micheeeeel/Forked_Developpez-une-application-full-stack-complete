@@ -53,10 +53,16 @@ public class SubjectController {
         @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteSubjectById(@PathVariable Long id) {
         try {
-            subjectService.deleteSubjectById(id);
-            return ResponseEntity.ok("Subject deleted");
-        } catch (RuntimeException e) {
-            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Subject not found", e);
+            SubjectDTO subjectDTO = subjectService.getSubjectById(id);
+            if (subjectDTO == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            this.subjectService.deleteSubjectById(id);
+            return ResponseEntity.ok().body("{\"message\": \"Subject deleted successfully\"}");
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"Failed to delete Subject\"}");
         }
     }
+
 }

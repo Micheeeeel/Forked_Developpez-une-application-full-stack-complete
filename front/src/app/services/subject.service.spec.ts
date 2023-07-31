@@ -97,4 +97,50 @@ describe('SubjectService', () => {
 
     request.flush(mockSubject);
   });
+
+  it('should delete a subject by ID via DELETE', () => {
+    const mockSubjectId = '1';
+    const mockResponse = 'Subject deleted successfully';
+
+    // subscribe to the observable returned by the service
+    service.deleteSubject(mockSubjectId).subscribe((response: string) => {
+      expect(response).toBe(mockResponse); // expect a success because the mocked request (flush) is successful
+    });
+
+    // expect that a request will be made to the specified URL via DELETE
+    const request = httpMock.expectOne(
+      `${service.baseUrl}/subject/${mockSubjectId}`
+    );
+
+    // expect that the request will be made via DELETE
+    expect(request.request.method).toBe('DELETE');
+
+    // mock the response with the status code and status text
+    request.flush(mockResponse, {
+      status: 200,
+      statusText: 'OK',
+    });
+  });
+
+  it('should handle an error when deleting a subject', () => {
+    const mockSubjectId = '1';
+    const mockErrorResponse = 'Failed to delete Subject';
+
+    service.deleteSubject(mockSubjectId).subscribe(
+      () => fail('should have thrown an error'),
+      (error: any) => {
+        expect(error.message).toBe('Failed to delete Subject');
+      }
+    );
+
+    const request = httpMock.expectOne(
+      `${service.baseUrl}/subject/${mockSubjectId}`
+    );
+    expect(request.request.method).toBe('DELETE');
+
+    request.flush(mockErrorResponse, {
+      status: 500,
+      statusText: 'Internal Server Error',
+    });
+  });
 });

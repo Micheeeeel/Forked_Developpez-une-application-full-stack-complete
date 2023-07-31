@@ -12,6 +12,9 @@ const routes: Routes = [
   { path: 'subjects', component: SubjectsComponent },
   { path: 'create_subject', component: NewSubjectComponent },
   { path: 'subject/:id', component: SubjectDetailComponent },
+
+  // Redirection en cas d'URL incorrecte (404 Not Found)
+  { path: '**', redirectTo: '' },
 ];
 
 @NgModule({

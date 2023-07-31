@@ -36,6 +36,7 @@ describe('NewSubjectComponent', () => {
     expect(component.subjectForm.get('name')).toBeDefined();
   });
 
+  // Test the form validation
   it('should call addSubject when form is submitted with valid data', () => {
     const formData = { name: 'New Subject' }; // créer un objet formData avec un nom de sujet
     const addSubjectSpy = jest
@@ -50,6 +51,7 @@ describe('NewSubjectComponent', () => {
     expect(routerNavigateSpy).toHaveBeenCalledWith('/subjects');
   });
 
+  // Test the error handling
   it('should handle error when adding a subject', () => {
     const formData = { name: 'New Subject' };
     const errorMessage = 'Failed to create Subject';
@@ -72,6 +74,7 @@ describe('NewSubjectComponent', () => {
     expect(consoleErrorMock).toHaveBeenCalledWith(errorMessage);
   });
 
+  // Test the form validation
   it('should disable the submit button if the form is invalid', () => {
     const submitButton = fixture.nativeElement.querySelector('[type="submit"]');
 
@@ -86,6 +89,7 @@ describe('NewSubjectComponent', () => {
     expect(submitButton.disabled).toBe(true);
   });
 
+  // Test the form validation
   it('should enable the submit button if the form is valid', () => {
     const submitButton = fixture.nativeElement.querySelector('[type="submit"]');
 

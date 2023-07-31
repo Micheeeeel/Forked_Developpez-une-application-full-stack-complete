@@ -16,6 +16,7 @@ export class SubjectsComponent implements OnInit, OnDestroy {
 
   // Separate Subjects for each subscription
   private getSubjectsDestroy$: Subject<boolean> = new Subject<boolean>();
+  ngZone: any;
 
   constructor(private subjectService: SubjectService, private router: Router) {}
 
@@ -58,5 +59,22 @@ export class SubjectsComponent implements OnInit, OnDestroy {
 
   onSubjectDetail(subjectId: number): void {
     this.router.navigateByUrl(`/subject/${subjectId}`);
+  }
+
+  // In the component class
+  onDeleteSubject(subjectId: string) {
+    this.subjectService.deleteSubject(subjectId).subscribe({
+      next: (message) => {
+        console.log(message); // "Subject delete successfully"
+        this.getSubjects();
+      },
+      error: (error) => {
+        console.error(error); // "Failed to create Subject"
+      },
+    });
+  }
+
+  onEditSubject(id: string) {
+    this.subjectService.editSubject(id).subscribe();
   }
 }
