@@ -10,7 +10,7 @@ import { SubjectService } from '../../services/subject.service';
 })
 export class SubjectFormComponent implements OnInit {
   subjectForm!: FormGroup;
-  public isEdit = false; // public because we use for tests
+  isEdit: boolean = false;
   message: string | null = null;
   public subjectId: string | null = null;
 
@@ -27,20 +27,22 @@ export class SubjectFormComponent implements OnInit {
     });
 
     // Get the subjectId from the route
-    const subjectId = this.route.snapshot.paramMap.get('subjectId');
-    if (subjectId) {
-      this.isEdit = true;
+    this.subjectId = this.route.snapshot.paramMap.get('id');
+    if (this.subjectId) {
       // Load the subject from the server and initialize the form
-      this.subjectService.getSubjectById(subjectId).subscribe((subject) => {
-        this.subjectForm.patchValue(subject);
-      });
+      this.subjectService
+        .getSubjectById(this.subjectId)
+        .subscribe((subject) => {
+          this.subjectForm.patchValue(subject);
+          // Set isEdit to true here
+          this.isEdit = true;
+        });
     }
   }
 
   onSubmitForm(): void {
     if (this.isEdit) {
       // Update the existing subject
-      this.subjectId = this.route.snapshot.paramMap.get('id');
       if (!this.subjectId) {
         console.error('No subject id found in the route for editing');
         this.message = 'No subject id found in the route for editing';
