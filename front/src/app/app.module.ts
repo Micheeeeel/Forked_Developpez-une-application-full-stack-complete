@@ -7,7 +7,7 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { SubjectsComponent } from './pages/subjects/subjects.component';
 import { HttpClientModule } from '@angular/common/http';
-import { NewSubjectComponent } from './pages/new-subject/new-subject.component';
+import { SubjectFormComponent } from './pages/subjectform/subjectform.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SubjectDetailComponent } from './pages/home/subject-detail/subject-detail.component';
 import { SubjectService } from './services/subject.service';
@@ -17,7 +17,7 @@ import { SubjectService } from './services/subject.service';
     AppComponent,
     HomeComponent,
     SubjectsComponent,
-    NewSubjectComponent,
+    SubjectFormComponent,
     SubjectDetailComponent,
   ],
   imports: [

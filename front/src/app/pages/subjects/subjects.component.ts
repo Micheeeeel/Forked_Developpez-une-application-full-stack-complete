@@ -46,7 +46,7 @@ export class SubjectsComponent implements OnInit, OnDestroy {
       .subscribe();
   }
 
-  onAddNewSubject(): void {
+  onAddSubjectForm(): void {
     this.router.navigateByUrl('/create_subject');
   }
 

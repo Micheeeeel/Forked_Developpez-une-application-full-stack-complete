@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { SubjectService } from '../../services/subject.service';
 
 @Component({
-  selector: 'app-new-subject',
-  templateUrl: './new-subject.component.html',
-  styleUrls: ['./new-subject.component.scss'],
+  selector: 'app-subject-form',
+  templateUrl: './SubjectForm.component.html',
+  styleUrls: ['./SubjectForm.component.scss'],
 })
-export class NewSubjectComponent implements OnInit {
+export class SubjectFormComponent implements OnInit {
   subjectForm!: FormGroup;
 
   constructor(

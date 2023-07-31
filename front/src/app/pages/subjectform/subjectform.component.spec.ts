@@ -1,26 +1,26 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { NewSubjectComponent } from './new-subject.component';
+import { SubjectFormComponent } from './subjectform.component';
 import { of, throwError } from 'rxjs';
 import { Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { SubjectService } from '../../services/subject.service';
 
-describe('NewSubjectComponent', () => {
-  let component: NewSubjectComponent;
-  let fixture: ComponentFixture<NewSubjectComponent>;
+describe('SubjectFormComponent', () => {
+  let component: SubjectFormComponent;
+  let fixture: ComponentFixture<SubjectFormComponent>;
   let subjectService: SubjectService;
   let router: Router;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NewSubjectComponent],
+      declarations: [SubjectFormComponent],
       imports: [HttpClientTestingModule, ReactiveFormsModule],
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NewSubjectComponent);
+    fixture = TestBed.createComponent(SubjectFormComponent);
     component = fixture.componentInstance;
     subjectService = TestBed.inject(SubjectService);
     router = TestBed.inject(Router);
