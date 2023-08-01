@@ -63,12 +63,18 @@ describe('SubjectService', () => {
 
   it('should handle an error when adding a subject', () => {
     const formValue = { name: 'New Subject' };
-    const mockErrorResponse = 'Failed to create Subject';
+    const mockErrorResponse = {
+      status: 500,
+      statusText: 'Internal Server Error',
+      error: { message: 'Failed to create Subject' },
+    };
 
     service.addSubject(formValue).subscribe(
       () => fail('should have thrown an error'),
       (error: any) => {
-        expect(error.message).toBe('Failed to create Subject');
+        expect(error.message).toBe(
+          'Server-side error: 500 Failed to create Subject'
+        );
       }
     );
 
@@ -76,9 +82,9 @@ describe('SubjectService', () => {
     expect(request.request.method).toBe('POST');
     expect(request.request.body).toEqual(formValue);
 
-    request.flush(mockErrorResponse, {
-      status: 500,
-      statusText: 'Internal Server Error',
+    request.flush(mockErrorResponse.error, {
+      status: mockErrorResponse.status,
+      statusText: mockErrorResponse.statusText,
     });
   });
 
@@ -124,12 +130,18 @@ describe('SubjectService', () => {
 
   it('should handle an error when deleting a subject', () => {
     const mockSubjectId = '1';
-    const mockErrorResponse = 'Failed to delete Subject';
+    const mockErrorResponse = {
+      status: 500,
+      statusText: 'Internal Server Error',
+      error: { message: 'Failed to delete Subject' },
+    };
 
     service.deleteSubject(mockSubjectId).subscribe(
       () => fail('should have thrown an error'),
       (error: any) => {
-        expect(error.message).toBe('Failed to delete Subject');
+        expect(error.message).toBe(
+          'Server-side error: 500 Failed to delete Subject'
+        );
       }
     );
 
@@ -138,9 +150,9 @@ describe('SubjectService', () => {
     );
     expect(request.request.method).toBe('DELETE');
 
-    request.flush(mockErrorResponse, {
-      status: 500,
-      statusText: 'Internal Server Error',
+    request.flush(mockErrorResponse.error, {
+      status: mockErrorResponse.status,
+      statusText: mockErrorResponse.statusText,
     });
   });
 
@@ -167,14 +179,20 @@ describe('SubjectService', () => {
   it('should handle an error when updating a subject', () => {
     const mockSubjectId = '1';
     const formValue = { name: 'Updated Subject' };
-    const mockErrorResponse = 'Failed to update Subject';
+    const mockErrorResponse = {
+      status: 500,
+      statusText: 'Internal Server Error',
+      error: { message: 'Failed to update Subject' },
+    };
 
-    service.updateSubject(mockSubjectId, formValue).subscribe({
-      next: () => fail('should have thrown an error'),
-      error: (error: any) => {
-        expect(error.message).toBe('Failed to update Subject');
-      },
-    });
+    service.updateSubject(mockSubjectId, formValue).subscribe(
+      () => fail('should have thrown an error'),
+      (error: any) => {
+        expect(error.message).toBe(
+          'Server-side error: 500 Failed to update Subject'
+        );
+      }
+    );
 
     const request = httpMock.expectOne(
       `${service.baseUrl}/subject/${mockSubjectId}`
@@ -182,9 +200,9 @@ describe('SubjectService', () => {
     expect(request.request.method).toBe('PUT');
     expect(request.request.body).toEqual(formValue);
 
-    request.flush(mockErrorResponse, {
-      status: 500,
-      statusText: 'Internal Server Error',
+    request.flush(mockErrorResponse.error, {
+      status: mockErrorResponse.status,
+      statusText: mockErrorResponse.statusText,
     });
   });
 });

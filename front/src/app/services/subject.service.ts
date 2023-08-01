@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Subject } from '../models/Subject';
 
@@ -12,11 +12,15 @@ export class SubjectService {
   constructor(private http: HttpClient) {}
 
   getSubjects(): Observable<Subject[]> {
-    return this.http.get<Subject[]>(`${this.baseUrl}/subject`);
+    return this.http
+      .get<Subject[]>(`${this.baseUrl}/subject`)
+      .pipe(catchError(this.handleError));
   }
 
   getSubjectById(subjectId: string): Observable<Subject> {
-    return this.http.get<Subject>(`${this.baseUrl}/subject/${subjectId}`);
+    return this.http
+      .get<Subject>(`${this.baseUrl}/subject/${subjectId}`)
+      .pipe(catchError(this.handleError));
   }
 
   addSubject(formValue: { name: string }): Observable<string> {
@@ -29,19 +33,15 @@ export class SubjectService {
           } else {
             throw new Error('Failed to create Subject');
           }
-        })
+        }),
+        catchError(this.handleError)
       );
   }
 
   deleteSubject(subjectId: string): Observable<string> {
     const url = `${this.baseUrl}/subject/${subjectId}`;
 
-    return this.http.delete<string>(url).pipe(
-      catchError((error) => {
-        console.error('Erreur lors de la suppression du sujet :', error);
-        throw new Error(error);
-      })
-    );
+    return this.http.delete<string>(url).pipe(catchError(this.handleError));
   }
 
   updateSubject(id: string, formValue: { name: string }): Observable<string> {
@@ -54,7 +54,22 @@ export class SubjectService {
           } else {
             throw new Error('Failed to update Subject');
           }
-        })
+        }),
+        catchError(this.handleError)
       );
+  }
+
+  // Error handling
+  handleError(error: HttpErrorResponse) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      // client-side error
+      errorMessage = `Client-side error: ${error.error.message}`;
+    } else {
+      // server-side error
+      errorMessage = `Server-side error: ${error.status} ${error.message}`;
+    }
+    console.error(errorMessage);
+    return throwError(() => new Error(errorMessage));
   }
 }
