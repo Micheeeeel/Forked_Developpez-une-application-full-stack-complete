@@ -14,9 +14,7 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   subjects: MySubject[] = [];
   errorMessage: string | null = null;
 
-  // Separate Subjects for each subscription
-  private getSubjectsDestroy$: Subject<boolean> = new Subject<boolean>();
-  ngZone: any;
+  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(private subjectService: SubjectService, private router: Router) {}
 
@@ -25,56 +23,60 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   }
 
   getSubjects(): void {
-    // use interval to test the unsubscribe
-    interval(1000)
-      .pipe(tap(console.log), takeUntil(this.getSubjectsDestroy$))
-      .subscribe();
+    // // use interval to test the unsubscribe
+    // interval(1000)
+    //   .pipe(tap(console.log), takeUntil(this.unsubscribe$))
+    //   .subscribe();
 
     this.subjectService
       .getSubjects()
       .pipe(
-        takeUntil(this.getSubjectsDestroy$),
         tap({
           next: (subjects) => {
             this.subjects = subjects;
           },
           error: (error) => {
+            console.error(error);
             this.errorMessage = 'Error fetching subjects';
           },
-        })
+        }),
+        takeUntil(this.unsubscribe$)
       )
       .subscribe();
   }
 
-  onAddSubjectForm(): void {
-    this.router.navigateByUrl('/subject-form');
-  }
-
-  ngOnDestroy(): void {
-    this.getSubjectsDestroy$.next(true);
-
-    // Unsubscribe from the subjectService
-    this.getSubjectsDestroy$.unsubscribe();
+  onDeleteSubject(subjectId: string): void {
+    this.subjectService
+      .deleteSubject(subjectId)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (message) => {
+          console.log(message); // "Subject delete successfully"
+          this.getSubjects();
+        },
+        error: (error) => {
+          console.error(error);
+          this.errorMessage = 'Error deleting subject';
+        },
+      });
   }
 
   onSubjectDetail(subjectId: number): void {
     this.router.navigateByUrl(`/subject/${subjectId}`);
   }
 
-  // In the component class
-  onDeleteSubject(subjectId: string) {
-    this.subjectService.deleteSubject(subjectId).subscribe({
-      next: (message) => {
-        console.log(message); // "Subject delete successfully"
-        this.getSubjects();
-      },
-      error: (error) => {
-        console.error(error); // "Failed to create Subject"
-      },
-    });
+  onAddSubjectForm(): void {
+    this.router.navigateByUrl('/subject-form');
   }
 
   onEditSubject(id: string) {
     this.router.navigateByUrl(`/subject-form/${id}`);
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+
+    // Unsubscribe from the subjectService
+    this.unsubscribe$.unsubscribe();
   }
 }

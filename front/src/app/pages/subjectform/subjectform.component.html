@@ -21,5 +21,9 @@
   {{ message }}
 </div>
 
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
 <!-- Ajoute le lien vers le HomeComponent -->
 <a routerLink="/subjects">Revenir</a>

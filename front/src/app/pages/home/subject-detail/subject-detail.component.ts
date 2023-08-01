@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Subject } from 'src/app/models/Subject';
+import { Observable, Subject, catchError, throwError } from 'rxjs';
+import { Subject as MySubject } from 'src/app/models/Subject';
 import { SubjectService } from '../../../services/subject.service';
 
 @Component({
@@ -11,7 +11,8 @@ import { SubjectService } from '../../../services/subject.service';
 })
 export class SubjectDetailComponent implements OnInit {
   public subjectId: string;
-  public subject$!: Observable<Subject>;
+  public subject$!: Observable<MySubject>;
+  errorMessage: string | null = null;
 
   constructor(
     private router: Router,
@@ -25,8 +26,14 @@ export class SubjectDetailComponent implements OnInit {
     this.subject$ = this.fetchSubject();
   }
 
-  private fetchSubject(): Observable<Subject> {
-    return this.subjectService.getSubjectById(this.subjectId);
+  private fetchSubject(): Observable<MySubject> {
+    return this.subjectService.getSubjectById(this.subjectId).pipe(
+      catchError((error) => {
+        console.error(error);
+        this.errorMessage = 'Error fetching subject';
+        return throwError(() => new Error('Error fetching subject'));
+      })
+    );
   }
 
   goBack(): void {

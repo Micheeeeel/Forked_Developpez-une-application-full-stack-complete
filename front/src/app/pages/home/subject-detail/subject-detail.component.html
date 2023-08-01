@@ -11,6 +11,10 @@
   <p>Loading...</p>
 </ng-template>
 
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
 <div>
   <button (click)="goBack()">Back</button>
 </div>

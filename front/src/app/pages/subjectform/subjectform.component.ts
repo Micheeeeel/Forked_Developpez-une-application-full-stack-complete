@@ -3,24 +3,30 @@ import {
   Component,
   ElementRef,
   NgZone,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SubjectService } from '../../services/subject.service';
+import { Subject } from 'rxjs/internal/Subject';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-subject-form',
   templateUrl: './SubjectForm.component.html',
   styleUrls: ['./SubjectForm.component.scss'],
 })
-export class SubjectFormComponent implements AfterViewInit {
+export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
   subjectForm!: FormGroup;
   isEdit: boolean = false;
   message: string | null = null;
   public subjectId: string | null = null;
   @ViewChild('nameInput', { static: false }) nameInput!: ElementRef;
+  errorMessage: string | null = null;
+
+  private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private formeBuilder: FormBuilder,
@@ -56,15 +62,15 @@ export class SubjectFormComponent implements AfterViewInit {
     return this.route.snapshot.paramMap.get('id');
   }
 
-  handleError(message: string) {
-    console.error(message);
-    this.message = message;
-  }
-
   handleSuccess(message: string) {
     console.log(message);
     this.message = message;
     this.router.navigateByUrl('/subjects');
+  }
+
+  handleError(message: string) {
+    console.error(message);
+    this.errorMessage = message;
   }
 
   updateSubject(id: string | null) {
@@ -72,17 +78,35 @@ export class SubjectFormComponent implements AfterViewInit {
       this.handleError('No subject id found in the route for editing');
       return;
     }
-    this.subjectService.updateSubject(id, this.subjectForm.value).subscribe({
-      next: (message) => this.handleSuccess('Subject updated successfully'),
-      error: (error) => this.handleError('Failed to update Subject'),
-    });
+    this.subjectService
+      .updateSubject(id, this.subjectForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (message) => {
+          console.log(message); // "Subject updated successfully"
+          this.handleSuccess('Subject updated successfully');
+        },
+        error: (error) => {
+          console.error(error);
+          this.errorMessage = 'Failed to update subject';
+        },
+      });
   }
 
   createSubject() {
-    this.subjectService.addSubject(this.subjectForm.value).subscribe({
-      next: (message) => this.handleSuccess('Subject created successfully'),
-      error: (error) => this.handleError('Failed to create Subject'),
-    });
+    this.subjectService
+      .addSubject(this.subjectForm.value)
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe({
+        next: (message) => {
+          console.log(message); // "Subject created successfully"
+          this.handleSuccess('Subject created successfully');
+        },
+        error: (error) => {
+          console.error(error);
+          this.errorMessage = 'Failed to create subject';
+        },
+      });
   }
 
   onSubmitForm(): void {
@@ -91,5 +115,12 @@ export class SubjectFormComponent implements AfterViewInit {
     } else {
       this.createSubject();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.unsubscribe$.next(true);
+
+    // Unsubscribe from the subjectService
+    this.unsubscribe$.unsubscribe();
   }
 }
