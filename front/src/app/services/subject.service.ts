@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, catchError, map, throwError } from 'rxjs';
 import { Subject } from '../models/Subject';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SubjectService {
-  public baseUrl = 'http://localhost:8080/api';
+  public baseUrl = environment.baseUrl;
 
   constructor(private http: HttpClient) {}
 
