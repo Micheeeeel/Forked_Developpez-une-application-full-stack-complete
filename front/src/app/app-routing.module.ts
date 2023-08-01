@@ -13,6 +13,10 @@ const routes: Routes = [
   { path: 'subject-form', component: SubjectFormComponent },
   { path: 'subject-form/:id', component: SubjectFormComponent },
   { path: 'subject/:id', component: SubjectDetailComponent },
+  {
+    path: 'auth',
+    loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
+  },
 
   // Redirection en cas d'URL incorrecte (404 Not Found)
   { path: '**', redirectTo: '' },

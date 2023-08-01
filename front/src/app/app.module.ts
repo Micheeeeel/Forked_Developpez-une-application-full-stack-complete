@@ -11,6 +11,7 @@ import { SubjectFormComponent } from './pages/subjectform/subjectform.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SubjectDetailComponent } from './pages/home/subject-detail/subject-detail.component';
 import { SubjectService } from './services/subject.service';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { SubjectService } from './services/subject.service';
     MatButtonModule,
     HttpClientModule,
     ReactiveFormsModule,
+    AuthModule,
   ],
   providers: [SubjectService],
   bootstrap: [AppComponent],
