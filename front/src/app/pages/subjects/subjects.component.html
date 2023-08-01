@@ -1,0 +1,38 @@
+<div *ngIf="subjects; else loadingTemplate">
+  <h2>Subjects</h2>
+  <ul>
+    <li *ngFor="let subject of subjects" class="subject-item">
+      <span>{{ subject.name }}</span>
+      <div class="buttons">
+        <button (click)="onSubjectDetail(subject.id)">Detail</button>
+        <button
+          class="edit-button"
+          (click)="onEditSubject(subject.id.toString())"
+        >
+          Editer
+        </button>
+        <button
+          class="delete-button"
+          (click)="onDeleteSubject(subject.id.toString())"
+        >
+          Delete
+        </button>
+      </div>
+    </li>
+  </ul>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div>
+  <button (click)="onAddSubjectForm()">Créer un nouveau thème</button>
+</div>
+
+<!-- Ajoute le lien vers le HomeComponent -->
+<a routerLink="/">Revenir vers le Home</a>

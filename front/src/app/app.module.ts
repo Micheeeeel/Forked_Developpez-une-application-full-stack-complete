@@ -5,16 +5,30 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
+import { SubjectsComponent } from './pages/subjects/subjects.component';
+import { HttpClientModule } from '@angular/common/http';
+import { SubjectFormComponent } from './pages/subjectform/subjectform.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SubjectDetailComponent } from './pages/home/subject-detail/subject-detail.component';
+import { SubjectService } from './services/subject.service';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent],
+  declarations: [
+    AppComponent,
+    HomeComponent,
+    SubjectsComponent,
+    SubjectFormComponent,
+    SubjectDetailComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [SubjectService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

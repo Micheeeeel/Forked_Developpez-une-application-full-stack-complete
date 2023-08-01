@@ -1,28 +1,90 @@
 package com.openclassrooms.mddapi.controller;
 
+import com.openclassrooms.mddapi.dto.SubjectDTO;
+import com.openclassrooms.mddapi.model.Subject;
+import com.openclassrooms.mddapi.service.SubjectService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
+
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.openclassrooms.mddapi.model.Subject;
-import com.openclassrooms.mddapi.repository.SubjectRepository;
-
 @RestController
+@RequestMapping("/api/subject")
 public class SubjectController {
+    private final SubjectService subjectService;
 
-    @Autowired 
-    private final SubjectRepository subjectRepository;
-
-    public SubjectController(SubjectRepository subjectRepository) {
-        this.subjectRepository = subjectRepository;
+    @Autowired
+    public SubjectController(SubjectService subjectService) {
+        this.subjectService = subjectService;
     }
 
-    @GetMapping("/subjects")
-    public List<Subject> getAllSubjects() {
-        return subjectRepository.findAll();
+    @GetMapping
+    public List<SubjectDTO> getAllSubjects() {
+        return subjectService.getAllSubjects();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<SubjectDTO> getSubjectById(@PathVariable Long id) {
+        SubjectDTO subjectDTO = subjectService.getSubjectById(id);
+        if (subjectDTO != null) {
+            return ResponseEntity.ok(subjectDTO);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createSubject(@RequestBody SubjectDTO subjectDTO) {
+        if (subjectDTO.getName() == null || subjectDTO.getName().isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid Subject data");
+        }
+
+        Subject createdSubject = subjectService.createSubject(subjectDTO);
+        if (createdSubject != null) {
+            return ResponseEntity.status(HttpStatus.CREATED).body("New Subject created");
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create Subject");
+        }
+    }
+
+
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updateSubject(@PathVariable Long id, @RequestBody SubjectDTO subjectDTO) {
+        if (subjectDTO.getName() == null || subjectDTO.getName().isEmpty()) {
+            return ResponseEntity.badRequest().body("Invalid Subject data");    // 400: bad request
+        }
+    
+        SubjectDTO existingSubject = subjectService.getSubjectById(id);
+        if (existingSubject == null) {
+            return ResponseEntity.notFound().build();   // 404: not found
+        }
+    
+        Subject updatedSubject = subjectService.updateSubject(id, subjectDTO);
+        if (updatedSubject != null) {
+            return ResponseEntity.ok().body("Subject updated");   // 200: ok
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to update Subject");    // 500: internal server error
+        }
     }
     
-    
+
+
+        @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteSubjectById(@PathVariable Long id) {
+        try {
+            SubjectDTO subjectDTO = subjectService.getSubjectById(id);
+            if (subjectDTO == null) {
+                return ResponseEntity.notFound().build();
+            }
+
+            this.subjectService.deleteSubjectById(id);
+            return ResponseEntity.ok().body("{\"message\": \"Subject deleted successfully\"}");
+        } catch (NumberFormatException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("{\"message\": \"Failed to delete Subject\"}");
+        }
+    }
+
 }

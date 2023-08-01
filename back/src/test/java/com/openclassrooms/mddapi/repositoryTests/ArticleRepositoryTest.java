@@ -7,15 +7,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
+
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.repository.ArticleRepository;
-import com.openclassrooms.mddapi.repository.SubjectRepository;
 import java.util.Optional;
 
 @ExtendWith(SpringExtension.class)      // permet d'utiliser les extensions Spring dont @DataJpaTest
