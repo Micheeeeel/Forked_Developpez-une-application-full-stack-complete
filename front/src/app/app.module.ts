@@ -18,7 +18,6 @@ import { MddModule } from './mdd/mdd.module';
     AppRoutingModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    AuthModule,
     CoreModule,
     MddModule,
   ],
