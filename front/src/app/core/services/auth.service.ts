@@ -10,7 +10,7 @@ export class AuthService {
     this.token = 'myFakeToken';
   }
 
-  geToken(): string {
+  getToken(): string {
     return this.token;
   }
 }

@@ -13,7 +13,7 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onLogin(): void {
-    console.log('Login');
+    this.auth.login();
     this.router.navigateByUrl('/subjects');
   }
 }
