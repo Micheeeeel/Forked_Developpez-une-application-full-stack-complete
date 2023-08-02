@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subject, catchError, throwError } from 'rxjs';
-import { Subject as MySubject } from 'src/app/models/Subject';
-import { SubjectService } from '../../../services/subject.service';
+import { Subject as MySubject } from 'src/app/core/models/Subject';
+import { SubjectService } from '../../../core/services/subject.service';
 
 @Component({
   selector: 'app-subject-detail',

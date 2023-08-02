@@ -11,7 +11,7 @@ import { SubjectFormComponent } from './pages/subjectform/subjectform.component'
 import { ReactiveFormsModule } from '@angular/forms';
 import { SubjectDetailComponent } from './pages/home/subject-detail/subject-detail.component';
 import { AuthModule } from './auth/auth.module';
-import { httpInterceptorProviders } from './interceptors';
+import { CoreModule } from './core/core.module';
 
 @NgModule({
   declarations: [
@@ -29,8 +29,8 @@ import { httpInterceptorProviders } from './interceptors';
     HttpClientModule,
     ReactiveFormsModule,
     AuthModule,
+    CoreModule,
   ],
-  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
