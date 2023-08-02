@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.UserDTO;
+import com.openclassrooms.mddapi.exception.UserNotFoundException;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -28,7 +29,7 @@ public class UserController {
     public ResponseEntity<UserDTO> getUserById(@PathVariable Long id) {
         UserDTO userDTO = userService.getUserById(id);
         if (userDTO == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new UserNotFoundException("User not found with id: " + id); // Exception personnalisée
         } else {
             return new ResponseEntity<>(userDTO, HttpStatus.OK);
         }
@@ -38,7 +39,7 @@ public class UserController {
     public ResponseEntity<UserDTO> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         UserDTO updatedUserDTO = userService.updateUser(id, userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword());
         if (updatedUserDTO == null) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new UserNotFoundException("User not found with id: " + id); // Exception personnalisée
         } else {
             return new ResponseEntity<>(updatedUserDTO, HttpStatus.OK);
         }
