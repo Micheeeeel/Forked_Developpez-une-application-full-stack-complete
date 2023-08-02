@@ -53,4 +53,9 @@ public class SubjectService {
         return subjectRepository.save(subject);
     }
 
+    public boolean subjectExists(String name) {
+        // Vérifiez si un sujet avec ce nom existe déjà dans la base de données
+        return subjectRepository.findByName(name).isPresent();
+    }
+
 }
