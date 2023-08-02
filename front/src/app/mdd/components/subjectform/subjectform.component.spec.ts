@@ -3,8 +3,8 @@ import { SubjectFormComponent } from './subjectform.component';
 import { of, throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
-import { SubjectService } from '../../core/services/subject.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { SubjectService } from '../../../core/services/subject.service';
 
 describe('SubjectFormComponent', () => {
   let component: SubjectFormComponent;

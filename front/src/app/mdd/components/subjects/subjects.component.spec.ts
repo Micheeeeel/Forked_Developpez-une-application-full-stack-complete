@@ -4,13 +4,12 @@ import {
   fakeAsync,
   tick,
 } from '@angular/core/testing';
-import { SubjectService } from '../../core/services/subject.service';
+import { SubjectService } from '../../../core/services/subject.service';
 import { SubjectsComponent } from './subjects.component';
 import { of } from 'rxjs/internal/observable/of';
 import { HttpClientModule } from '@angular/common/http';
 import { throwError } from 'rxjs';
 import { Router } from '@angular/router';
-import { Subject } from 'src/app/core/models/Subject';
 
 describe('SubjectsComponent', () => {
   let component: SubjectsComponent;
