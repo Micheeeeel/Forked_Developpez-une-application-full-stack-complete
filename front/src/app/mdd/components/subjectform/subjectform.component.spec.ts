@@ -59,7 +59,7 @@ describe('SubjectFormComponent', () => {
     component.onSubmitForm();
 
     expect(addSubjectSpy).toHaveBeenCalledWith(formData);
-    expect(routerNavigateSpy).toHaveBeenCalledWith('/subjects');
+    expect(routerNavigateSpy).toHaveBeenCalledWith('/mdd/subjects');
   });
 
   // Test the error handling
@@ -143,7 +143,7 @@ describe('SubjectFormComponent', () => {
 
     expect(updateSubjectSpy).toHaveBeenCalledWith(subjectId, formData);
     expect(consoleLogMock).toHaveBeenCalledWith(message);
-    expect(routerNavigateSpy).toHaveBeenCalledWith('/subjects');
+    expect(routerNavigateSpy).toHaveBeenCalledWith('/mdd/subjects');
   });
 
   // Test error handling when updating a subject

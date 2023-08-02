@@ -64,7 +64,7 @@ export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
   handleSuccess(message: string) {
     console.log(message);
     this.message = message;
-    this.router.navigateByUrl('/subjects');
+    this.router.navigateByUrl('/mdd/subjects');
   }
 
   handleError(message: string) {

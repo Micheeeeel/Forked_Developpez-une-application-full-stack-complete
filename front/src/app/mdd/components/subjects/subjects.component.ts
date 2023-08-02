@@ -62,15 +62,15 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   }
 
   onSubjectDetail(subjectId: number): void {
-    this.router.navigateByUrl(`/subject/${subjectId}`);
+    this.router.navigateByUrl(`/mdd/subjects/${subjectId}`);
   }
 
   onAddSubjectForm(): void {
-    this.router.navigateByUrl('/subject-form');
+    this.router.navigateByUrl('/mdd/subjects/subject-form');
   }
 
   onEditSubject(id: string) {
-    this.router.navigateByUrl(`/subject-form/${id}`);
+    this.router.navigateByUrl(`/mdd/subjects/subject-form/${id}`);
   }
 
   ngOnDestroy(): void {

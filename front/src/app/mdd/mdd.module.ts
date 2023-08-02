@@ -2,10 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SubjectsComponent } from './components/subjects/subjects.component';
 import { SubjectFormComponent } from './components/subjectform/subjectform.component';
-import { single } from 'rxjs';
 import { SubjectDetailComponent } from './components/subject-detail/subject-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { mddRoutingModule } from './mdd.routing.module';
 
 @NgModule({
   declarations: [
@@ -13,7 +12,7 @@ import { RouterModule } from '@angular/router';
     SubjectFormComponent,
     SubjectDetailComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, RouterModule],
+  imports: [CommonModule, ReactiveFormsModule, mddRoutingModule],
   exports: [SubjectsComponent, SubjectFormComponent, SubjectDetailComponent],
 })
 export class MddModule {}

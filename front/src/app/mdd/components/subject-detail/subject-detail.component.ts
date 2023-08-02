@@ -37,6 +37,6 @@ export class SubjectDetailComponent implements OnInit {
   }
 
   goBack(): void {
-    this.router.navigate(['/subjects']); // Navigate back to the list of subjects
+    this.router.navigateByUrl('/mdd/subjects'); // Navigate back to the list of subjects
   }
 }
