@@ -20,15 +20,15 @@ public class SubjectService {
 
     public List<SubjectDTO> getAllSubjects() {
         List<Subject> subjects = subjectRepository.findAll();
-        return subjects.stream().map(this::convertToDTO).collect(Collectors.toList());
+        return subjects.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     public SubjectDTO getSubjectById(Long id) {
         Optional<Subject> optionalSubject = subjectRepository.findById(id);
-        return optionalSubject.map(this::convertToDTO).orElse(null);
+        return optionalSubject.map(this::toDTO).orElse(null);
     }
 
-    public SubjectDTO convertToDTO(Subject subject) {
+    public SubjectDTO toDTO(Subject subject) {
         return new SubjectDTO(subject.getId(), subject.getName());
     }
 

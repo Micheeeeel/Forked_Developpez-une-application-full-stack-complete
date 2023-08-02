@@ -102,7 +102,7 @@ public class SubjectServiceTest {
         Subject subject = new Subject("Java");
 
         // Appeler la méthode convertToDTO du service
-        SubjectDTO subjectDTO = subjectService.convertToDTO(subject);
+        SubjectDTO subjectDTO = subjectService.toDTO(subject);
 
         // Vérifier que le DTO a été créé correctement
         assertNotNull(subjectDTO);
@@ -142,7 +142,7 @@ public class SubjectServiceTest {
         SubjectDTO subjectDTO = subjectService.getSubjectById(subjectId);
 
         // Then
-        assertEquals(null, subjectDTO);
+        assertNull(subjectDTO);
     }
 
     // Test de la méthode deleteSubject du service
