@@ -10,8 +10,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { SubjectFormComponent } from './pages/subjectform/subjectform.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SubjectDetailComponent } from './pages/home/subject-detail/subject-detail.component';
-import { SubjectService } from './services/subject.service';
 import { AuthModule } from './auth/auth.module';
+import { httpInterceptorProviders } from './interceptors';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,7 @@ import { AuthModule } from './auth/auth.module';
     ReactiveFormsModule,
     AuthModule,
   ],
-  providers: [SubjectService],
+  providers: [httpInterceptorProviders],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
