@@ -5,6 +5,7 @@ import { HeaderComponent } from './components/header/header.component';
 import { RouterModule } from '@angular/router';
 import fr from '@angular/common/locales/fr';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [HeaderComponent],
@@ -12,6 +13,7 @@ import { HttpClientModule } from '@angular/common/http';
     CommonModule, // nécessaire pour tout module qui déclare des composants (directives, pipes, etc.)
     RouterModule,
     HttpClientModule,
+    SharedModule,
   ],
   exports: [HeaderComponent],
   providers: [
