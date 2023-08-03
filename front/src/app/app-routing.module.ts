@@ -9,7 +9,7 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   {
-    path: 'mdd/subjects',
+    path: 'mdd',
     loadChildren: () => import('./mdd/mdd.module').then((m) => m.MddModule),
   },
   //Redirection en cas d'URL incorrecte (404 Not Found)

@@ -6,19 +6,19 @@ import { AuthGuard } from '../core/guards/auth.guards';
 import { RouterModule } from '@angular/router';
 
 const routes = [
-  { path: '', component: SubjectsComponent, canActivate: [AuthGuard] },
+  { path: 'subjects', component: SubjectsComponent, canActivate: [AuthGuard] },
   {
-    path: 'subject-form',
+    path: 'subjects/subject-form',
     component: SubjectFormComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: 'subject-form/:id',
+    path: 'subjects/subject-form/:id',
     component: SubjectFormComponent,
     canActivate: [AuthGuard],
   },
   {
-    path: ':id',
+    path: 'subjects/:id',
     component: SubjectDetailComponent,
     canActivate: [AuthGuard],
   },
