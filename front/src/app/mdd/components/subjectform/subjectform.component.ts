@@ -86,8 +86,7 @@ export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
           this.handleSuccess('Subject updated successfully');
         },
         error: (error) => {
-          console.error(error);
-          this.errorMessage = 'Failed to update subject';
+          this.handleError('Failed to update Subject');
         },
       });
   }
@@ -102,8 +101,7 @@ export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
           this.handleSuccess('Subject created successfully');
         },
         error: (error) => {
-          console.error(error);
-          this.errorMessage = 'Failed to create subject';
+          this.handleError('Failed to create Subject');
         },
       });
   }
