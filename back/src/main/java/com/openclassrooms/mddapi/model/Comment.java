@@ -19,16 +19,18 @@ public class Comment {
     private Long id;
 
     @ManyToOne
-    private Article article;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author;
 
     @ManyToOne
-    private User author;
+    @JoinColumn(name = "article_id", nullable = false)
+    private Article article;
 
     @Column(nullable = false)
     private String content;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
+    private Date createdAt;
 
     public static Comment createNewComment(String content, Article article, User author) {
         Comment comment = new Comment();
