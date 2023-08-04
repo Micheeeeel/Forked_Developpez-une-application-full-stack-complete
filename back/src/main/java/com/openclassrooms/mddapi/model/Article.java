@@ -5,7 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -39,6 +38,10 @@ public class Article {
     @Temporal(TemporalType.TIMESTAMP)
     private Date publishedAt;
 
+    @PrePersist
+    protected void onCreate() {
+        publishedAt = new Date();
+    }
 
     public static Article createNewArticle(String title, String content, Subject subject, User author) {
         Article article = new Article();
@@ -48,6 +51,11 @@ public class Article {
         article.setAuthor(author);
         return article;
     }
+
+
+
+
+
 
 
 }

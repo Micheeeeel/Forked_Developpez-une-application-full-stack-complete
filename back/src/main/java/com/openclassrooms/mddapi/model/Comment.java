@@ -32,6 +32,11 @@ public class Comment {
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
+    @PrePersist
+    protected void onCreate() {
+        createdAt = new Date();
+    }
+
     public static Comment createNewComment(String content, Article article, User author) {
         Comment comment = new Comment();
         comment.setContent(content);

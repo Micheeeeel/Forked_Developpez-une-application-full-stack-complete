@@ -44,4 +44,23 @@ public class CustomExceptionHandler {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(ArticleNotFoundException.class)
+    public ResponseEntity<String> handleSubjectNotFoundException(ArticleNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(UpdateArticleException.class)
+    public ResponseEntity<String> handleUpdateSubjectException(UpdateArticleException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(DeleteArticleException.class)
+    public ResponseEntity<String> handleDeleteSubjectException(DeleteArticleException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InvalidArticleDataException.class)
+    public ResponseEntity<String> handleDeleteSubjectException(InvalidArticleDataException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
