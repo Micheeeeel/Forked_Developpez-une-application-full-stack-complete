@@ -4,27 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
-
+import java.util.Date;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDTO {
+public class CommentDTO {
+
+    private Long userId;
 
     @NotBlank
-    @Size(max = 50)
-    @Email
-    private String email;
+    @Size(max = 1000)
+    private String content;
 
-    @NotBlank
-    @Size(max = 50)
-    private String username;
-
-    @NotBlank
-    @Size(min = 6, max = 40)
-    private String password;
+    private Date createdAt;
 
 }
