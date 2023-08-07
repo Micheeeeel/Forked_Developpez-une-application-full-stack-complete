@@ -12,4 +12,8 @@ export class ArticleListItemComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+
+  onNewComment(comment: string) {
+    console.log(comment);
+  }
 }
