@@ -1,1 +1,13 @@
-<p>{{ article.title | titlecase }}</p>
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>
+      <span>{{ article.title | titlecase }}</span>
+    </mat-card-title>
+    <mat-card-subtitle>
+      <span>{{ article.publishedAt | date }}</span>
+    </mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <span class="article-content">{{ article.content }}</span>
+  </mat-card-content>
+</mat-card>

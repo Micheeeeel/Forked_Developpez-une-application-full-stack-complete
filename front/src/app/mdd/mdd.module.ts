@@ -9,6 +9,7 @@ import { ArticlesService } from './services/articles.service';
 import { ArticlesResolver } from './resolvers/articles.resolver';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
 import { ArticleListItemComponent } from './components/article/article-list-item/article-list-item.component';
+import { SharedModule } from '../shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { ArticleListItemComponent } from './components/article/article-list-item
     ArticleListComponent,
     ArticleListItemComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, mddRoutingModule],
+  imports: [CommonModule, SharedModule, ReactiveFormsModule, mddRoutingModule],
   exports: [SubjectsComponent, SubjectFormComponent, SubjectDetailComponent],
   providers: [ArticlesService, ArticlesResolver],
 })
