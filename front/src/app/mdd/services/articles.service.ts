@@ -11,6 +11,6 @@ export class ArticlesService {
   constructor(private http: HttpClient) {}
 
   getArticles(): Observable<Article[]> {
-    return this.http.get<Article[]>(`${this.baseUrl}/articles`);
+    return this.http.get<Article[]>(`${this.baseUrl}/article`);
   }
 }

@@ -18,4 +18,8 @@ export class HomeComponent implements OnInit {
   onDisplaySubjects() {
     this.router.navigateByUrl('/mdd/subjects');
   }
+
+  onDisplayArticles() {
+    this.router.navigateByUrl('/mdd/article');
+  }
 }
