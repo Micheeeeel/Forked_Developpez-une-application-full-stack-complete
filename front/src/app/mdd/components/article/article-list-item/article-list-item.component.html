@@ -10,4 +10,7 @@
   <mat-card-content>
     <span class="article-content">{{ article.content }}</span>
   </mat-card-content>
+  <mat-card-actions>
+    <app-comments [comments]="article.comments"></app-comments>
+  </mat-card-actions>
 </mat-card>

@@ -1,1 +1,17 @@
-<p>comments works!</p>
+<div class="comments-row">
+  <mat-form-field>
+    <input type="text" matInput placeholder="Ajouter un commentaire..." />
+  </mat-form-field>
+  <button mat-icon-button color="primary" (onClick)="onLeaveComment()">
+    <!-- pour checker les icons: https://fontawesomeicons.com/materialdesign/icons/ -->
+    <mat-icon>send</mat-icon>
+  </button>
+</div>
+
+<mat-list *ngIf="comments.length">
+  <h2 matSubheader>Commentaires</h2>
+  <mat-list-item *ngFor="let comment of comments">
+    <span mat-line>{{ comment.content }}></span>
+    <span mat-line>{{ comment.createdAt | date }}</span>
+  </mat-list-item>
+</mat-list>
