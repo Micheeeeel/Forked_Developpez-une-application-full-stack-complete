@@ -2,6 +2,7 @@ package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dto.ArticleDTO;
 import com.openclassrooms.mddapi.dto.CommentDTO;
+import com.openclassrooms.mddapi.dto.SubjectDTO;
 import com.openclassrooms.mddapi.exception.SubjectNotFoundException;
 import com.openclassrooms.mddapi.exception.UserNotFoundException;
 import com.openclassrooms.mddapi.model.Article;
@@ -83,7 +84,7 @@ public class ArticleService {
     private ArticleDTO toDTO(Article article) {
         List<CommentDTO> comments = getCommentsByArticleId(article.getId());
 
-        return new ArticleDTO(article.getAuthor().getId(), article.getSubject().getId(),
+        return new ArticleDTO(article.getId(), article.getAuthor().getId(), article.getSubject().getId(),
                 article.getTitle(), article.getContent(), article.getPublishedAt(), comments);
     }
 

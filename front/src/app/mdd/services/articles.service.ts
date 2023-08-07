@@ -13,4 +13,8 @@ export class ArticlesService {
   getArticles(): Observable<Article[]> {
     return this.http.get<Article[]>(`${this.baseUrl}/article`);
   }
+
+  addNewComment(postCommnted: { comment: string; articleId: number }) {
+    console.log(postCommnted);
+  }
 }

@@ -1,6 +1,7 @@
 import { Comment } from './comment';
 
 export class Article {
+  id!: number;
   userId!: number;
   subjectId!: number;
   title!: string;
