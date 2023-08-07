@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatCardModule } from '@angular/material/card';
+import { CommentsComponent } from './components/comments/comments.component';
+import { MaterialModule } from './material.module';
 
 @NgModule({
-  declarations: [],
-  imports: [CommonModule],
-  exports: [MatToolbarModule, MatCardModule],
+  declarations: [CommentsComponent],
+  imports: [CommonModule, MaterialModule],
+  exports: [CommentsComponent, MaterialModule],
 })
 export class SharedModule {}
