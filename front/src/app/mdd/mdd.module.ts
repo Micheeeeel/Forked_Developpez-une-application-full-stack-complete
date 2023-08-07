@@ -8,6 +8,7 @@ import { mddRoutingModule } from './mdd.routing.module';
 import { ArticlesService } from './services/articles.service';
 import { ArticlesResolver } from './resolvers/articles.resolver';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
+import { ArticleListItemComponent } from './components/article/article-list-item/article-list-item.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ArticleListComponent } from './components/article/article-list/article-
     SubjectFormComponent,
     SubjectDetailComponent,
     ArticleListComponent,
+    ArticleListItemComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, mddRoutingModule],
   exports: [SubjectsComponent, SubjectFormComponent, SubjectDetailComponent],
