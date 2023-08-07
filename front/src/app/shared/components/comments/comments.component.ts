@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { Comment } from 'src/app/core/models/comment';
 
 @Component({
@@ -9,9 +10,16 @@ import { Comment } from 'src/app/core/models/comment';
 export class CommentsComponent implements OnInit {
   @Input() comments!: Comment[];
 
-  constructor() {}
+  commentCtrl!: FormControl;
 
-  ngOnInit(): void {}
+  constructor(private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.commentCtrl = this.formBuilder.control('', [
+      Validators.required,
+      Validators.minLength(10),
+    ]);
+  }
 
   onLeaveComment() {
     throw new Error('Method not implemented.');

@@ -1,6 +1,11 @@
 <div class="comments-row">
   <mat-form-field>
-    <input type="text" matInput placeholder="Ajouter un commentaire..." />
+    <input
+      type="text"
+      matInput
+      placeholder="Ajouter un commentaire..."
+      [formControl]="commentCtrl"
+    />
   </mat-form-field>
   <button mat-icon-button color="primary" (onClick)="onLeaveComment()">
     <!-- pour checker les icons: https://fontawesomeicons.com/materialdesign/icons/ -->
