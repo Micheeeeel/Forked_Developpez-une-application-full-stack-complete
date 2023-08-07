@@ -7,7 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { mddRoutingModule } from './mdd.routing.module';
 import { ArticlesService } from './services/articles.service';
 import { ArticlesResolver } from './resolvers/articles.resolver';
-import { ArticleListComponent } from './components/article-list/article-list.component';
+import { ArticleListComponent } from './components/article/article-list/article-list.component';
 
 @NgModule({
   declarations: [
