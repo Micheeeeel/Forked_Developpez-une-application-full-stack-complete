@@ -3,7 +3,7 @@ import { of } from 'rxjs';
 import { Router } from '@angular/router';
 import { SubjectDetailComponent } from './subject-detail.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { SubjectService } from '../../../core/services/subject.service';
+import { SubjectService } from '../../../../core/services/subject.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SubjectDetailComponent', () => {

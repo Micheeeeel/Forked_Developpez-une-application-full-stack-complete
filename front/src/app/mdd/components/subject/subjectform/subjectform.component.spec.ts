@@ -4,7 +4,7 @@ import { of, throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SubjectService } from '../../../core/services/subject.service';
+import { SubjectService } from '../../../../core/services/subject.service';
 
 describe('SubjectFormComponent', () => {
   let component: SubjectFormComponent;

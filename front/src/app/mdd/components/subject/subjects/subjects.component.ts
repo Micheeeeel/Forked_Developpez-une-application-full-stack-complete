@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject as MySubject } from 'src/app/core/models/Subject';
-import { SubjectService } from '../../../core/services/subject.service';
+import { SubjectService } from '../../../../core/services/subject.service';
 import { Observable, Subject, interval } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
