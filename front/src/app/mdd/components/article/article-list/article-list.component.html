@@ -1,4 +1,5 @@
 <h2>Articles</h2>
 <app-article-list-item
   *ngFor="let article of articles$ | async"
+  [article]="article"
 ></app-article-list-item>

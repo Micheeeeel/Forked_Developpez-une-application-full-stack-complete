@@ -27,7 +27,6 @@ const routes = [
   {
     path: 'article',
     component: ArticleListComponent,
-    canActivate: [AuthGuard],
     resolve: { articles: ArticlesResolver },
   },
 ];
