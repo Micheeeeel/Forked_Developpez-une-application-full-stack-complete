@@ -82,7 +82,6 @@ export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (message) => {
-          console.log(message); // "Subject updated successfully"
           this.handleSuccess('Subject updated successfully');
         },
         error: (error) => {
@@ -97,7 +96,6 @@ export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (message) => {
-          console.log(message); // "Subject created successfully"
           this.handleSuccess('Subject created successfully');
         },
         error: (error) => {

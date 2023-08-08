@@ -60,11 +60,9 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
         .pipe()
         .subscribe({
           next: (message) => {
-            console.log(message); // "Subject created successfully"
             this.handleSuccess('User created successfully');
           },
           error: (error) => {
-            console.error(error);
             this.handleError('Failed to create user');
           },
         });

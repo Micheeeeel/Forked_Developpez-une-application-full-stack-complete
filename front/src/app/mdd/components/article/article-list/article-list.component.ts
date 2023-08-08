@@ -49,7 +49,6 @@ export class ArticleListComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe$))
       .subscribe({
         next: (message) => {
-          console.log(message); // "Subject created successfully"
           this.handleSuccess('Comment created successfully');
 
           // Reload the articles
