@@ -4,3 +4,11 @@
   [article]="article"
   (articleCommented)="onArticleCommented($event)"
 ></app-article-list-item>
+
+<div *ngIf="message">
+  {{ message }}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

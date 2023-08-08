@@ -21,9 +21,9 @@ export class SubjectFormComponent implements OnInit, AfterViewInit, OnDestroy {
   subjectForm!: FormGroup;
   isEdit: boolean = false;
   message: string | null = null;
+  errorMessage: string | null = null;
   public subjectId: string | null = null;
   @ViewChild('nameInput', { static: false }) nameInput!: ElementRef;
-  errorMessage: string | null = null;
 
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 

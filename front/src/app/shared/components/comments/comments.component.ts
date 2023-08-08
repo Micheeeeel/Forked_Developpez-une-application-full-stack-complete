@@ -21,6 +21,7 @@ export class CommentsComponent implements OnInit {
     this.commentCtrl = this.formBuilder.control('', [
       Validators.required,
       Validators.minLength(10),
+      Validators.maxLength(1000),
     ]);
   }
 

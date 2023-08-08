@@ -12,7 +12,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/comment")
@@ -40,16 +42,20 @@ public class CommentController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createComment(@RequestBody CommentDTO commentDTO) {
+    public ResponseEntity<Map<String, String>> createComment(@RequestBody CommentDTO commentDTO) {
         if (commentDTO.getContent() == null || commentDTO.getContent().trim().isEmpty()) {
             throw new InvalidCommentDataException("Invalid comment data");
         }
 
         Comment createdComment = commentService.createComment(commentDTO);
+        Map<String, String> response = new HashMap<>();
+
         if (createdComment != null) {
-            return ResponseEntity.status(HttpStatus.CREATED).body("New Comment created");
+            response.put("message", "New Comment created");
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to create Comment");
+            response.put("message", "Failed to create Comment");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
