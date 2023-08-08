@@ -45,22 +45,42 @@ public class CustomExceptionHandler {
     }
 
     @ExceptionHandler(ArticleNotFoundException.class)
-    public ResponseEntity<String> handleSubjectNotFoundException(ArticleNotFoundException ex) {
+    public ResponseEntity<String> handleArticleNotFoundException(ArticleNotFoundException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
     }
 
     @ExceptionHandler(UpdateArticleException.class)
-    public ResponseEntity<String> handleUpdateSubjectException(UpdateArticleException ex) {
+    public ResponseEntity<String> handleUpdateArticleException(UpdateArticleException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(DeleteArticleException.class)
-    public ResponseEntity<String> handleDeleteSubjectException(DeleteArticleException ex) {
+    public ResponseEntity<String> handleDeleteArticleException(DeleteArticleException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(InvalidArticleDataException.class)
-    public ResponseEntity<String> handleDeleteSubjectException(InvalidArticleDataException ex) {
+    public ResponseEntity<String> handleInvalidArticleDataException(InvalidArticleDataException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(CommentNotFoundException.class)
+    public ResponseEntity<String> handleCommentNotFoundException(CommentNotFoundException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(DeleteCommentException.class)
+    public ResponseEntity<String> handleDeleteCommentException(DeleteCommentException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(InvalidCommentDataException.class)
+    public ResponseEntity<String> handleInvalidCommentDataException(InvalidCommentDataException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(UpdateCommentException.class)
+    public ResponseEntity<String> handleUpdateCommentException(UpdateCommentException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }

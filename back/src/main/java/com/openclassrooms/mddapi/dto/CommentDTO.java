@@ -15,6 +15,10 @@ public class CommentDTO {
 
     private Long userId;
 
+    private String authorName; // Nom de l'auteur
+
+    private Long articleId;
+
     @NotBlank
     @Size(max = 1000)
     private String content;
