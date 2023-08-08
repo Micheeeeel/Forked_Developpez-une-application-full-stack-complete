@@ -1,6 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable, Subject, map, takeUntil } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  catchError,
+  map,
+  takeUntil,
+  throwError,
+} from 'rxjs';
 import { Article } from 'src/app/core/models/article';
 import { ArticlesService } from 'src/app/mdd/services/articles.service';
 
@@ -29,13 +36,6 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   handleSuccess(message: string) {
     console.log(message);
     this.message = message;
-    console.log('this.router.navigateByUrl(/mdd/article)');
-
-    // Navigate to an empty path first
-    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
-      // Navigate to the desired URL
-      this.router.navigateByUrl('/mdd/article');
-    });
   }
 
   handleError(message: string) {
@@ -51,11 +51,24 @@ export class ArticleListComponent implements OnInit, OnDestroy {
         next: (message) => {
           console.log(message); // "Subject created successfully"
           this.handleSuccess('Comment created successfully');
+
+          // Reload the articles
+          this.articles$ = this.reloadArticles();
         },
         error: (error) => {
           this.handleError('Failed to create Comment');
         },
       });
+  }
+
+  private reloadArticles(): Observable<Article[]> {
+    return this.service.getArticles().pipe(
+      catchError((error) => {
+        console.error(error);
+        this.errorMessage = 'Error fetching articles';
+        return throwError(() => new Error('Error fetching articles'));
+      })
+    );
   }
 
   ngOnDestroy(): void {
