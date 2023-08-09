@@ -21,20 +21,27 @@ public class Article {
     private Long id;
 
     @ManyToOne
-    private Subject subject;
+    @JoinColumn(name = "user_id", nullable = false)
+    private User author; // The user who authored the article
 
     @ManyToOne
-    private User author;
+    @JoinColumn(name = "subject_id", nullable = false)
+    private Subject subject; // The subject the article belongs to
 
     @Column(nullable = false)    // le nom du titre ne peut pas être vide
     private String title;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date date;
-
     @Lob    // permet de stocker de longs textes
-    @Column(nullable = false)    // le contenu de l'article ne peut pas être vide
+    @Column(nullable = false, length = 5000) // adjust length as needed
     private String content;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date publishedAt;
+
+    @PrePersist
+    protected void onCreate() {
+        publishedAt = new Date();
+    }
 
     public static Article createNewArticle(String title, String content, Subject subject, User author) {
         Article article = new Article();
@@ -44,6 +51,11 @@ public class Article {
         article.setAuthor(author);
         return article;
     }
+
+
+
+
+
 
 
 }

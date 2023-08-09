@@ -1,6 +1,9 @@
 package com.openclassrooms.mddapi.repositoryTests;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import com.openclassrooms.mddapi.repository.SubjectRepository;
+import com.openclassrooms.mddapi.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +29,11 @@ public class ArticleRepositoryTest {
     @Autowired
     private ArticleRepository articleRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @Test
     public void testSaveArticle() {
@@ -108,9 +116,11 @@ public class ArticleRepositoryTest {
     public void testUpdateArticle() {
         // Créer un nouvel utilisateur
         User author = User.createNewUser("test@example.com", "testuser", "password");
+        userRepository.save(author);
 
         // Créer un nouveau sujet
         Subject subject = Subject.createNewSubject("Java");
+        subjectRepository.save(subject);
 
         // Créer un nouvel article
         Article article = Article.createNewArticle("Article de test", "Contenu de l'article", subject, author);
@@ -132,9 +142,11 @@ public class ArticleRepositoryTest {
    public void testDeleteArticle() {
         // Créer un nouvel utilisateur
         User author = User.createNewUser("test@example.com", "testuser", "password");
+        userRepository.save(author);
 
         // Créer un nouveau sujet
         Subject subject = Subject.createNewSubject("Java");
+       subjectRepository.save(subject);
 
         // Créer un nouvel article
         Article article = Article.createNewArticle("Article de test", "Contenu de l'article", subject, author);
@@ -150,11 +162,12 @@ public class ArticleRepositoryTest {
    @Test
    public void testUniqueConstraints() {
        // Créer un nouvel utilisateur
-        // Créer un nouvel utilisateur
         User author = User.createNewUser("test@example.com", "testuser", "password");
+       userRepository.save(author);
 
         // Créer un nouveau sujet
         Subject subject = Subject.createNewSubject("Java");
+       subjectRepository.save(subject);
 
        // Créer 2 articles avec le même titre
        Article article1 = Article.createNewArticle("Article de test", "Contenu de l'article 1", subject, author);

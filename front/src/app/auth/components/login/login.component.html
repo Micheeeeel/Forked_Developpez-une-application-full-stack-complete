@@ -1,0 +1,73 @@
+<div>
+  <h2>Connexion</h2>
+  <form [formGroup]="loginForm">
+    <div
+      style="display: flex; flex-direction: column; gap: 10px; max-width: 50ch"
+    >
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <label for="username" style="width: 100px">Username</label>
+        <input
+          type="text"
+          id="username"
+          formControlName="username"
+          #usernameInput
+          style="width: 100%"
+        />
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <label for="email" style="width: 100px">Email</label>
+        <input
+          type="email"
+          id="email"
+          formControlName="email"
+          style="width: 100%"
+        />
+      </div>
+      <div
+        style="
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        "
+      >
+        <label for="password" style="width: 100px">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          style="width: 100%"
+        />
+      </div>
+      <button
+        type="submit"
+        (click)="createUser()"
+        [disabled]="loginForm.invalid"
+      >
+        Connexion
+      </button>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="message">
+  {{ message }}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<!-- Ajoute le lien vers le HomeComponent -->
+<a routerLink="">Revenir en page d'accueil</a>
