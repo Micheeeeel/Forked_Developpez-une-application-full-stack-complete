@@ -8,26 +8,31 @@ import { ArticleListComponent } from './components/article/article-list/article-
 import { ArticlesResolver } from './resolvers/articles.resolver';
 
 const routes = [
-  { path: 'subjects', component: SubjectsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'subjects',
+    component: SubjectsComponent,
+    //canActivate: [AuthGuard]
+  },
   {
     path: 'subjects/subject-form',
     component: SubjectFormComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form/:id',
     component: SubjectFormComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'subjects/:id',
     component: SubjectDetailComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'article',
     component: ArticleListComponent,
     resolve: { articles: ArticlesResolver },
+    //canActivate: [AuthGuard],
   },
 ];
 

@@ -3,6 +3,7 @@ package com.openclassrooms.mddapi.service;
 import com.openclassrooms.mddapi.dto.SubjectDTO;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
+import com.openclassrooms.mddapi.repository.SubscriptionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -12,15 +13,23 @@ import java.util.stream.Collectors;
 @Service
 public class SubjectService {
     private final SubjectRepository subjectRepository;
+    private final SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    public SubjectService(SubjectRepository subjectRepository) {
+    public SubjectService(SubjectRepository subjectRepository, SubscriptionRepository subscriptionRepository) {
+
         this.subjectRepository = subjectRepository;
+        this.subscriptionRepository = subscriptionRepository;
     }
 
     public List<SubjectDTO> getAllSubjects() {
+        Long userId = 1L; // Utilisateur mocké
         List<Subject> subjects = subjectRepository.findAll();
-        return subjects.stream().map(this::toDTO).collect(Collectors.toList());
+        return subjects.stream().map(subject -> {
+            SubjectDTO dto = this.toDTO(subject);
+            dto.setFollowed(subscriptionRepository.existsByUserIdAndSubjectId(userId, subject.getId()));
+            return dto;
+        }).collect(Collectors.toList());
     }
 
     public SubjectDTO getSubjectById(Long id) {

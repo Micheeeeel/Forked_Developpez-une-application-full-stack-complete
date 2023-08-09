@@ -17,6 +17,12 @@
         >
           Delete
         </button>
+        <button
+          class="subscribe-button"
+          (click)="onSubscribeSubject(subject.id)"
+        >
+          {{ subject.followed ? "Se désabonner" : "S'abonner" }}
+        </button>
       </div>
     </li>
   </ul>

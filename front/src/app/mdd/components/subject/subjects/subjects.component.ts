@@ -4,6 +4,7 @@ import { SubjectService } from '../../../../core/services/subject.service';
 import { Observable, Subject, interval } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { SubscriptionService } from 'src/app/core/services/subscriptionService';
 
 @Component({
   selector: 'app-subjects-component',
@@ -15,25 +16,26 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   errorMessage: string | null = null;
 
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
+  isFollowed = false;
 
-  constructor(private subjectService: SubjectService, private router: Router) {}
+  constructor(
+    private subjectService: SubjectService,
+    private router: Router,
+    private subscriptionService: SubscriptionService
+  ) {}
 
   ngOnInit(): void {
     this.getSubjects();
   }
 
   getSubjects(): void {
-    // // use interval to test the unsubscribe
-    // interval(1000)
-    //   .pipe(tap(console.log), takeUntil(this.unsubscribe$))
-    //   .subscribe();
-
     this.subjectService
       .getSubjects()
       .pipe(
         tap({
           next: (subjects) => {
             this.subjects = subjects;
+            console.log(subjects);
           },
           error: (error) => {
             console.error(error);
@@ -71,6 +73,21 @@ export class SubjectsComponent implements OnInit, OnDestroy {
 
   onEditSubject(id: string) {
     this.router.navigateByUrl(`/mdd/subjects/subject-form/${id}`);
+  }
+
+  onSubscribeSubject(subjectId: number) {
+    const subject = this.subjects.find((s) => s.id === subjectId);
+    if (!subject) return; // S'assurer que le sujet existe
+
+    if (subject.followed) {
+      this.subscriptionService.unsubscribeSubject(subjectId).subscribe(() => {
+        subject.followed = false;
+      });
+    } else {
+      this.subscriptionService.subscribeToSubject(subjectId).subscribe(() => {
+        subject.followed = true;
+      });
+    }
   }
 
   ngOnDestroy(): void {

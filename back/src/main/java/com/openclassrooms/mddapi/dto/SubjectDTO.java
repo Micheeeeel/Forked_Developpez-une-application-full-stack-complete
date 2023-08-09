@@ -17,5 +17,11 @@ public class SubjectDTO {
     @NotBlank
     @Size(max = 100)
     private String name;
+    private boolean isFollowed;
 
+    public SubjectDTO(Long id, String name) {
+        this.id = id;
+        this.name = name;
+        this.isFollowed = false;
+    }
 }
