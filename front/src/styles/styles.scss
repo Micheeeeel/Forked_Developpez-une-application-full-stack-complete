@@ -2,3 +2,18 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+:host {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;  // Assure que l'application prend toute la hauteur de la fenêtre
+  
+    .main-content {
+      flex: 1; // Prend tout l'espace restant après que d'autres éléments soient affichés
+      display: flex;
+      justify-content: center;
+      align-items: center; // Centrer le contenu horizontalement et verticalement
+      overflow: auto; // Dans le cas où le contenu dépasse la hauteur de l'écran, une barre de défilement apparaîtra
+    }
+  }
+  

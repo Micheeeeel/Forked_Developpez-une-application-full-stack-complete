@@ -11,15 +11,12 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onDisplayLogin(): void {
+  onSignUp(): void {
     this.router.navigateByUrl('/auth/login');
   }
 
-  onDisplaySubjects() {
-    this.router.navigateByUrl('/mdd/subjects');
+  onSignIn(): void {
+    this.router.navigateByUrl('/auth/login');
   }
 
-  onDisplayArticles() {
-    this.router.navigateByUrl('/mdd/article');
-  }
 }

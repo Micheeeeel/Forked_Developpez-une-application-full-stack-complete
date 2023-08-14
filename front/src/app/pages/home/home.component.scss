@@ -1,7 +1,42 @@
+
 .center {
-  height: 100vh;
   display: flex;
-  justify-content: center;
-  align-items: center;
   flex-direction: column;
+  align-items: center; // Centrer les éléments horizontalement
+  justify-content: center; // Centrer les éléments verticalement
+  width: 100%; // Prend toute la largeur disponible
+  max-width: 800px; // Largeur maximale
+
+  background-color: #e0e0e0; /* Gris clair pour le container principal */
+  border: dashed #000; /* Un contour en pointillés pour mieux distinguer le container */
+
+  img {
+    width: 80%;  // Prend 80% de la largeur de son parent .center
+    max-width: 600px;  // Mais ne dépasse jamais cette largeur maximale
+    margin-bottom: 2rem;  // Espacement avec les boutons en dessous
+  }
+
+  .button-group {
+    display: flex;
+    gap: 3rem;  // Espacement entre les boutons
+
+    background-color: #d1c4e9; /* Pourpre clair pour le groupe de boutons */
+    padding: 10px; /* Espace autour des boutons */
+    border-radius: 5px; /* Adoucir les coins */
+
+    @media (max-width: 500px) {  // Quand l'écran est de 500px ou moins
+      flex-direction: column;  // Les boutons sont affichés en colonne plutôt qu'en ligne
+      gap: 2rem;  // Réduire un peu l'espacement
+    }
+  }
+
+
+  button {
+    transition: background-color 0.3s ease; /* Effet de transition pour le hover */
+  }
+
+  button:hover {
+    background-color: #9575cd; /* Pourpre foncé au survol */
+  }
 }
+
