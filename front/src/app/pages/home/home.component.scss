@@ -1,42 +1,39 @@
-
 .center {
-  display: flex;
-  flex-direction: column;
-  align-items: center; // Centrer les éléments horizontalement
-  justify-content: center; // Centrer les éléments verticalement
-  width: 100%; // Prend toute la largeur disponible
-  max-width: 800px; // Largeur maximale
+  display: flex; // Utilise le modèle de mise en page flexible pour positionner les éléments enfants.
+  flex-direction: column; // Organise les éléments enfants en colonne (les uns en dessous des autres).
+  align-items: center; // Centre horizontalement les éléments enfants.
+  justify-content: center; // Centre verticalement les éléments enfants.
+  width: 100%; // Prend toute la largeur disponible.
+  max-width: 800px; // Limite la largeur à 800px.
 
-  background-color: #e0e0e0; /* Gris clair pour le container principal */
-  border: dashed #000; /* Un contour en pointillés pour mieux distinguer le container */
+  background-color: #e0e0e0; // Donne une couleur de fond grise claire au container.
+  border: dashed #000; // Ajoute une bordure en pointillés noirs autour du container.
 
   img {
-    width: 80%;  // Prend 80% de la largeur de son parent .center
-    max-width: 600px;  // Mais ne dépasse jamais cette largeur maximale
-    margin-bottom: 2rem;  // Espacement avec les boutons en dessous
+    width: 80%;  // L'image prend 80% de la largeur de son parent .center.
+    max-width: 600px;  // L'image est limitée à une largeur maximale de 600px.
+    margin-bottom: 2rem;  // Ajoute un espace en bas de l'image.
   }
 
   .button-group {
-    display: flex;
-    gap: 3rem;  // Espacement entre les boutons
+    display: flex; // Utilise le modèle de mise en page flexible pour positionner ses enfants.
+    gap: 3rem;  // Espace de 3rem entre chaque bouton.
 
-    background-color: #d1c4e9; /* Pourpre clair pour le groupe de boutons */
-    padding: 10px; /* Espace autour des boutons */
-    border-radius: 5px; /* Adoucir les coins */
+    background-color: #d1c4e9; // Donne une couleur de fond pourpre claire au groupe de boutons.
+    padding: 10px; // Ajoute un espace interne autour des boutons.
+    border-radius: 5px; // Arrondit les coins du container.
 
-    @media (max-width: 500px) {  // Quand l'écran est de 500px ou moins
-      flex-direction: column;  // Les boutons sont affichés en colonne plutôt qu'en ligne
-      gap: 2rem;  // Réduire un peu l'espacement
+    @media (max-width: 500px) {  // S'applique lorsque la largeur de l'écran est de 500px ou moins.
+      flex-direction: column;  // Les boutons sont organisés en colonne (les uns en dessous des autres).
+      gap: 2rem;  // L'espacement entre les boutons est réduit à 2rem.
     }
   }
 
-
   button {
-    transition: background-color 0.3s ease; /* Effet de transition pour le hover */
+    transition: background-color 0.3s ease; // Ajoute un effet de transition lors du changement de la couleur de fond du bouton.
   }
 
   button:hover {
-    background-color: #9575cd; /* Pourpre foncé au survol */
+    background-color: #9575cd; // Change la couleur de fond du bouton en un pourpre foncé lors du survol.
   }
 }
-

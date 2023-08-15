@@ -1,10 +1,16 @@
 .main-content {
-  box-sizing: border-box;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
+    box-sizing: border-box; // Change la manière dont les propriétés de dimensionnement (comme la largeur et la hauteur) sont mesurées pour inclure le padding et les bordures, et non le contenu seul.
+    padding: 20px; // Ajoute un espace interne de 20px tout autour du contenu.
+    //max-width: 800px; // La largeur maximale de l'élément est limitée à 800px.
+    margin: auto; // Centre l'élément horizontalement dans son conteneur.
+  
+    display: flex; // Applique le modèle de boîte flexible à l'élément pour aligner et positionner ses enfants de manière plus avancée.
+    justify-content: center; // Centre horizontalement les éléments enfants à l'intérieur du conteneur flex.
+    align-items: center; // Centre verticalement les éléments enfants à l'intérieur du conteneur flex.
+  
+    height: 100vh; // Définit la hauteur de l'élément à 100% de la hauteur de la fenêtre de visualisation.
+    overflow: auto; // Dans le cas où le contenu dépasse la hauteur de l'écran, une barre de défilement apparaîtra.
 
-  display: flex;
-  justify-content: center;
-  align-items: center; /* si vous voulez aussi centrer verticalement */
-}
+    background-color: #eae1ae; // Color le fond pour facilité le développement
+  }
+  
