@@ -6,34 +6,72 @@
   width: 100%; // Prend toute la largeur disponible.
   max-width: 800px; // Limite la largeur à 800px.
 
-  background-color: #e0e0e0; // Donne une couleur de fond grise claire au container.
-  border: dashed #000; // Ajoute une bordure en pointillés noirs autour du container.
+  // background-color: #e0e0e0; // Donne une couleur de fond grise claire au container.
+  // border: dashed #000; // Ajoute une bordure en pointillés noirs autour du container.
+
+  
 
   img {
     width: 80%;  // L'image prend 80% de la largeur de son parent .center.
     max-width: 600px;  // L'image est limitée à une largeur maximale de 600px.
     margin-bottom: 2rem;  // Ajoute un espace en bas de l'image.
+
+    padding-top: 15vh; // Par défaut, le conteneur est un peu descendu.
+    
+
+    @media (max-width: 600px) {
+      padding-top: 8vh; // Encore plus haut pour les écrans de moins de 600px de large.
+    }
+
+    @media (max-width: 500px) {
+      padding-top: 3vh; // Encore plus haut pour les très petits écrans.
+    }
+
+    // background-color: #72a5db; // Donne une couleur de fond grise claire au container.
   }
 
   .button-group {
     display: flex; // Utilise le modèle de mise en page flexible pour positionner ses enfants.
-    gap: 3rem;  // Espace de 3rem entre chaque bouton.
+    gap: 5rem;  // Espace de 3rem entre chaque bouton.
 
-    background-color: #d1c4e9; // Donne une couleur de fond pourpre claire au groupe de boutons.
     padding: 10px; // Ajoute un espace interne autour des boutons.
     border-radius: 5px; // Arrondit les coins du container.
 
-    @media (max-width: 500px) {  // S'applique lorsque la largeur de l'écran est de 500px ou moins.
-      flex-direction: column;  // Les boutons sont organisés en colonne (les uns en dessous des autres).
-      gap: 2rem;  // L'espacement entre les boutons est réduit à 2rem.
+    padding-top: 2vh;
+
+    @media (max-width: 600px) {
+      padding-top: 7vh; // Encore plus haut pour les écrans de moins de 600px de large.
     }
+
+    @media (max-width: 500px) {
+      padding-top: 10vh; // Encore plus haut pour les très petits écrans.
+      flex-direction: column;  // Les boutons sont organisés en colonne (les uns en dessous des autres).
+      gap: 3rem;  // L'espacement entre les boutons est réduit à 2rem.
+    }
+
+
+
+
+    // background-color: #d1c4e9; // Donne une couleur de fond pourpre claire au groupe de boutons.
+
   }
 
   button {
-    transition: background-color 0.3s ease; // Ajoute un effet de transition lors du changement de la couleur de fond du bouton.
-  }
+    background-color: #ffffff; // Couleur de fond blanche pour le bouton
+    color: #000000; // Couleur de texte noire (ajoutez cette ligne si vos boutons ont du texte)
+    padding: 8px 50px; // Ajoute du padding pour rendre le bouton plus gros
+    font-size: 18px; // Augmente la taille du texte
+    //border: none; // Supprime les bordures par défaut du bouton
+    border-radius: 5px; // Adoucit les coins
+    cursor: pointer; // Change le curseur en forme de main lors du survol
+    transition: background-color 0.3s ease; // Ajoute un effet de transition lors du changement de la couleur de fond du bouton
+    box-shadow: 0 0 3px #000; // Ombre uniforme noire autour du bouton
 
-  button:hover {
-    background-color: #9575cd; // Change la couleur de fond du bouton en un pourpre foncé lors du survol.
   }
+  
+  button:hover {
+    background-color: #9575cd; // Change la couleur de fond du bouton en un pourpre foncé lors du survol
+    color: #ffffff; // Change la couleur du texte en blanc lors du survol
+  }
+  
 }
