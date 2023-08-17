@@ -1,7 +1,10 @@
 mat-card {
-  margin-bottom: 20 px;
+  background-color: #f5f5f5; /* Gris léger. Ajustez la couleur selon vos besoins */
+  width: 100%;
+  cursor: pointer; /* Change le curseur en main quand vous survolez la carte pour indiquer qu'elle est cliquable */
+  box-sizing: border-box; // Ajouté pour éviter que les paddings et bordures par défaut de mat-card ne dépassent de la carte
 }
 
-.article-content {
-  margin-top: 10;
-}
+// .article-content {
+//   margin-top: 10;
+// }

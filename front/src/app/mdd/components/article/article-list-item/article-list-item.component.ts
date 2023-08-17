@@ -20,4 +20,9 @@ export class ArticleListItemComponent implements OnInit {
   onNewComment(comment: string) {
     this.articleCommented.emit({ articleId: this.article.id, comment });
   }
+
+  showArticleDetails(article: Article) {
+    // Votre logique pour afficher les détails de l'article.
+    // Cela pourrait inclure la navigation vers un autre composant ou l'affichage d'une boîte de dialogue, par exemple.
+  }
 }
