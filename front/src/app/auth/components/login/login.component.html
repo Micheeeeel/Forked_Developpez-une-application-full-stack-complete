@@ -1,4 +1,4 @@
-<div>
+<div class="login-container">
   <h2>Inscription</h2>
   <form [formGroup]="loginForm" class="login-form">
     <div class="login-rows">
@@ -16,10 +16,6 @@
         </mat-form-field>
       </p>
 
-      <!-- <div style="display: flex" class="form-field"> -->
-      <!-- <p>
-          <label for="email">Adresse e-mail</label>
-        </p> -->
       <p>
         <mat-form-field appearance="outline">
           <mat-label>Adresse e-mail</mat-label>
@@ -32,7 +28,6 @@
           />
         </mat-form-field>
       </p>
-      <!-- </div> -->
 
       <p>
         <mat-form-field appearance="outline">
@@ -47,13 +42,17 @@
         </mat-form-field>
       </p>
 
-      <button
-        type="submit"
-        (click)="createUser()"
-        [disabled]="loginForm.invalid"
-      >
-        S'inscrire
-      </button>
+      <div class="button-group">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          (click)="createUser()"
+          [disabled]="loginForm.invalid"
+        >
+          S'inscrire
+        </button>
+      </div>
     </div>
   </form>
 </div>
@@ -67,4 +66,6 @@
 </div>
 
 <!-- Ajoute le lien vers le HomeComponent -->
-<a routerLink="">Revenir en page d'accueil</a>
+<a routerLink="">
+  <mat-icon class="back-icon">keyboard_backspace</mat-icon>
+</a>

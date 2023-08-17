@@ -1,12 +1,31 @@
+// Importer les variables de style présentes dans le fichier _variables.scss
+@import "../../../../styles/_variables.scss";
+
 .custom-toolbar {
-  height: 7rem;
+  height: $header-height;
   background-color: white; // Changer la couleur d'arrière-plan en blanc
   color: black; // Changer la couleur du texte en noir
   border-bottom: 2px solid black; //
 }
 
 .logo-image {
-  height: 7rem; /* Vous pouvez ajuster cette valeur */
+  height: $header-height; /* Vous pouvez ajuster cette valeur */
   vertical-align: middle;
   margin-right: 15px;
+}
+
+/* Media query pour les écrans de 500px ou moins */
+@media (max-width: 500px) {
+  .custom-toolbar {
+    height: calc($header-height * 2); // Augmente la hauteur de 50%
+    display: flex;
+    align-items: flex-end; // Place le contenu en bas de la barre
+    justify-content: center; // Centre le contenu horizontalement
+    border-bottom: 0px; //
+  }
+
+  .logo-image {
+    margin: 0; // Supprime la marge pour centrer le logo
+    padding-bottom: 10px; // Petite marge en bas pour éviter que le logo touche le bord inférieur
+  }
 }
