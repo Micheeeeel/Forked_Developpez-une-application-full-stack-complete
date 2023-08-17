@@ -1,0 +1,12 @@
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px; /* C'est l'espace entre les articles. Ajustez cette valeur selon vos besoins. */
+}
+
+@media (max-width: 500px) {
+  /* Ajustez cette valeur de breakpoint selon vos besoins */
+  .article-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   handleSuccess(message: string) {
     console.log(message);
     this.message = message;
-    this.router.navigateByUrl('/mdd/subjects');
+    this.router.navigateByUrl('/mdd/article');
   }
 
   handleError(message: string) {
