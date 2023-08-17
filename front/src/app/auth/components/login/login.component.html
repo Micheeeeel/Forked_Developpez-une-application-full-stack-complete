@@ -1,6 +1,6 @@
 <div>
-  <h2>Connexion</h2>
-  <form [formGroup]="loginForm">
+  <h2>Inscription</h2>
+  <form [formGroup]="loginForm" class="login-form">
     <div
       style="display: flex; flex-direction: column; gap: 10px; max-width: 50ch"
     >
@@ -10,8 +10,8 @@
           align-items: center;
           justify-content: space-between;
         "
-      >
-        <label for="username" style="width: 100px">Username</label>
+      class="form-field">
+        <label for="username" style="width: 100px">Nom d'utilisateur</label>
         <input
           type="text"
           id="username"
@@ -26,8 +26,8 @@
           align-items: center;
           justify-content: space-between;
         "
-      >
-        <label for="email" style="width: 100px">Email</label>
+      class="form-field">
+        <label for="email" style="width: 100px">Adresse e-mail</label>
         <input
           type="email"
           id="email"
@@ -41,8 +41,8 @@
           align-items: center;
           justify-content: space-between;
         "
-      >
-        <label for="password" style="width: 100px">Password</label>
+      class="form-field">
+        <label for="password" style="width: 100px">Mot de passe</label>
         <input
           type="password"
           id="password"
@@ -55,7 +55,7 @@
         (click)="createUser()"
         [disabled]="loginForm.invalid"
       >
-        Connexion
+        S'inscrire
       </button>
     </div>
   </form>
