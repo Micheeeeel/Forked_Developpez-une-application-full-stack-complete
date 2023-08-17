@@ -16,6 +16,10 @@
 .login-form {
   width: 100%; // Prendre toute la largeur du conteneur .login-container
 
+  mat-form-field {
+    width: 350px; // Cela prendra toute la largeur disponible de son conteneur parent
+  }
+
   .login-rows {
   }
 
@@ -25,7 +29,7 @@
     justify-content: center;
 
     button {
-      width: 130px; // Définir la largeur souhaitée pour le bouton
+      width: 150px; // Définir la largeur souhaitée pour le bouton
       text-align: center; // Pour vous assurer que le texte du bouton reste centré
     }
   }
