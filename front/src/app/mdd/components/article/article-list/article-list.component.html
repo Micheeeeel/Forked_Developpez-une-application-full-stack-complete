@@ -10,8 +10,18 @@
     </button>
   </div>
   <div class="top-right">
-    Triez par
-    <mat-icon>arrow_downward</mat-icon>
+    <button mat-button [matMenuTriggerFor]="sortMenu">
+      Triez par <mat-icon>arrow_downward</mat-icon>
+    </button>
+    <mat-menu #sortMenu="matMenu">
+      <button mat-menu-item (click)="sortArticles('title')">Titre</button>
+      <button mat-menu-item (click)="sortArticles('content')">Contenu</button>
+      <button mat-menu-item (click)="sortArticles('publishedAt')">
+        Date de publication
+      </button>
+
+      <!-- Ajoutez d'autres critères si nécessaire -->
+    </mat-menu>
   </div>
   <app-article-list-item
     *ngFor="let article of articles$ | async"

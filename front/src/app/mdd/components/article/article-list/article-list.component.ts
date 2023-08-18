@@ -74,6 +74,22 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     throw new Error('Method not implemented.');
   }
 
+  sortArticles(criterion: 'title' | 'content' | 'publishedAt') {
+    this.articles$ = this.articles$.pipe(
+      map((articles: Article[]) =>
+        articles.sort((a, b) => {
+          if (a[criterion] > b[criterion]) {
+            return 1;
+          }
+          if (a[criterion] < b[criterion]) {
+            return -1;
+          }
+          return 0;
+        })
+      )
+    );
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next(true);
 
