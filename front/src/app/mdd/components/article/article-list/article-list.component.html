@@ -1,6 +1,18 @@
-<h2>Articles</h2>
-
 <div class="article-grid">
+  <div class="top-left">
+    <button
+      type="submit"
+      mat-raised-button
+      color="primary"
+      (click)="CreateArticle()"
+    >
+      Créer un article
+    </button>
+  </div>
+  <div class="top-right">
+    Triez par
+    <mat-icon>arrow_downward</mat-icon>
+  </div>
   <app-article-list-item
     *ngFor="let article of articles$ | async"
     [article]="article"

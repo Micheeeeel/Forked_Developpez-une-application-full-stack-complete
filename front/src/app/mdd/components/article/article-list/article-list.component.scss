@@ -1,12 +1,38 @@
 .article-grid {
+  padding: 15px;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 16px; /* C'est l'espace entre les articles. Ajustez cette valeur selon vos besoins. */
+  grid-template-rows: auto;
+  //gap: 16px; /* C'est l'espace entre les articles. Ajustez cette valeur selon vos besoins. */
+  column-gap: 40px;
+  row-gap: 28px;
+}
+
+.top-left {
+  grid-column: 1;
+}
+
+.top-right {
+  grid-column: 2;
+  justify-self: right;
+
+  display: flex;
+  align-items: center; /* aligne verticalement le contenu au centre */
+  gap: 8px; /* espace entre les éléments à l'intérieur du flex container, vous pouvez ajuster selon vos besoins */
 }
 
 @media (max-width: 500px) {
   /* Ajustez cette valeur de breakpoint selon vos besoins */
   .article-grid {
     grid-template-columns: 1fr;
+  }
+
+  .top-right {
+    grid-column: 1; /* Pour le mettre dans sa propre ligne sous l'élément de gauche */
+    justify-self: center;
+  }
+
+  .top-left {
+    justify-self: center;
   }
 }

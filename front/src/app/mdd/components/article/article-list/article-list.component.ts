@@ -70,6 +70,10 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     );
   }
 
+  CreateArticle() {
+    throw new Error('Method not implemented.');
+  }
+
   ngOnDestroy(): void {
     this.unsubscribe$.next(true);
 
