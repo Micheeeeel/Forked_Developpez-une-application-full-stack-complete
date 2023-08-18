@@ -1,8 +1,8 @@
 package com.openclassrooms.mddapi.service;
 
 import com.openclassrooms.mddapi.dto.ArticleDTO;
+import com.openclassrooms.mddapi.dto.ArticleWithCommentsDTO;
 import com.openclassrooms.mddapi.dto.CommentDTO;
-import com.openclassrooms.mddapi.dto.SubjectDTO;
 import com.openclassrooms.mddapi.exception.SubjectNotFoundException;
 import com.openclassrooms.mddapi.exception.UserNotFoundException;
 import com.openclassrooms.mddapi.model.Article;
@@ -42,20 +42,20 @@ public class ArticleService {
         return articles.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    public ArticleDTO getArticleById(Long id) {
+    public ArticleWithCommentsDTO getArticleById(Long id) {
         Optional<Article> optionalArticle = articleRepository.findById(id);
-        return optionalArticle.map(this::toDTO).orElse(null);
+        return optionalArticle.map(this::toWithCommentsDTO).orElse(null);
     }
 
-    public Article createArticle(ArticleDTO articleDTO) {
-        Article article = getArticle(articleDTO);
+    public Article createArticle(ArticleWithCommentsDTO articleWithCommentsDTO) {
+        Article article = getArticle(articleWithCommentsDTO);
 
         // Save the article in the database
         return articleRepository.save(article);
     }
 
-    public Article updateArticle(Long id, ArticleDTO articleDTO) {
-        Article article = getArticle(articleDTO);
+    public Article updateArticle(Long id, ArticleWithCommentsDTO articleWithCommentsDTO) {
+        Article article = getArticle(articleWithCommentsDTO);
 
         article.setId(id);
 
@@ -63,19 +63,19 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    private Article getArticle(ArticleDTO articleDTO) {
+    private Article getArticle(ArticleWithCommentsDTO articleWithCommentsDTO) {
         // Trouver l'auteur par userId
-        User author = userRepository.findById(articleDTO.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + articleDTO.getUserId() + " not found"));
+        User author = userRepository.findById(articleWithCommentsDTO.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + articleWithCommentsDTO.getUserId() + " not found"));
 
         // Trouver le sujet par subjectId
-        Subject subject = subjectRepository.findById(articleDTO.getSubjectId())
-                .orElseThrow(() -> new SubjectNotFoundException("Subject with ID " + articleDTO.getSubjectId() + " not found"));
+        Subject subject = subjectRepository.findById(articleWithCommentsDTO.getSubjectId())
+                .orElseThrow(() -> new SubjectNotFoundException("Subject with ID " + articleWithCommentsDTO.getSubjectId() + " not found"));
 
         // Créer l'entité Article en utilisant la méthode statique de votre classe
         Article article = Article.createNewArticle(
-                articleDTO.getTitle(),
-                articleDTO.getContent(),
+                articleWithCommentsDTO.getTitle(),
+                articleWithCommentsDTO.getContent(),
                 subject,
                 author
         );
@@ -88,11 +88,16 @@ public class ArticleService {
 
 
 
-    private ArticleDTO toDTO(Article article) {
+    private ArticleWithCommentsDTO toWithCommentsDTO(Article article) {
         List<CommentDTO> comments = getCommentsByArticleId(article.getId());
 
-        return new ArticleDTO(article.getId(), article.getAuthor().getId(), article.getSubject().getId(),
+        return new ArticleWithCommentsDTO(article.getId(), article.getAuthor().getId(), article.getSubject().getId(),
                 article.getTitle(), article.getContent(), article.getPublishedAt(), comments);
+    }
+
+    private ArticleDTO toDTO(Article article) {
+        return new ArticleDTO(article.getId(), article.getAuthor().getId(), article.getSubject().getId(),
+                article.getTitle(), article.getContent(), article.getPublishedAt());
     }
 
     public List<CommentDTO> getCommentsByArticleId(Long articleId) {

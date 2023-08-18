@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.ArticleDTO;
+import com.openclassrooms.mddapi.dto.ArticleWithCommentsDTO;
 import com.openclassrooms.mddapi.exception.*;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.service.ArticleService;
@@ -27,21 +28,21 @@ public class ArticleController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleDTO> getArticleById(@PathVariable Long id) {
-        ArticleDTO articleDTO = articleService.getArticleById(id);
-        if (articleDTO == null) {
+    public ResponseEntity<ArticleWithCommentsDTO> getArticleById(@PathVariable Long id) {
+        ArticleWithCommentsDTO articleWithCommentsDTO = articleService.getArticleById(id);
+        if (articleWithCommentsDTO == null) {
             throw new ArticleNotFoundException("Article with ID " + id + " not found");
         }
-        return ResponseEntity.ok(articleDTO);
+        return ResponseEntity.ok(articleWithCommentsDTO);
     }
 
     @PostMapping
-    public ResponseEntity<String> createArticle(@RequestBody ArticleDTO articleDTO) {
-        if (articleDTO.getContent() == null || articleDTO.getContent().trim().isEmpty()) {
+    public ResponseEntity<String> createArticle(@RequestBody ArticleWithCommentsDTO articleWithCommentsDTO) {
+        if (articleWithCommentsDTO.getContent() == null || articleWithCommentsDTO.getContent().trim().isEmpty()) {
             throw new InvalidArticleDataException("Invalid article data");
         }
 
-        Article createdArticle = articleService.createArticle(articleDTO);
+        Article createdArticle = articleService.createArticle(articleWithCommentsDTO);
         if (createdArticle != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body("New Article created");
         } else {
@@ -50,17 +51,17 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateArticle(@PathVariable Long id, @RequestBody ArticleDTO articleDTO) {
-        if (articleDTO.getContent() == null || articleDTO.getContent().trim().isEmpty()) {
+    public ResponseEntity<String> updateArticle(@PathVariable Long id, @RequestBody ArticleWithCommentsDTO articleWithCommentsDTO) {
+        if (articleWithCommentsDTO.getContent() == null || articleWithCommentsDTO.getContent().trim().isEmpty()) {
             throw new InvalidArticleDataException("Invalid article data");
         }
 
-        ArticleDTO existingArticle = articleService.getArticleById(id);
+        ArticleWithCommentsDTO existingArticle = articleService.getArticleById(id);
         if (existingArticle == null) {
             throw new ArticleNotFoundException("Article with ID " + id + " not found"); // 404: not found
         }
 
-        Article updatedArticle = articleService.updateArticle(id, articleDTO);
+        Article updatedArticle = articleService.updateArticle(id, articleWithCommentsDTO);
         if (updatedArticle != null) {
             return ResponseEntity.ok().body("Article updated");
         } else {
@@ -70,8 +71,8 @@ public class ArticleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteArticleById(@PathVariable Long id) {
-        ArticleDTO articleDTO = articleService.getArticleById(id);
-        if (articleDTO == null) {
+        ArticleWithCommentsDTO articleWithCommentsDTO = articleService.getArticleById(id);
+        if (articleWithCommentsDTO == null) {
             throw new ArticleNotFoundException("Article with ID " + id + " not found"); // 404: not found
         }
 

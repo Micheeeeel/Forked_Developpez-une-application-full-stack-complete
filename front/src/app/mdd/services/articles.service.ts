@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../../environments/environment';
 import { Observable, catchError, map } from 'rxjs';
-import { Article } from 'src/app/core/models/article';
+import { Article } from 'src/app/core/models/Article';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 
 @Injectable()

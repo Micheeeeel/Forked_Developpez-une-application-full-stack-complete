@@ -4,9 +4,9 @@ import {
   RouterStateSnapshot,
   ActivatedRouteSnapshot,
 } from '@angular/router';
-import { Article } from 'src/app/core/models/article';
 import { ArticlesService } from '../services/articles.service';
 import { Observable } from 'rxjs';
+import { Article } from '../../core/models/Article';
 
 @Injectable()
 export class ArticlesResolver implements Resolve<Article[]> {

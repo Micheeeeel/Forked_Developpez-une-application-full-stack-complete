@@ -8,7 +8,7 @@ import {
   takeUntil,
   throwError,
 } from 'rxjs';
-import { Article } from 'src/app/core/models/article';
+import { Article } from 'src/app/core/models/Article';
 import { ArticlesService } from 'src/app/mdd/services/articles.service';
 
 @Component({

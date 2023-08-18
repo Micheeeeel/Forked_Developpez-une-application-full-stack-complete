@@ -12,7 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class ArticleDTO {
+public class ArticleWithCommentsDTO {
     private Long id;
 
     private Long userId;
@@ -28,5 +28,7 @@ public class ArticleDTO {
     private String content;
 
     private Date publishedAt;
+
+    private List<CommentDTO> comments;
 
 }
