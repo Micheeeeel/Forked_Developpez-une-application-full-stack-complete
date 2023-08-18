@@ -1,12 +1,18 @@
-<mat-card (click)="showArticleDetails(article)">
-  <mat-card-header>
-    <mat-card-title>
-      <span>{{ article.title | titlecase }}</span>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <span>{{ article.publishedAt | date }}</span>
-    </mat-card-subtitle>
-  </mat-card-header>
+<mat-card (click)="showArticleDetails(article)" class="article-card">
+  <!-- <mat-card-header class="article-header"> -->
+  <mat-card-title>
+    <span>{{ article.title | titlecase }}</span>
+  </mat-card-title>
+
+  <mat-card-subtitle class="date">
+    <span>{{ article.publishedAt | date }}</span>
+  </mat-card-subtitle>
+
+  <mat-card-subtitle class="author">
+    <span>{{ article.userId }}</span>
+  </mat-card-subtitle>
+  <!-- </mat-card-header> -->
+
   <mat-card-content>
     <span class="article-content">{{ article.content }}</span>
   </mat-card-content>
