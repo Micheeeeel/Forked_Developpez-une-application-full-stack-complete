@@ -16,14 +16,32 @@
     align-items: center;
   }
 
-  .navigation-content {
-    display: flex;
-    align-items: center; // Centrer les éléments verticalement
+  .navigation-content.desktop {
+    padding-right: 20px; // ou toute autre valeur que vous souhaitez
+    display: flex; // Afficher le contenu de navigation pour les grands écrans
+  }
 
-    span,
-    img.logo {
-      margin-left: 10px;
+  .navigation-content.mobile {
+    display: none; // Masquer le contenu de navigation pour les petits écrans et afficher le menu hamburger
+  }
+
+  @media (max-width: 500px) {
+    /* Masquer le contenu de navigation pour les petits écrans et afficher le menu hamburger */
+    .navigation-content.desktop {
+      display: none;
     }
+
+    .navigation-content.mobile {
+      display: flex;
+    }
+  }
+
+  .navigation-content > * {
+    margin-right: 20px; // children elements should have a margin-right of 20px
+  }
+
+  .navigation-content > *:last-child {
+    margin-right: 0; // last child element should not have a margin-right
   }
 }
 
@@ -56,7 +74,7 @@
 
   .mdd-header {
     .logo-image {
-      padding-bottom: 10px;
+      //padding-bottom: 10px;
       height: calc($header-height * 0.8);
     }
   }

@@ -10,12 +10,27 @@
     <img src="assets/logo_p6.png" alt="Logo" class="logo-image" />
   </a>
 
-  <div
-    class="navigation-content"
-    *ngIf="headerType === HeaderTypeEnum.MddHeader"
-  >
-    <span>Texte 1</span>
-    <span>Texte 2</span>
-    <img src="path_to_logo.png" alt="Logo" class="logo" />
+  <!-- Affichage par défaut pour les grands écrans -->
+  <div *ngIf="headerType === HeaderTypeEnum.MddHeader">
+    <div class="navigation-content desktop">
+      <span>Article</span>
+      <span>Thèmes</span>
+      <mat-icon>account_circle</mat-icon>
+    </div>
+
+    <!-- Affichage pour les petits écrans -->
+    <div class="navigation-content mobile">
+      <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <mat-sidenav-container>
+        <mat-sidenav #sidenav position="end">
+          <span>Article</span>
+          <span>Thèmes</span>
+          <mat-icon>account_circle</mat-icon>
+        </mat-sidenav>
+      </mat-sidenav-container>
+    </div>
   </div>
 </mat-toolbar>
