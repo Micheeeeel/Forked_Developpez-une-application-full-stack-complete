@@ -38,7 +38,7 @@ public class SubjectService {
     }
 
     public SubjectDTO toDTO(Subject subject) {
-        return new SubjectDTO(subject.getId(), subject.getName());
+        return new SubjectDTO(subject.getId(), subject.getName(), subject.getDescription());
     }
 
     public Subject createSubject(SubjectDTO subjectDTO) {

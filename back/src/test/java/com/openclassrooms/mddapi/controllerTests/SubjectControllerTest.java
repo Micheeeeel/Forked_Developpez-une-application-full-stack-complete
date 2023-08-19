@@ -42,8 +42,8 @@ public class SubjectControllerTest {
     @Test
     public void testGetAllSubjects() throws Exception {
         // Create test SubjectDTO objects
-        SubjectDTO subjectDTO1 = new SubjectDTO(1L, "Java");
-        SubjectDTO subjectDTO2 = new SubjectDTO(2L, "JavaScript");
+        SubjectDTO subjectDTO1 = new SubjectDTO(1L, "Java", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, voluptatem mollitia! Quis nesciunt, omnis labore eum nobis, voluptate exercitationem molestias ipsum voluptas aperiam vel hic doloribus? Aut, sit. Aut, ad? ");
+        SubjectDTO subjectDTO2 = new SubjectDTO(2L, "JavaScript", "Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, voluptatem mollitia! Quis nesciunt, omnis labore eum nobis, voluptate exercitationem molestias ipsum voluptas aperiam vel hic doloribus? Aut, sit. Aut, ad?");
         List<SubjectDTO> subjectDTOs = Arrays.asList(subjectDTO1, subjectDTO2);
 
         // Define the behavior of the mock subjectService
@@ -53,7 +53,9 @@ public class SubjectControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/api/subject"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$[0].name").value("Java"))
-                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("JavaScript"));
+                .andExpect(MockMvcResultMatchers.jsonPath("$[1].name").value("JavaScript"))
+                .andExpect(MockMvcResultMatchers.jsonPath("$[2].name").value("Lorem ipsum dolor sit amet consectetur adipisicing elit. Fugit, voluptatem mollitia! Quis nesciunt, omnis labore eum nobis, voluptate exercitationem molestias ipsum voluptas aperiam vel hic doloribus? Aut, sit. Aut, ad?"));
+
     }
 
     // test de l'API REST pour créer un nouveau sujet

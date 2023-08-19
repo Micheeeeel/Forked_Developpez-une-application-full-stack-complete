@@ -17,11 +17,15 @@ public class SubjectDTO {
     @NotBlank
     @Size(max = 100)
     private String name;
+    @NotBlank
+    @Size(max = 5000)
+    private String description;
     private boolean isFollowed;
 
-    public SubjectDTO(Long id, String name) {
+    public SubjectDTO(Long id, String name, String description) {
         this.id = id;
         this.name = name;
+        this.description = description;
         this.isFollowed = false;
     }
 }
