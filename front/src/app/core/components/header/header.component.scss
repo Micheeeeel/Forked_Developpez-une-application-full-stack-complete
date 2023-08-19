@@ -1,32 +1,50 @@
 // Importer les variables de style présentes dans le fichier _variables.scss
 @import "../../../../styles/_variables.scss";
 
-.login-header {
+// minxin are like functions for css
+@mixin large-header-style {
   height: $header-height;
-  background-color: white; // Changer la couleur d'arrière-plan en blanc
-  color: black; // Changer la couleur du texte en noir
-  border-bottom: 2px solid black; //
+  background-color: white;
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.login-header {
+  @include large-header-style;
+}
+
+.mdd-header {
+  @include large-header-style;
 }
 
 .logo-image {
   height: $header-height; /* Vous pouvez ajuster cette valeur */
   vertical-align: middle;
-  margin-right: 15px;
-  height: calc($header-height * 1.6); // Augmente la hauteur de 50%
 }
 
 /* Media query pour les écrans de 500px ou moins */
 @media (max-width: 500px) {
   .login-header {
-    height: calc($header-height * 2); // Augmente la hauteur de 50%
+    height: calc($header-height * 2);
     display: flex;
     align-items: flex-end; // Place le contenu en bas de la barre
     justify-content: center; // Centre le contenu horizontalement
     border-bottom: 0px; //
+
+    .logo-image {
+      margin: 0; // Supprime la marge pour centrer le logo
+      height: calc($header-height * 1.6); // Augmente la hauteur de 50%
+    }
   }
 
-  .logo-image {
-    margin: 0; // Supprime la marge pour centrer le logo
-    padding-bottom: 10px; // Petite marge en bas pour éviter que le logo touche le bord inférieur
+  .mdd-header {
+    display: flex;
+    align-items: flex-end; // Place le contenu en bas de la barre
+
+    .logo-image {
+      margin: 0; // Supprime la marge pour centrer le logo
+      padding-bottom: 10px; // Petite marge en bas pour éviter que le logo touche le bord inférieur
+      height: calc($header-height * 0.8); // Augmente la hauteur de 50%
+    }
   }
 }
