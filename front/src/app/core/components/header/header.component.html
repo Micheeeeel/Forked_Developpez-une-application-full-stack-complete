@@ -4,8 +4,18 @@
     'login-header': headerType === HeaderTypeEnum.LoginHeader,
     'mdd-header': headerType === HeaderTypeEnum.MddHeader
   }"
+  class="flex-header"
 >
-  <a routerLink="/">
+  <a routerLink="/" class="logo-container">
     <img src="assets/logo_p6.png" alt="Logo" class="logo-image" />
   </a>
+
+  <div
+    class="navigation-content"
+    *ngIf="headerType === HeaderTypeEnum.MddHeader"
+  >
+    <span>Texte 1</span>
+    <span>Texte 2</span>
+    <img src="path_to_logo.png" alt="Logo" class="logo" />
+  </div>
 </mat-toolbar>

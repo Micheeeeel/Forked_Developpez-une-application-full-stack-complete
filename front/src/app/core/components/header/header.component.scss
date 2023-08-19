@@ -1,12 +1,30 @@
-// Importer les variables de style présentes dans le fichier _variables.scss
 @import "../../../../styles/_variables.scss";
 
-// minxin are like functions for css
 @mixin large-header-style {
   height: $header-height;
   background-color: white;
   color: black;
   border-bottom: 2px solid black;
+}
+
+.flex-header {
+  display: flex;
+  justify-content: space-between; // Cela va séparer les contenus à gauche et à droite
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .navigation-content {
+    display: flex;
+    align-items: center; // Centrer les éléments verticalement
+
+    span,
+    img.logo {
+      margin-left: 10px;
+    }
+  }
 }
 
 .login-header {
@@ -18,7 +36,7 @@
 }
 
 .logo-image {
-  height: $header-height; /* Vous pouvez ajuster cette valeur */
+  height: $header-height;
   vertical-align: middle;
 }
 
@@ -32,19 +50,14 @@
     border-bottom: 0px; //
 
     .logo-image {
-      margin: 0; // Supprime la marge pour centrer le logo
-      height: calc($header-height * 1.6); // Augmente la hauteur de 50%
+      height: calc($header-height * 1.6);
     }
   }
 
   .mdd-header {
-    display: flex;
-    align-items: flex-end; // Place le contenu en bas de la barre
-
     .logo-image {
-      margin: 0; // Supprime la marge pour centrer le logo
-      padding-bottom: 10px; // Petite marge en bas pour éviter que le logo touche le bord inférieur
-      height: calc($header-height * 0.8); // Augmente la hauteur de 50%
+      padding-bottom: 10px;
+      height: calc($header-height * 0.8);
     }
   }
 }
