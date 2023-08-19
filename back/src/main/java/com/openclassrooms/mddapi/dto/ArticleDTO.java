@@ -15,9 +15,9 @@ import java.util.List;
 public class ArticleDTO {
     private Long id;
 
-    private Long userId;
+    private String userName;
 
-    private Long subjectId;
+    private String subjectName;
 
     @NotBlank
     @Size(max = 100)

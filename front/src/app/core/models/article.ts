@@ -1,7 +1,7 @@
 export class Article {
   id!: number;
-  userId!: number;
-  subjectId!: number;
+  userName!: string;
+  subjectName!: string;
   title!: string;
   content!: string;
   publishedAt!: string;

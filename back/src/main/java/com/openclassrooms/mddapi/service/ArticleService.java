@@ -96,7 +96,7 @@ public class ArticleService {
     }
 
     private ArticleDTO toDTO(Article article) {
-        return new ArticleDTO(article.getId(), article.getAuthor().getId(), article.getSubject().getId(),
+        return new ArticleDTO(article.getId(), article.getAuthor().getUsername(), article.getSubject().getName(),
                 article.getTitle(), article.getContent(), article.getPublishedAt());
     }
 
