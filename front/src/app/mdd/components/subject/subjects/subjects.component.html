@@ -1,6 +1,10 @@
-<div *ngIf="subjects; else loadingTemplate">
-  <h2>Subjects</h2>
-  <ul>
+<div *ngIf="subjects; else loadingTemplate" class="subject-grid">
+  <app-subject-list-item
+    *ngFor="let subject of subjects"
+    [subject]="subject"
+  ></app-subject-list-item>
+  <!-- <h2>Subjects</h2> -->
+  <!-- <ul>
     <li *ngFor="let subject of subjects" class="subject-item">
       {{ subject.name }} <br />{{ subject.description }}
 
@@ -26,7 +30,7 @@
         </button>
       </div>
     </li>
-  </ul>
+  </ul> -->
 </div>
 
 <ng-template #loadingTemplate>

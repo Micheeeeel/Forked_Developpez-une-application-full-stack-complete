@@ -1,0 +1,15 @@
+.subject-grid {
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: auto;
+  column-gap: 40px;
+  row-gap: 28px;
+}
+
+@media (max-width: 500px) {
+  /* Ajustez cette valeur de breakpoint selon vos besoins */
+  .subject-grid {
+    grid-template-columns: 1fr;
+  }
+}
