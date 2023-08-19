@@ -1,6 +1,7 @@
-
-
-<app-header *ngIf="showHeader"></app-header>
+<app-header
+  *ngIf="headerType !== HeaderTypeEnum.HomeHeader"
+  [headerType]="headerType"
+></app-header>
 <div class="main-content">
   <router-outlet></router-outlet>
 </div>

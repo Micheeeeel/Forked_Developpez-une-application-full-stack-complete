@@ -1,4 +1,10 @@
-<mat-toolbar class="custom-toolbar">
+<mat-toolbar
+  [ngClass]="{
+    'home-header': headerType === HeaderTypeEnum.HomeHeader,
+    'login-header': headerType === HeaderTypeEnum.LoginHeader,
+    'mdd-header': headerType === HeaderTypeEnum.MddHeader
+  }"
+>
   <a routerLink="/">
     <img src="assets/logo_p6.png" alt="Logo" class="logo-image" />
   </a>

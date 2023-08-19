@@ -1,7 +1,7 @@
 // Importer les variables de style présentes dans le fichier _variables.scss
 @import "../../../../styles/_variables.scss";
 
-.custom-toolbar {
+.login-header {
   height: $header-height;
   background-color: white; // Changer la couleur d'arrière-plan en blanc
   color: black; // Changer la couleur du texte en noir
@@ -12,11 +12,12 @@
   height: $header-height; /* Vous pouvez ajuster cette valeur */
   vertical-align: middle;
   margin-right: 15px;
+  height: calc($header-height * 1.6); // Augmente la hauteur de 50%
 }
 
 /* Media query pour les écrans de 500px ou moins */
 @media (max-width: 500px) {
-  .custom-toolbar {
+  .login-header {
     height: calc($header-height * 2); // Augmente la hauteur de 50%
     display: flex;
     align-items: flex-end; // Place le contenu en bas de la barre
