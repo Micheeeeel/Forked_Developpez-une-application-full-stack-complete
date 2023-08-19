@@ -20,17 +20,9 @@
 
     <!-- Affichage pour les petits écrans -->
     <div class="navigation-content mobile">
-      <button mat-icon-button (click)="sidenav.toggle()">
+      <button mat-icon-button (click)="onMenuClick()">
         <mat-icon>menu</mat-icon>
       </button>
-
-      <mat-sidenav-container>
-        <mat-sidenav #sidenav position="end">
-          <span>Article</span>
-          <span>Thèmes</span>
-          <mat-icon>account_circle</mat-icon>
-        </mat-sidenav>
-      </mat-sidenav-container>
     </div>
   </div>
 </mat-toolbar>
