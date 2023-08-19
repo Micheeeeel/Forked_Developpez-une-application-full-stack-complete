@@ -1,5 +1,9 @@
 <div class="navigation-content">
-  <span>Article</span>
-  <span>Thèmes</span>
-  <mat-icon>account_circle</mat-icon>
+  <a routerLink="/mdd/article" routerLinkActive="active-link">
+    <span>Article</span>
+  </a>
+  <a routerLink="/mdd/subjects" routerLinkActive="active-link">
+    <span>Thèmes</span>
+  </a>
+  <mat-icon (click)="naviguerVersUserInfo()">account_circle</mat-icon>
 </div>

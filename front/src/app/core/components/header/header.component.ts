@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { HeaderType } from 'src/app/app.component';
 
 @Component({
@@ -11,11 +18,12 @@ export class HeaderComponent implements OnInit {
   @Input() headerType!: HeaderType;
   HeaderTypeEnum = HeaderType; // Ceci créera une référence à l'enum que nous pouvons utiliser dans le template
 
-  constructor() {}
+  constructor(private cdRef: ChangeDetectorRef) {}
 
   ngOnInit(): void {}
 
   onMenuClick() {
     this.toggleSidenav.emit();
+    this.cdRef.detectChanges();
   }
 }

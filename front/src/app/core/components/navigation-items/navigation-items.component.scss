@@ -6,14 +6,33 @@
 }
 
 .navigation-content > * {
-  padding-right: 35px; // children elements should have a margin-right of 20px
   font-size: 1.5em; /* Augmente la taille de l'icône ou du texte */
   padding: 32px; /* Ajoute un espace interne de 20px tout autour du contenu. */
+  cursor: pointer; /* Change l'apparence de la souris en main lorsqu'elle survole l'élément */
 }
 
 .navigation-content > *:last-child {
   font-size: 3em; /* Augmente la taille de l'icône ou du texte */
   line-height: 30px; /* ou une autre valeur appropriée */
+}
+
+.navigation-content a {
+  text-decoration: none; /* Enlève le soulignement */
+  color: inherit; /* Utilise la couleur héritée plutôt que le bleu par défaut des liens */
+}
+
+.navigation-content a:hover {
+  color: #673ab7; /* Conserve la même couleur lors du survol */
+  text-decoration: none; /* Assurez-vous que le survol ne souligne pas non plus */
+  filter: brightness(1.5);
+}
+
+.navigation-content a:focus {
+  outline: none; /* Retire l'outline lorsqu'on clique sur le lien */
+}
+
+.navigation-content .active-link {
+  color: #673ab7; /* Remplacez par la couleur de votre choix */
 }
 
 /* Pour les écrans jusqu'à 500px */
