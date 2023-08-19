@@ -9,12 +9,17 @@
   justify-content: center; // Centre horizontalement les éléments enfants à l'intérieur du conteneur flex.
   align-items: flex-start; // Commencez à partir du haut de l'espace disponible
 
-  height: 100vh; // Définit la hauteur de l'élément à 100% de la hauteur de la fenêtre de visualisation.
-  overflow: auto; // Dans le cas où le contenu dépasse la hauteur de l'écran, une barre de défilement apparaîtra.
+  // height: 100vh; // Définit la hauteur de l'élément à 100% de la hauteur de la fenêtre de visualisation.
+  // overflow: auto; // Dans le cas où le contenu dépasse la hauteur de l'écran, une barre de défilement apparaîtra.
 
   // background-color: #eae1ae; // Color le fond pour facilité le développement
 
   @media (max-width: 500px) {
     padding: 0px; // Supprime l'espace avec le header pour les petits écrans
   }
+}
+
+mat-sidenav {
+  width: 250px;
+  height: 100vh;
 }

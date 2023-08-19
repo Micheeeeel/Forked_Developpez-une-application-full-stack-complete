@@ -35,14 +35,6 @@
       display: flex;
     }
   }
-
-  .navigation-content > * {
-    margin-right: 20px; // children elements should have a margin-right of 20px
-  }
-
-  .navigation-content > *:last-child {
-    margin-right: 0; // last child element should not have a margin-right
-  }
 }
 
 .login-header {

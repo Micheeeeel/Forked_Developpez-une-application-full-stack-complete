@@ -1,0 +1,40 @@
+.navigation-content {
+  display: flex;
+  flex-direction: row; /* Par défaut, la direction est en rangée */
+  align-items: center; /* Centrage vertical des éléments enfants */
+  box-sizing: border-box; /* Ceci s'assure que padding et border sont inclus dans la largeur totale et la hauteur */
+}
+
+.navigation-content > * {
+  padding-right: 35px; // children elements should have a margin-right of 20px
+  font-size: 1.5em; /* Augmente la taille de l'icône ou du texte */
+  padding: 32px; /* Ajoute un espace interne de 20px tout autour du contenu. */
+}
+
+.navigation-content > *:last-child {
+  font-size: 3em; /* Augmente la taille de l'icône ou du texte */
+  line-height: 30px; /* ou une autre valeur appropriée */
+}
+
+/* Pour les écrans jusqu'à 500px */
+@media (max-width: 500px) {
+  .navigation-content {
+    flex-direction: column; /* Change la direction en colonne */
+    align-items: flex-end; /* Alignement horizontal à droite */
+    height: 100vh; /* S'assurer que le conteneur prend toute la hauteur */
+    overflow-y: auto; /* Si jamais le contenu dépasse cette hauteur, il sera défilable */
+    justify-content: flex-start; /* Commencez par le haut par défaut */
+    margin-bottom: 0px; /* Ajustez cette valeur selon la distance souhaitée */
+    padding-bottom: 0px;
+  }
+
+  .navigation-content > *:first-child {
+    margin-top: 100px; /* Ajustez cette valeur pour obtenir la distance souhaitée */
+  }
+
+  .navigation-content > *:last-child {
+    margin-top: auto; /* Pousse l'élément vers le bas */
+    //margin-bottom: 20px; /* Ajustez cette valeur selon la distance souhaitée */
+    margin-right: 10px; /* Ajustez cette valeur selon la distance souhaitée */
+  }
+}

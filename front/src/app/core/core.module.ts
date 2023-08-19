@@ -6,16 +6,17 @@ import { RouterModule } from '@angular/router';
 import fr from '@angular/common/locales/fr';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../shared/shared.module';
+import { NavigationItemsComponent } from './components/navigation-items/navigation-items.component';
 
 @NgModule({
-  declarations: [HeaderComponent],
+  declarations: [HeaderComponent, NavigationItemsComponent],
   imports: [
     CommonModule, // nécessaire pour tout module qui déclare des composants (directives, pipes, etc.)
     RouterModule,
     HttpClientModule,
     SharedModule,
   ],
-  exports: [HeaderComponent],
+  exports: [HeaderComponent, NavigationItemsComponent],
   providers: [
     { provide: LOCALE_ID, useValue: 'fr-FR' },
     httpInterceptorProviders,

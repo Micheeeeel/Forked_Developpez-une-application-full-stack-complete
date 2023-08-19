@@ -13,9 +13,7 @@
   <!-- Affichage par défaut pour les grands écrans -->
   <div *ngIf="headerType === HeaderTypeEnum.MddHeader">
     <div class="navigation-content desktop">
-      <span>Article</span>
-      <span>Thèmes</span>
-      <mat-icon>account_circle</mat-icon>
+      <app-navigation-items></app-navigation-items>
     </div>
 
     <!-- Affichage pour les petits écrans -->
