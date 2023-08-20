@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
 import { ArticlesResolver } from './resolvers/articles.resolver';
 import { ArticleformComponent } from './components/article/articleform/articleform.component';
+import { ArticleDetailComponent } from './components/article/article-detail/article-detail.component';
 
 const routes = [
   {
@@ -38,6 +39,11 @@ const routes = [
   {
     path: 'article/article-form',
     component: ArticleformComponent,
+    //canActivate: [AuthGuard],
+  },
+  {
+    path: 'article/article-detail/:id',
+    component: ArticleDetailComponent,
     //canActivate: [AuthGuard],
   },
 ];

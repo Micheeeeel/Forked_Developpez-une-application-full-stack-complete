@@ -11,6 +11,7 @@ import { ArticleListItemComponent } from './components/article/article-list-item
 import { SharedModule } from '../shared/shared.module';
 import { SubjectListItemComponent } from './components/subject/subject-list-item/subject-list-item.component';
 import { ArticleformComponent } from './components/article/articleform/articleform.component';
+import { ArticleDetailComponent } from './components/article/article-detail/article-detail.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ArticleformComponent } from './components/article/articleform/articlefo
     ArticleListItemComponent,
     SubjectListItemComponent,
     ArticleformComponent,
+    ArticleDetailComponent,
   ],
   imports: [CommonModule, SharedModule, mddRoutingModule],
   exports: [SubjectsComponent, SubjectFormComponent, SubjectDetailComponent],

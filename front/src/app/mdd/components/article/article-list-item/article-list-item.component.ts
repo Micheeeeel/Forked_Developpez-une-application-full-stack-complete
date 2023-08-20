@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Article } from '../../../../core/models/Article';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-article-list-item',
@@ -13,7 +14,7 @@ export class ArticleListItemComponent implements OnInit {
     comment: string;
   }>();
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit(): void {}
 
@@ -21,8 +22,8 @@ export class ArticleListItemComponent implements OnInit {
     this.articleCommented.emit({ articleId: this.article.id, comment });
   }
 
-  showArticleDetails(article: Article) {
-    // Votre logique pour afficher les détails de l'article.
-    // Cela pourrait inclure la navigation vers un autre composant ou l'affichage d'une boîte de dialogue, par exemple.
+  showArticleDetails() {
+    this.router.navigate(['mdd/article/article-detail/', this.article.id]);
+    console.log('showArticleDetails');
   }
 }
