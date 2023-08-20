@@ -1,10 +1,13 @@
+// Importer les variables de style présentes dans le fichier _variables.scss
+@import "../../../../../styles/_variables.scss";
+
 .article-form-container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   height: 100vh;
-  width: 600px;
+  width: 500px;
 
   padding: 20px 0; // Ajoutez un padding pour un peu d'espace en haut et en bas.
 }
@@ -27,10 +30,49 @@ h2 {
 
 @media (max-width: 500px) {
   .article-form-container {
-    width: 300px;
+    width: 450px;
+    margin-top: 30px; /* ou la valeur que vous souhaitez */
   }
 }
 
 textarea {
-  height: 200px; /* ou la hauteur que vous voulez */
+  height: 250px; /* ou la hauteur que vous voulez */
 }
+
+/* Lien de retour en page d'accueil - positionnement par défaut */
+.back-icon {
+  position: absolute;
+  top: $header-height + 1.8; // Déplacez le lien juste en dessous du header (adaptez ce chiffre en fonction de la hauteur de votre header)
+  left: 0;
+  padding: 10px; // Pour donner un peu d'espace autour du lien
+  z-index: 10; // Assurez-vous qu'il apparaît au-dessus des autres éléments
+  font-size: $back-arrow-font-size; /* Ajustez cette valeur selon la taille souhaitée */
+}
+
+/* Lorsque la largeur de l'écran est de 500px ou moins */
+@media (max-width: 500px) {
+  .back-icon {
+    top: $header-height; // Positionne le lien au-dessus du header
+    left: 20px;
+  }
+}
+
+// /* Lorsque la largeur de l'écran est supérieure à 500px */
+// @media (min-width: 501px) {
+//   .back-icon {
+//     top: $header-height + 1; // Déplacez le lien juste en dessous du header (adaptez ce chiffre en fonction de la hauteur de votre header)
+//   }
+// }
+
+// .back-icon {
+//   font-size: 42px;
+//   line-height: 18px;
+//   z-index: 10;
+
+//   // Améliorations
+//   padding: 20px; // Améliore la zone cliquable
+//   padding-top: 20px;
+//   padding-left: 30px;
+//   border-radius: 50%; // Rend le padding circulaire, ce qui est bon pour les icônes
+//   transition: background-color 0.3s ease; // Transition pour le feedback au survol
+// }

@@ -41,7 +41,7 @@ h2 {
 }
 
 /* Lien de retour en page d'accueil - positionnement par défaut */
-a[routerLink] {
+.back-icon {
   position: absolute;
   top: 0;
   left: 0;
@@ -51,20 +51,20 @@ a[routerLink] {
 
 /* Lorsque la largeur de l'écran est supérieure à 500px */
 @media (min-width: 501px) {
-  a[routerLink] {
+  .back-icon {
     top: $header-height + 1; // Déplacez le lien juste en dessous du header (adaptez ce chiffre en fonction de la hauteur de votre header)
   }
 }
 
 /* Lorsque la largeur de l'écran est de 500px ou moins */
 @media (max-width: 500px) {
-  a[routerLink] {
+  .back-icon {
     top: 0; // Positionne le lien au-dessus du header
   }
 }
 
 .back-icon {
-  font-size: 42px;
+  font-size: $back-arrow-font-size;
   line-height: 18px;
   z-index: 10;
 
