@@ -7,13 +7,11 @@
 
   <mat-form-field appearance="fill" class="input-field">
     <mat-label>Sélectionner un thème</mat-label>
-    <input
-      matInput
-      ngModel
-      name="theme"
-      required
-      placeholder="Sélectionner un thème"
-    />
+    <mat-select [(ngModel)]="selectedTheme" name="theme" required>
+      <mat-option *ngFor="let theme of themes" [value]="theme.id">
+        {{ theme.name }}
+      </mat-option>
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field appearance="fill" class="input-field">
@@ -49,3 +47,11 @@
     Créer
   </button>
 </form>
+
+<div *ngIf="message">
+  {{ message }}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

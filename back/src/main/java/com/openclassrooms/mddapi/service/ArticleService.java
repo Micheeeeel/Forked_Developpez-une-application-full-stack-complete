@@ -47,15 +47,15 @@ public class ArticleService {
         return optionalArticle.map(this::toWithCommentsDTO).orElse(null);
     }
 
-    public Article createArticle(ArticleWithCommentsDTO articleWithCommentsDTO) {
-        Article article = getArticle(articleWithCommentsDTO);
+    public Article createArticle(ArticleDTO articleDTO) {
+        Article article = getArticle(articleDTO);
 
         // Save the article in the database
         return articleRepository.save(article);
     }
 
-    public Article updateArticle(Long id, ArticleWithCommentsDTO articleWithCommentsDTO) {
-        Article article = getArticle(articleWithCommentsDTO);
+    public Article updateArticle(Long id, ArticleDTO articleDTO) {
+        Article article = getArticle(articleDTO);
 
         article.setId(id);
 
@@ -63,19 +63,19 @@ public class ArticleService {
         return articleRepository.save(article);
     }
 
-    private Article getArticle(ArticleWithCommentsDTO articleWithCommentsDTO) {
+    private Article getArticle(ArticleDTO articleDTO) {
         // Trouver l'auteur par userId
-        User author = userRepository.findById(articleWithCommentsDTO.getUserId())
-                .orElseThrow(() -> new UserNotFoundException("User with ID " + articleWithCommentsDTO.getUserId() + " not found"));
+        User author = userRepository.findById(articleDTO.getUserId())
+                .orElseThrow(() -> new UserNotFoundException("User with ID " + articleDTO.getUserId() + " not found"));
 
         // Trouver le sujet par subjectId
-        Subject subject = subjectRepository.findById(articleWithCommentsDTO.getSubjectId())
-                .orElseThrow(() -> new SubjectNotFoundException("Subject with ID " + articleWithCommentsDTO.getSubjectId() + " not found"));
+        Subject subject = subjectRepository.findById(articleDTO.getSubjectId())
+                .orElseThrow(() -> new SubjectNotFoundException("Subject with ID " + articleDTO.getSubjectId() + " not found"));
 
         // Créer l'entité Article en utilisant la méthode statique de votre classe
         Article article = Article.createNewArticle(
-                articleWithCommentsDTO.getTitle(),
-                articleWithCommentsDTO.getContent(),
+                articleDTO.getTitle(),
+                articleDTO.getContent(),
                 subject,
                 author
         );
@@ -96,8 +96,9 @@ public class ArticleService {
     }
 
     private ArticleDTO toDTO(Article article) {
-        return new ArticleDTO(article.getId(), article.getAuthor().getUsername(), article.getSubject().getName(),
-                article.getTitle(), article.getContent(), article.getPublishedAt());
+        User author = article.getAuthor();
+        Subject subject = article.getSubject();
+        return new ArticleDTO(article.getId(), author.getId(),  author.getUsername(), subject.getId(), subject.getName(), article.getTitle(), article.getContent(), article.getPublishedAt() );
     }
 
     public List<CommentDTO> getCommentsByArticleId(Long articleId) {

@@ -43,7 +43,12 @@ export class ArticlesService {
     );
   }
 
-  createArticle(articleData: any): Observable<string> {
+  createArticle(articleData: {
+    userId: string;
+    subjectId: string;
+    title: string;
+    content: string;
+  }): Observable<string> {
     return this.http
       .post(`${this.baseUrl}/article`, articleData, {
         responseType: 'text',

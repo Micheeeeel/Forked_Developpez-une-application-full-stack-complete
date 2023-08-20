@@ -37,12 +37,12 @@ public class ArticleController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createArticle(@RequestBody ArticleWithCommentsDTO articleWithCommentsDTO) {
-        if (articleWithCommentsDTO.getContent() == null || articleWithCommentsDTO.getContent().trim().isEmpty()) {
+    public ResponseEntity<String> createArticle(@RequestBody ArticleDTO articleDTO) {
+        if (articleDTO.getContent() == null || articleDTO.getContent().trim().isEmpty()) {
             throw new InvalidArticleDataException("Invalid article data");
         }
 
-        Article createdArticle = articleService.createArticle(articleWithCommentsDTO);
+        Article createdArticle = articleService.createArticle(articleDTO);
         if (createdArticle != null) {
             return ResponseEntity.status(HttpStatus.CREATED).body("New Article created");
         } else {
@@ -51,8 +51,8 @@ public class ArticleController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateArticle(@PathVariable Long id, @RequestBody ArticleWithCommentsDTO articleWithCommentsDTO) {
-        if (articleWithCommentsDTO.getContent() == null || articleWithCommentsDTO.getContent().trim().isEmpty()) {
+    public ResponseEntity<String> updateArticle(@PathVariable Long id, @RequestBody ArticleDTO articleDTO) {
+        if (articleDTO.getContent() == null || articleDTO.getContent().trim().isEmpty()) {
             throw new InvalidArticleDataException("Invalid article data");
         }
 
@@ -61,7 +61,7 @@ public class ArticleController {
             throw new ArticleNotFoundException("Article with ID " + id + " not found"); // 404: not found
         }
 
-        Article updatedArticle = articleService.updateArticle(id, articleWithCommentsDTO);
+        Article updatedArticle = articleService.updateArticle(id, articleDTO);
         if (updatedArticle != null) {
             return ResponseEntity.ok().body("Article updated");
         } else {
