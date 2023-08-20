@@ -42,4 +42,21 @@ export class ArticlesService {
       catchError(this.errorHandlingService.handleError)
     );
   }
+
+  createArticle(articleData: any): Observable<string> {
+    return this.http
+      .post(`${this.baseUrl}/article`, articleData, {
+        responseType: 'text',
+      })
+      .pipe(
+        map((response) => {
+          if (response === 'New Article created') {
+            return 'Article created successfully';
+          } else {
+            throw new Error('Failed to create Article');
+          }
+        }),
+        catchError(this.errorHandlingService.handleError)
+      );
+  }
 }

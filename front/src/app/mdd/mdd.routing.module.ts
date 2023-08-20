@@ -6,6 +6,7 @@ import { AuthGuard } from '../core/guards/auth.guards';
 import { RouterModule } from '@angular/router';
 import { ArticleListComponent } from './components/article/article-list/article-list.component';
 import { ArticlesResolver } from './resolvers/articles.resolver';
+import { ArticleformComponent } from './components/article/articleform/articleform.component';
 
 const routes = [
   {
@@ -32,6 +33,11 @@ const routes = [
     path: 'article',
     component: ArticleListComponent,
     resolve: { articles: ArticlesResolver },
+    //canActivate: [AuthGuard],
+  },
+  {
+    path: 'article/article-form',
+    component: ArticleformComponent,
     //canActivate: [AuthGuard],
   },
 ];

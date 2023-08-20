@@ -1,0 +1,51 @@
+<form
+  (ngSubmit)="onCreateArticle(articleForm)"
+  #articleForm="ngForm"
+  class="article-form-container"
+>
+  <h2>Créer un nouvel article</h2>
+
+  <mat-form-field appearance="fill" class="input-field">
+    <mat-label>Sélectionner un thème</mat-label>
+    <input
+      matInput
+      ngModel
+      name="theme"
+      required
+      placeholder="Sélectionner un thème"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="input-field">
+    <mat-label>Titre de l'article</mat-label>
+    <input
+      matInput
+      ngModel
+      name="title"
+      required
+      placeholder="Titre de l'article"
+    />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" class="input-field">
+    <mat-label>Contenu de l'article</mat-label>
+    <textarea
+      matInput
+      ngModel
+      name="content"
+      [maxlength]="5000"
+      required
+      placeholder="Contenu de l'article"
+    ></textarea>
+  </mat-form-field>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    class="create-button"
+    [disabled]="!articleForm.valid"
+  >
+    Créer
+  </button>
+</form>

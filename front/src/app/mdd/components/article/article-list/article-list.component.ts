@@ -71,7 +71,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
   }
 
   CreateArticle() {
-    throw new Error('Method not implemented.');
+    this.router.navigateByUrl('/mdd/article/article-form');
   }
 
   sortArticles(criterion: 'title' | 'content' | 'publishedAt') {

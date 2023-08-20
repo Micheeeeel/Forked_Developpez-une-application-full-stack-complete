@@ -1,0 +1,27 @@
+.article-form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  height: 100vh;
+  width: 300px;
+
+  padding: 20px 0; // Ajoutez un padding pour un peu d'espace en haut et en bas.
+}
+
+h2 {
+  text-align: left;
+  width: 80%; /* Utilisez la même largeur que votre champ de saisie pour l'alignement. */
+  //max-width: 500px; /* Et la même largeur maximale. */
+}
+
+.input-field {
+  width: 80%;
+  max-width: 500px;
+  margin-bottom: 20px;
+}
+
+.create-button {
+  width: 40%;
+  max-width: 250px;
+}
