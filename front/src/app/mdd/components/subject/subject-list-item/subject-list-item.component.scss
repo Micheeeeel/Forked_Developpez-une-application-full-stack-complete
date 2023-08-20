@@ -1,0 +1,31 @@
+.subject-card {
+  background-color: #f5f5f5; /* Gris léger. Ajustez la couleur selon vos besoins */
+
+  cursor: pointer;
+
+  display: grid;
+  grid-template-rows: auto 1fr auto; /* Définit 3 lignes: taille automatique, 1 fraction, taille automatique */
+  grid-template-areas:
+    "title"
+    "description"
+    "button";
+
+  padding: 20px; /* Espacement intérieur de chaque cellule.*/
+  gap: 10px; /* Espacement entre les rangées.*/
+}
+
+.subject-card > mat-card-title {
+  grid-area: title;
+  justify-self: start; /* Aligné à gauche */
+}
+
+.subject-card > .subject-description {
+  grid-area: description;
+  justify-self: start; /* Aligné à gauche */
+}
+
+.subject-card > button {
+  grid-area: button;
+  justify-self: center; /* Centré horizontalement */
+  margin-top: -10px; /* Réduire la marge supérieure de 10px par exemple */
+}
