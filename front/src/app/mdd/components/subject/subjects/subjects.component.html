@@ -2,6 +2,7 @@
   <app-subject-list-item
     *ngFor="let subject of subjects"
     [subject]="subject"
+    (subscribeEvent)="onSubscribeSubject(subject)"
   ></app-subject-list-item>
   <!-- <h2>Subjects</h2> -->
   <!-- <ul>

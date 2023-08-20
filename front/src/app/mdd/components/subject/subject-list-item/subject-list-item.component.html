@@ -9,7 +9,12 @@
     <span>{{ subject.description }}</span>
   </mat-card-content>
 
-  <button type="submit" mat-raised-button color="primary" (click)="Subscribe()">
-    Créer un article
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    (click)="subscribeEvent.emit()"
+  >
+    {{ subject.followed ? "Se désabonner" : "S'abonner" }}
   </button>
 </mat-card>

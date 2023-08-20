@@ -75,16 +75,15 @@ export class SubjectsComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl(`/mdd/subjects/subject-form/${id}`);
   }
 
-  onSubscribeSubject(subjectId: number) {
-    const subject = this.subjects.find((s) => s.id === subjectId);
+  onSubscribeSubject(subject: MySubject) {
     if (!subject) return; // S'assurer que le sujet existe
 
     if (subject.followed) {
-      this.subscriptionService.unsubscribeSubject(subjectId).subscribe(() => {
+      this.subscriptionService.unsubscribeSubject(subject.id).subscribe(() => {
         subject.followed = false;
       });
     } else {
-      this.subscriptionService.subscribeToSubject(subjectId).subscribe(() => {
+      this.subscriptionService.subscribeToSubject(subject.id).subscribe(() => {
         subject.followed = true;
       });
     }

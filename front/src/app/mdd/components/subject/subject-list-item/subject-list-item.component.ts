@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Subject as MySubject } from 'src/app/core/models/Subject';
 
 @Component({
@@ -8,12 +8,9 @@ import { Subject as MySubject } from 'src/app/core/models/Subject';
 })
 export class SubjectListItemComponent implements OnInit {
   @Input() subject!: MySubject;
+  @Output() subscribeEvent = new EventEmitter<void>();
 
   constructor() {}
 
   ngOnInit(): void {}
-
-  Subscribe() {
-    throw new Error('Method not implemented.');
-  }
 }
