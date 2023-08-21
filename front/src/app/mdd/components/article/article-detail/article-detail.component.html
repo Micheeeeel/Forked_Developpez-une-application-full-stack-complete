@@ -1,35 +1,37 @@
-<div *ngIf="article$ | async as article; else loadingTemplate">
-  <h2>Subject Details</h2>
-  <div>
-    <mat-card class="article-detail-card">
-      <!-- <mat-card-header class="article-header"> -->
-      <mat-card-title>
+<div>
+  <div *ngIf="article$ | async as article; else loadingTemplate">
+    <div class="article-detail-container">
+      <mat-card-title class="title">
         <span>{{ article.title | titlecase }}</span>
       </mat-card-title>
+      <div class="metadata">
+        <mat-card-subtitle class="date">
+          <span>{{ article.publishedAt | date }}</span>
+        </mat-card-subtitle>
 
-      <mat-card-subtitle class="date">
-        <span>{{ article.publishedAt | date }}</span>
-      </mat-card-subtitle>
+        <mat-card-subtitle class="author">
+          <span>{{ article.userId }}</span>
+        </mat-card-subtitle>
 
-      <mat-card-subtitle class="author">
-        <span>{{ article.userId }}</span>
-      </mat-card-subtitle>
-      <!-- </mat-card-header> -->
+        <mat-card-subtitle class="theme">
+          <span>{{ article.subjectId }}</span>
+        </mat-card-subtitle>
+      </div>
 
-      <mat-card-content>
+      <mat-card-content class="content">
         <span class="article-content">{{ article.content }}</span>
       </mat-card-content>
-      <mat-card-actions>
+
+      <div class="comments-section">
+        <!-- Vous pouvez également envelopper la section des commentaires dans un conteneur si nécessaire pour des styles ou une logique supplémentaires. -->
         <app-comments
           [comments]="article.comments"
           (newComment)="handleNewComment($event)"
         ></app-comments>
-      </mat-card-actions>
-    </mat-card>
-    <!-- Add more details as needed -->
+      </div>
+    </div>
   </div>
 </div>
-
 <ng-template #loadingTemplate>
   <p>Loading...</p>
 </ng-template>

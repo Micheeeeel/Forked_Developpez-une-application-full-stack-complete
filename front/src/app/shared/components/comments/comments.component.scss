@@ -1,15 +1,76 @@
-mat-list-item {
-  border-bottom: thin solid #555;
+/* Style pour le composant comments.component.scss */
+
+.comments-container {
+  display: grid;
+  gap: 16px;
+  grid-template-areas:
+    "comments-title"
+    "comments-list"
+    "new-comment";
 }
 
-.comments-row {
+.title {
+  grid-area: comments-title;
+  //font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 20px;
+}
+
+mat-list {
+  grid-area: comments-list;
+}
+
+// mat-list-item {
+//   display: block; /* Permet au mat-list-item de s'ajuster à la hauteur de son contenu */
+// }
+
+.comment-list {
   display: flex;
-  border-top: thin solid #555;
-  padding-top: 10px;
-  justify-content: space-around;
-  align-items: center;
+  justify-content: flex-start; /* aligne les éléments au début (côté gauche) */
+  align-items: flex-start; /* aligne les éléments en haut */
+  margin-bottom: 16px; /* espace entre chaque élément .comment_list */
+  gap: 50px; /* espace entre l'image et le contenu du commentaire */
+  flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante si nécessaire */
+  min-height: 0;
 }
 
-mat-form-field {
-  width: 90%;
+.comment-info {
+  display: flex;
+  flex-direction: column; /* Pour positionner la date et le userId l'un au-dessus de l'autre */
+  justify-content: flex-start; /* Alignement vertical */
+  align-items: flex-start; /* Alignement horizontal */
+  margin-right: 50px; /* Espace à droite pour séparer les noms/date des commentaires */
+  width: 100px;
+  //padding: 10px;
+}
+
+.comment-content {
+  flex: 1; /* Pour prendre l'espace restant */
+  background-color: #f5f5f5; /* Gris léger. Ajustez la couleur selon vos besoins */
+  padding: 10px;
+  overflow: visible; /* Assurez-vous que le contenu n'est pas masqué */
+  min-height: 0;
+}
+
+.new-comment-row {
+  grid-area: new-comment;
+  display: flex;
+  align-items: center; // Pour aligner verticalement le champ input et le bouton
+  max-height: none; /* Assurez-vous qu'il n'y a pas de hauteur maximale */
+
+  mat-form-field {
+    flex: 1; // Permet au champ input de prendre tout l'espace disponible
+  }
+
+  button {
+    margin-left: 10px;
+  }
+}
+
+.date {
+  font-size: 10px;
+}
+
+.full-width {
+  width: 100%;
 }
