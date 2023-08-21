@@ -43,6 +43,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
     this.errorMessage = message;
   }
 
+  //////
   onArticleCommented(articleCommented: { comment: string; articleId: number }) {
     this.service
       .addNewComment(articleCommented)
@@ -69,6 +70,7 @@ export class ArticleListComponent implements OnInit, OnDestroy {
       })
     );
   }
+  //////
 
   CreateArticle() {
     this.router.navigateByUrl('/mdd/article/article-form');

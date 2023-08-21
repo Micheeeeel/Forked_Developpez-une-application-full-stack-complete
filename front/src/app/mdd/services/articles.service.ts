@@ -4,6 +4,7 @@ import { environment } from '../../../environments/environment';
 import { Observable, catchError, map } from 'rxjs';
 import { Article } from 'src/app/core/models/Article';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
+import { ArticleWithComments } from 'src/app/core/models/ArticleWithComments';
 
 @Injectable()
 export class ArticlesService {
@@ -16,6 +17,10 @@ export class ArticlesService {
 
   getArticles(): Observable<Article[]> {
     return this.http.get<Article[]>(`${this.baseUrl}/article`);
+  }
+
+  getArticleById(id: string | null): Observable<ArticleWithComments> {
+    return this.http.get<ArticleWithComments>(`${this.baseUrl}/article/${id}`);
   }
 
   addNewComment(articleCommnted: {
