@@ -1,12 +1,9 @@
 /* Style pour le composant comments.component.scss */
 
-.comments-container {
-  display: grid;
-  gap: 16px;
-  grid-template-areas:
-    "comments-title"
-    "comments-list"
-    "new-comment";
+.comment-list-container {
+  grid-area: comments-list;
+  display: flex;
+  flex-direction: column;
 }
 
 .title {
@@ -32,6 +29,7 @@ mat-list {
   gap: 50px; /* espace entre l'image et le contenu du commentaire */
   flex-wrap: wrap; /* Permet aux éléments de passer à la ligne suivante si nécessaire */
   min-height: 0;
+  padding-left: 20px;
 }
 
 .comment-info {
@@ -60,6 +58,7 @@ mat-list {
 
   mat-form-field {
     flex: 1; // Permet au champ input de prendre tout l'espace disponible
+    padding-left: 20px;
   }
 
   button {

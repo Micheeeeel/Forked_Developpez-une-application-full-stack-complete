@@ -1,21 +1,16 @@
 <div class="comments-container">
-  <mat-list *ngIf="comments.length">
+  <div *ngIf="comments.length" class="comment-list-container">
     <mat-card-subtitle class="title"> Commentaires </mat-card-subtitle>
-    <mat-list-item *ngFor="let comment of comments">
-      <div class="comment-list">
-        <div class="comment-info">
-          <span>{{ comment.userId }}</span>
-          <span class="date">{{ comment.createdAt | date }}</span>
-        </div>
-        <mat-card class="comment-content">
-          <span
-            mat-line
-            [innerHTML]="comment.content.split('\n').join('<br>')"
-          ></span>
-        </mat-card>
+    <div *ngFor="let comment of comments" class="comment-list">
+      <div class="comment-info">
+        <span>{{ comment.userId }}</span>
+        <span class="date">{{ comment.createdAt | date }}</span>
       </div>
-    </mat-list-item>
-  </mat-list>
+      <mat-card class="comment-content">
+        <span [innerHTML]="comment.content.split('\n').join('<br>')"></span>
+      </mat-card>
+    </div>
+  </div>
 
   <div class="new-comment-row">
     <mat-form-field appearance="outline" class="full-width">
