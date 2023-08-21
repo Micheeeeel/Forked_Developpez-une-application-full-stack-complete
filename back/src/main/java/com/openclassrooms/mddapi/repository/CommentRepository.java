@@ -6,6 +6,7 @@ import com.openclassrooms.mddapi.model.User;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -16,5 +17,6 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     List<Comment> findByArticleId(Long articleId);
 
+    List<Comment> findByArticleId(Long articleId, Sort sort);
 
 }

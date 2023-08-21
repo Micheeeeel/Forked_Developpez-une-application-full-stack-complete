@@ -14,6 +14,7 @@ import com.openclassrooms.mddapi.repository.CommentRepository;
 import com.openclassrooms.mddapi.repository.SubjectRepository;
 import com.openclassrooms.mddapi.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -86,7 +87,11 @@ public class ArticleService {
         articleRepository.deleteById(id);
     }
 
-
+    private ArticleDTO toDTO(Article article) {
+        User author = article.getAuthor();
+        Subject subject = article.getSubject();
+        return new ArticleDTO(article.getId(), author.getId(),  author.getUsername(), subject.getId(), subject.getName(), article.getTitle(), article.getContent(), article.getPublishedAt() );
+    }
 
     private ArticleWithCommentsDTO toWithCommentsDTO(Article article) {
         List<CommentDTO> comments = getCommentsByArticleId(article.getId());
@@ -95,15 +100,12 @@ public class ArticleService {
                 article.getTitle(), article.getContent(), article.getPublishedAt(), comments);
     }
 
-    private ArticleDTO toDTO(Article article) {
-        User author = article.getAuthor();
-        Subject subject = article.getSubject();
-        return new ArticleDTO(article.getId(), author.getId(),  author.getUsername(), subject.getId(), subject.getName(), article.getTitle(), article.getContent(), article.getPublishedAt() );
-    }
 
     public List<CommentDTO> getCommentsByArticleId(Long articleId) {
-        List<Comment> comments = commentRepository.findByArticleId(articleId);
+        Sort sort = Sort.by(Sort.Order.desc("createdAt"));
+        List<Comment> comments = commentRepository.findByArticleId(articleId, sort);
         return comments.stream().map(commentService:: toDTO).collect(Collectors.toList());
     }
+
 
 }
