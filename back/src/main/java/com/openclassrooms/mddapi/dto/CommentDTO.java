@@ -20,7 +20,7 @@ public class CommentDTO {
     private Long articleId;
 
     @NotBlank
-    @Size(max = 1000)
+    @Size(max = 5000)
     private String content;
 
     private Date createdAt;

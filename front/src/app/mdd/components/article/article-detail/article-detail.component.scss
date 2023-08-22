@@ -1,3 +1,5 @@
+@import "../../../../../styles/_variables.scss";
+
 .article-detail-container {
   display: grid;
   row-gap: 16px; // Espace entre les lignes
@@ -66,4 +68,21 @@
 
 .comments-section {
   grid-area: comments;
+}
+
+/* Lien de retour - positionnement par défaut */
+.back-icon {
+  position: absolute;
+  top: $header-height + 1.2; // Déplacez le lien juste en dessous du header (adaptez ce chiffre en fonction de la hauteur de votre header)
+  left: 0;
+  padding: 10px; // Pour donner un peu d'espace autour du lien
+  z-index: 10; // Assurez-vous qu'il apparaît au-dessus des autres éléments
+  font-size: $back-arrow-font-size; /* Ajustez cette valeur selon la taille souhaitée */
+}
+
+/* Lorsque la largeur de l'écran est de 500px ou moins */
+@media (max-width: 500px) {
+  .back-icon {
+    top: $header-height; // Positionne le lien au-dessus du header
+  }
 }

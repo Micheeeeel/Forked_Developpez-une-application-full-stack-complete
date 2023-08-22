@@ -39,7 +39,7 @@ textarea {
   height: 250px; /* ou la hauteur que vous voulez */
 }
 
-/* Lien de retour en page d'accueil - positionnement par défaut */
+/* Lien de retour - positionnement par défaut */
 .back-icon {
   position: absolute;
   top: $header-height + 1.8; // Déplacez le lien juste en dessous du header (adaptez ce chiffre en fonction de la hauteur de votre header)
