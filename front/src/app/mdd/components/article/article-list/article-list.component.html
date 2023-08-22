@@ -26,7 +26,6 @@
   <app-article-list-item
     *ngFor="let article of articles$ | async"
     [article]="article"
-    (articleCommented)="onArticleCommented($event)"
   ></app-article-list-item>
 </div>
 

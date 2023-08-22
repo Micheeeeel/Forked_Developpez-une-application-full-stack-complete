@@ -5,9 +5,12 @@
   margin: auto; // Centre l'élément horizontalement dans son conteneur.
 
   display: flex; // Applique le modèle de boîte flexible à l'élément pour aligner et positionner ses enfants de manière plus avancée.
-  align-content: start;
+
   justify-content: center; // Centre horizontalement les éléments enfants à l'intérieur du conteneur flex.
-  align-items: flex-start; // Commencez à partir du haut de l'espace disponible
+
+  align-items: flex-start; // Commence à partir du haut de l'espace disponible
+
+  //align-content: start; // Commencez à partir du haut de l'espace disponible
 
   // height: 100vh; // Définit la hauteur de l'élément à 100% de la hauteur de la fenêtre de visualisation.
   // overflow: auto; // Dans le cas où le contenu dépasse la hauteur de l'écran, une barre de défilement apparaîtra.
