@@ -11,6 +11,7 @@
   //font-weight: bold;
   font-size: 18px;
   padding-bottom: 20px;
+  font-weight: bold;
 }
 
 mat-list {
@@ -23,6 +24,7 @@ mat-list {
 
 .comment-list {
   display: flex;
+  flex-direction: row; /* Inverse l'ordre des éléments */
   justify-content: flex-start; /* aligne les éléments au début (côté gauche) */
   align-items: flex-start; /* aligne les éléments en haut */
   margin-bottom: 16px; /* espace entre chaque élément .comment_list */
@@ -38,7 +40,7 @@ mat-list {
   justify-content: flex-start; /* Alignement vertical */
   align-items: flex-start; /* Alignement horizontal */
   margin-right: 50px; /* Espace à droite pour séparer les noms/date des commentaires */
-  width: 100px;
+  //width: 100px;
   //padding: 10px;
 }
 
@@ -48,6 +50,22 @@ mat-list {
   padding: 10px;
   overflow: visible; /* Assurez-vous que le contenu n'est pas masqué */
   min-height: 0;
+}
+
+@media (max-width: 500px) {
+  .comment-list {
+    flex-direction: column-reverse; /* Inverse l'ordre des éléments */
+    align-items: stretch; /* Étend les éléments pour prendre toute la largeur disponible */
+
+    gap: 10px; /* espace entre l'image et le contenu du commentaire */
+    padding-bottom: 10px;
+  }
+  .comment-info {
+    flex-direction: row-reverse; /* Pour positionner la date et le userId l'un au-dessus de l'autre */
+    margin-right: 0; /* Supprimez la marge à droite pour les petits écrans */
+    justify-content: space-between; /* Aligner sur la droite */
+    //gap: 20px; /* espace entre l'image et le contenu du commentaire */
+  }
 }
 
 .new-comment-row {

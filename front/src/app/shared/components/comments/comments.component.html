@@ -1,6 +1,6 @@
 <div class="comments-container">
   <div *ngIf="comments.length" class="comment-list-container">
-    <mat-card-subtitle class="title"> Commentaires </mat-card-subtitle>
+    <div class="title">Commentaires</div>
     <div *ngFor="let comment of comments" class="comment-list">
       <div class="comment-info">
         <span>{{ comment.authorName }}</span>
