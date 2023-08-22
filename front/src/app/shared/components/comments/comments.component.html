@@ -3,7 +3,7 @@
     <mat-card-subtitle class="title"> Commentaires </mat-card-subtitle>
     <div *ngFor="let comment of comments" class="comment-list">
       <div class="comment-info">
-        <span>{{ comment.userId }}</span>
+        <span>{{ comment.authorName }}</span>
         <span class="date">{{ comment.createdAt | date }}</span>
       </div>
       <mat-card class="comment-content">
