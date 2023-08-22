@@ -11,23 +11,20 @@
 
   // Spécifiez la largeur et d'autres styles pour la carte selon vos besoins
   //   width: 500px;
-  width: 80%;
   min-width: 650px;
   margin: 0 auto;
-  padding: 16px;
   //   border: 1px solid #e0e0e0;
   //   border-radius: 8px;
   //   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 
   overflow: auto; // Dans le cas où le contenu dépasse la hauteur de l'écran, une barre de défilement apparaîtra.
-}
 
-// @media (max-width: 550px) {
-//   .article-detail-container {
-//     width: 350px;
-//     margin-top: 30px; /* ou la valeur que vous souhaitez */
-//   }
-// }
+  width: 90%; // Augmente la largeur pour mieux remplir l'espace disponible
+  min-width: 300px; // Réduit la largeur minimale pour permettre une meilleure adaptabilité
+
+  // Réduisez le padding pour maximiser l'espace
+  padding: 8px;
+}
 
 .mat-card-title {
   grid-area: title;
@@ -39,10 +36,12 @@
   grid-area: metadata;
   display: flex;
   flex-wrap: wrap;
-  flex-direction: row;
+  flex-direction: row; // Les éléments s'empilent verticalement
   justify-content: flex-start;
-  gap: 30px;
+  column-gap: 50px; // Réduit l'écart entre les éléments
   align-items: center; /* Ajoutez cette ligne */
+  // mettre les élément en gras
+  font-weight: bold;
 }
 
 .mat-card-content {
@@ -79,6 +78,13 @@
 /* Lorsque la largeur de l'écran est de 500px ou moins */
 @media (max-width: 500px) {
   .back-icon {
-    top: $header-height; // Positionne le lien au-dessus du header
+    //top: $header-height; // Positionne le lien au-dessus du header
+    margin-left: 30px; // Décale le titre légèrement à droite
+  }
+}
+
+@media (max-width: 500px) {
+  .mat-card-title {
+    margin-left: 50px; // Décale le titre légèrement à droite
   }
 }
