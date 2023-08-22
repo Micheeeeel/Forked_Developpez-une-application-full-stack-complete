@@ -17,7 +17,11 @@ public class ArticleWithCommentsDTO {
 
     private Long userId;
 
+    private String userName; // Nom de l'auteur
+
     private Long subjectId;
+
+    private String subjectName;
 
     @NotBlank
     @Size(max = 100)

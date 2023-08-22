@@ -96,7 +96,10 @@ public class ArticleService {
     private ArticleWithCommentsDTO toWithCommentsDTO(Article article) {
         List<CommentDTO> comments = getCommentsByArticleId(article.getId());
 
-        return new ArticleWithCommentsDTO(article.getId(), article.getAuthor().getId(), article.getSubject().getId(),
+        User author = article.getAuthor();
+        Subject subject = article.getSubject();
+
+        return new ArticleWithCommentsDTO(article.getId(), author.getId(), author.getUsername(), subject.getId(), subject.getName(),
                 article.getTitle(), article.getContent(), article.getPublishedAt(), comments);
     }
 

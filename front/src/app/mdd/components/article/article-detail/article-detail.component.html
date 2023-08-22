@@ -10,17 +10,17 @@
         <span>{{ article.title | titlecase }}</span>
       </mat-card-title>
       <div class="metadata">
-        <mat-card-subtitle class="date">
+        <div class="date">
           <span>{{ article.publishedAt | date }}</span>
-        </mat-card-subtitle>
+        </div>
 
-        <mat-card-subtitle class="author">
-          <span>{{ article.userId }}</span>
-        </mat-card-subtitle>
+        <div class="author">
+          <span>{{ article.userName }}</span>
+        </div>
 
-        <mat-card-subtitle class="theme">
-          <span>{{ article.subjectId }}</span>
-        </mat-card-subtitle>
+        <div class="theme">
+          <span>{{ article.subjectName }}</span>
+        </div>
       </div>
 
       <mat-card-content class="content">

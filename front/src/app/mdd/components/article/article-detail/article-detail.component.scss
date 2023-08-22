@@ -35,18 +35,14 @@
   margin-bottom: 8px;
 }
 
-.date,
-.author,
-.theme {
-  display: flex;
-  flex-direction: column;
-}
-
 .metadata {
   grid-area: metadata;
-  display: grid;
-  grid-template-columns: 150px 150px 150px;
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 30px;
+  align-items: center; /* Ajoutez cette ligne */
 }
 
 .mat-card-content {
