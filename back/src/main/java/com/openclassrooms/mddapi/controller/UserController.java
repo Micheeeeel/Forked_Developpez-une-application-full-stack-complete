@@ -4,6 +4,7 @@ import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.exception.UpdateSubjectException;
 import com.openclassrooms.mddapi.exception.UpdateUserException;
 import com.openclassrooms.mddapi.exception.UserNotFoundException;
+import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
