@@ -26,7 +26,8 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/mdd/**").authenticated()
+                .antMatchers("/api/auth/*").permitAll()  // Accès public pour /api/login et /api/register
+                .antMatchers("/api/**").authenticated()                 // Authentification requise pour toutes les autres routes /api/**
                 .anyRequest().permitAll()
                 .and()
                 .addFilterBefore(jwtFilter(), UsernamePasswordAuthenticationFilter.class);
