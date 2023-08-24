@@ -12,11 +12,10 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {}
 
   onSignUp(): void {
-    this.router.navigateByUrl('/auth/login');
+    this.router.navigateByUrl('/auth/register');
   }
 
   onSignIn(): void {
     this.router.navigateByUrl('/auth/login');
   }
-
 }

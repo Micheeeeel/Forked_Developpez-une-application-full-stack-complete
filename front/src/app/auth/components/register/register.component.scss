@@ -1,0 +1,77 @@
+// Importer les variables de style présentes dans le fichier _variables.scss
+@import "../../../../styles/_variables.scss";
+
+/* Centre le titre et le formulaire */
+.register-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 500px; // Ou la largeur maximale que vous souhaitez pour le formulaire
+  margin: 0 auto; // Centrer le conteneur par rapport à l'écran
+  //margin-top: 2rem; // Ajoutez une marge en dessous du titre pour l'espacement
+}
+
+/* Style pour le formulaire */
+.register-form {
+  width: 100%; // Prendre toute la largeur du conteneur .register-container
+
+  mat-form-field {
+    width: 350px; // Cela prendra toute la largeur disponible de son conteneur parent
+  }
+
+  .register-rows {
+  }
+
+  /* Centre le bouton S'inscrire */
+  .button-group {
+    display: flex;
+    justify-content: center;
+
+    button {
+      width: 150px; // Définir la largeur souhaitée pour le bouton
+      text-align: center; // Pour vous assurer que le texte du bouton reste centré
+    }
+  }
+}
+
+/* Style pour le titre */
+h2 {
+  margin-bottom: 2rem; // Ajoutez une marge en dessous du titre pour l'espacement
+}
+
+/* Lien de retour en page d'accueil - positionnement par défaut */
+.back-icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px; // Pour donner un peu d'espace autour du lien
+  z-index: 10; // Assurez-vous qu'il apparaît au-dessus des autres éléments
+}
+
+/* Lorsque la largeur de l'écran est supérieure à 500px */
+@media (min-width: 501px) {
+  .back-icon {
+    top: $header-height + 1; // Déplacez le lien juste en dessous du header (adaptez ce chiffre en fonction de la hauteur de votre header)
+  }
+}
+
+/* Lorsque la largeur de l'écran est de 500px ou moins */
+@media (max-width: 500px) {
+  .back-icon {
+    top: 0; // Positionne le lien au-dessus du header
+  }
+}
+
+.back-icon {
+  font-size: $back-arrow-font-size;
+  line-height: 18px;
+  z-index: 10;
+
+  // Améliorations
+  padding: 20px; // Améliore la zone cliquable
+  padding-top: 20px;
+  padding-left: 30px;
+  border-radius: 50%; // Rend le padding circulaire, ce qui est bon pour les icônes
+  transition: background-color 0.3s ease; // Transition pour le feedback au survol
+}

@@ -21,7 +21,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   loginForm!: FormGroup;
   message: string | null = null;
   errorMessage: string | null = null;
-  @ViewChild('usernameInput', { static: false }) usernameInput!: ElementRef;
+  @ViewChild('emailOrUserNameInput', { static: false })
+  emailOrUserNameInput!: ElementRef;
 
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -33,45 +34,42 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.loginForm = this.formeBuilder.group({
-      username: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]],
+      emailOrUserName: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
     });
   }
 
   ngAfterViewInit(): void {
-    Promise.resolve().then(() => this.usernameInput.nativeElement.focus());
+    Promise.resolve().then(() =>
+      this.emailOrUserNameInput.nativeElement.focus()
+    );
   }
 
-  onLogin(): void {
-    if (this.loginForm.valid) {
-      // Appelez votre méthode de connexion ici, peut-être avec email et password
-      this.auth.login();
-
-      // Redirigez vers la page désirée
-      this.router.navigateByUrl('/mdd/subjects');
-    }
-  }
-
-  createUser() {
+  submit() {
     if (this.loginForm.valid) {
       this.auth
-        .createUser(this.loginForm.value)
+        .login(this.loginForm.value)
         .pipe()
         .subscribe({
           next: (message) => {
-            this.handleSuccess('User created successfully');
+            this.handleSuccess('User logged successfully', message.token);
           },
           error: (error) => {
-            this.handleError('Failed to create user');
+            this.handleError('Failed to log user');
           },
         });
     }
   }
 
-  handleSuccess(message: string) {
+  handleSuccess(message: string, token: string) {
+    // Sauvegardez le token dans le localStorage
+    localStorage.setItem('token', token);
+
+    // Affichez le message
     console.log(message);
     this.message = message;
+
+    // Redirigez vers la page désirée
     this.router.navigateByUrl('/mdd/article');
   }
 
