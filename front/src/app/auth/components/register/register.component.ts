@@ -12,6 +12,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/core/models/User';
+import { SessionService } from 'src/app/core/services/session.service';
 
 @Component({
   selector: 'app-register',
@@ -29,7 +30,8 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private formeBuilder: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private session: SessionService
   ) {}
 
   ngOnInit(): void {

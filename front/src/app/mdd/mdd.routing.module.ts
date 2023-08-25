@@ -8,27 +8,28 @@ import { ArticleListComponent } from './components/article/article-list/article-
 import { ArticlesResolver } from './resolvers/articles.resolver';
 import { ArticleformComponent } from './components/article/articleform/articleform.component';
 import { ArticleDetailComponent } from './components/article/article-detail/article-detail.component';
+import { MeComponent } from './components/me/me.component';
 
 const routes = [
   {
     path: 'subjects',
     component: SubjectsComponent,
-    //canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form',
     component: SubjectFormComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form/:id',
     component: SubjectFormComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'subjects/:id',
     component: SubjectDetailComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'article',
@@ -39,11 +40,16 @@ const routes = [
   {
     path: 'article/article-form',
     component: ArticleformComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'article/article-detail/:id',
     component: ArticleDetailComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'me',
+    component: MeComponent,
     //canActivate: [AuthGuard],
   },
 ];

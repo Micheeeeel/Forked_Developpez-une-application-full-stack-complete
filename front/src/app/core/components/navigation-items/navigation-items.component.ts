@@ -12,6 +12,6 @@ export class NavigationItemsComponent implements OnInit {
   ngOnInit(): void {}
 
   naviguerVersUserInfo() {
-    this.router.navigateByUrl('/mdd/user-info');
+    this.router.navigateByUrl('/mdd/me');
   }
 }
