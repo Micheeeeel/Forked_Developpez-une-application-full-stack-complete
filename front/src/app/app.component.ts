@@ -3,6 +3,7 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { Observable, filter, interval, observable } from 'rxjs';
 import { HomeComponent } from './pages/home/home.component';
 import { LoginComponent } from './auth/components/login/login.component';
+import { RegisterComponent } from './auth/components/register/register.component';
 
 @Component({
   selector: 'app-root',
@@ -28,7 +29,7 @@ export class AppComponent implements OnInit {
           this.headerType = HeaderType.HomeHeader;
         } else if (
           activeComponent === LoginComponent ||
-          activeComponent === LoginComponent // a remplacer par le future register component
+          activeComponent === RegisterComponent
         ) {
           // check if the component is the login component or the regi
           this.headerType = HeaderType.LoginHeader;
