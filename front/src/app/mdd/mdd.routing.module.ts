@@ -14,22 +14,22 @@ const routes = [
   {
     path: 'subjects',
     component: SubjectsComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form',
     component: SubjectFormComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form/:id',
     component: SubjectFormComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'subjects/:id',
     component: SubjectDetailComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'article',
@@ -45,7 +45,7 @@ const routes = [
   {
     path: 'article/article-detail/:id',
     component: ArticleDetailComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'me',

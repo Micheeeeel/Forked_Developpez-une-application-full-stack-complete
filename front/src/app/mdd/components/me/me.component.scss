@@ -1,0 +1,35 @@
+.profile-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-field {
+  width: 100%;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Espace entre les éléments */
+  //align-items: flex-start; /* Alignement horizontal à gauche */
+}
+
+.subscription-title {
+  margin-top: 20px;
+}
+
+.subscription-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Crée 2 colonnes égales */
+  gap: 20px;
+}
+
+.theme-item {
+  background-color: #f5f5f5; /* Couleur de fond pour chaque élément de thème */
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

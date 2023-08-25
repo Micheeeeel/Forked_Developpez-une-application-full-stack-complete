@@ -10,12 +10,14 @@ VALUES
   ('bob@example.com', 'BobJohnson', '12345678');
 
 -- Insertion de données de test pour la table "subject"
-INSERT INTO subjects (name)
+-- Insertion de données de test pour la table "subject"
+INSERT INTO subjects (name, description)
 VALUES
-  ('JavaScript'),
-  ('Java'),
-  ('Python'),
-  ('Web3');
+  ('JavaScript', 'Un langage de programmation principalement connu pour son utilisation dans le développement web pour ajouter des interactions dynamiques aux pages.'),
+  ('Java', 'Un langage de programmation orienté objet largement utilisé, connu pour sa portabilité et sa capacité à exécuter du code sur de multiples plateformes.'),
+  ('Python', 'Un langage de programmation polyvalent et facile à apprendre, populaire pour la science des données, le développement web et l''automatisation.'),
+  ('Web3', 'Un nouveau paradigme pour les applications sur le web, favorisant la décentralisation grâce à la technologie blockchain.');
+
 
 -- Insertion de données de test pour la table "article"
 INSERT INTO articles (subject_id, user_id, title, content, published_at)
