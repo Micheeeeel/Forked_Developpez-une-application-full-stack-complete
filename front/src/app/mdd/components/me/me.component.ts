@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, filter, map, takeUntil, tap } from 'rxjs';
 import { Subject as MySubject } from 'src/app/core/models/Subject';
 import { User } from 'src/app/core/models/User';
@@ -21,7 +22,8 @@ export class MeComponent implements OnInit, OnDestroy {
   constructor(
     private subjectService: SubjectService,
     private subscriptionService: SubscriptionService,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +64,13 @@ export class MeComponent implements OnInit, OnDestroy {
         subject.followed = true;
       });
     }
+  }
+
+  onLogoutClick() {
+    this.sessionService.logOut();
+
+    // Redirigez vers la page d'accueil
+    this.router.navigateByUrl('/');
   }
 
   ngOnDestroy(): void {
