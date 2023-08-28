@@ -1,28 +1,45 @@
+.profile-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto; // Centrer le conteneur par rapport à l'écran
+  //background-color: #e07272; /* couleur de fond temporaire pour le dépannage */
+}
+
 .profile-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
-}
+  align-items: center;
+  width: 100%; // Prendre toute la largeur du conteneur .login-container
 
-.profile-field {
-  width: 100%;
+  mat-form-field {
+    width: 80%;
+    max-width: 450px;
+  }
 }
 
 .profile-actions {
   display: flex;
   flex-direction: column;
   gap: 10px; /* Espace entre les éléments */
-  //align-items: flex-start; /* Alignement horizontal à gauche */
 }
 
-.subscription-title {
-  margin-top: 20px;
+mat-card-title {
+  margin: 20px;
 }
 
 .subscription-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); /* Crée 2 colonnes égales */
   gap: 20px;
+}
+
+@media (max-width: 500px) {
+  /* Ajustez cette valeur de breakpoint selon vos besoins */
+  .subscription-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .theme-item {
@@ -32,4 +49,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+mat-divider {
+  width: 90%;
+  border-top: 1px solid rgb(27, 25, 25);
+  margin: 0 auto; // Centrer le conteneur par rapport à l'écran
 }

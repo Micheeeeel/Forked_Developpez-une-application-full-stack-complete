@@ -1,5 +1,5 @@
 <!-- Profil utilisateur -->
-<div>
+<div class="profile-container">
   <mat-card-title>Profil utilisateur</mat-card-title>
   <mat-card-content class="profile-form">
     <mat-form-field appearance="outline" class="profile-field">
@@ -17,14 +17,24 @@
       <a mat-button color="warn">Se déconnecter</a>
     </mat-card-actions>
   </mat-card-content>
+</div>
 
-  <mat-divider></mat-divider>
+<mat-divider></mat-divider>
 
-  <mat-card-title class="subscription-title">Abonnement</mat-card-title>
-  <mat-card-content class="subscription-grid">
-    <!-- Vous pouvez répéter cette section pour chaque sujet -->
-    <div class="theme-item">Thème 1</div>
-    <div class="theme-item">Thème 2</div>
-    <!-- ... -->
+<div class="profile-container">
+  <mat-card-title class="subscription-title">Abonnements</mat-card-title>
+
+  <mat-card-content>
+    <div *ngIf="subjects; else loadingTemplate" class="subscription-grid">
+      <app-subject-list-item
+        *ngFor="let subject of subjects"
+        [subject]="subject"
+        (subscribeEvent)="onSubscribeSubject(subject)"
+      ></app-subject-list-item>
+    </div>
   </mat-card-content>
 </div>
+
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>

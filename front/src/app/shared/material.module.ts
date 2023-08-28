@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatOptionModule } from '@angular/material/core';
 import { MatSelectModule } from '@angular/material/select';
+import { MatDividerModule } from '@angular/material/divider';
 
 @NgModule({
   exports: [
@@ -24,6 +25,7 @@ import { MatSelectModule } from '@angular/material/select';
     MatSidenavModule,
     MatOptionModule,
     MatSelectModule,
+    MatDividerModule,
   ],
 })
 export class MaterialModule {}
