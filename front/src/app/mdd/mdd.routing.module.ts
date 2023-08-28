@@ -40,7 +40,7 @@ const routes = [
   {
     path: 'article/article-form',
     component: ArticleformComponent,
-    canActivate: [AuthGuard],
+    //canActivate: [AuthGuard],
   },
   {
     path: 'article/article-detail/:id',

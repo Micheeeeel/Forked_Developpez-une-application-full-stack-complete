@@ -7,37 +7,38 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  max-width: 500px; // Ou la largeur maximale que vous souhaitez pour le formulaire
+  //max-width: 500px; // Ou la largeur maximale que vous souhaitez pour le formulaire
   margin: 0 auto; // Centrer le conteneur par rapport à l'écran
   //margin-top: 2rem; // Ajoutez une marge en dessous du titre pour l'espacement
-}
+  //background-color: #e07272; /* couleur de fond temporaire pour le dépannage */
 
-/* Style pour le formulaire */
-.register-form {
-  width: 100%; // Prendre toute la largeur du conteneur .register-container
-
-  mat-form-field {
-    width: 350px; // Cela prendra toute la largeur disponible de son conteneur parent
+  /* Style pour le titre */
+  h2 {
+    margin-bottom: 2rem; // Ajoutez une marge en dessous du titre pour l'espacement
   }
 
-  .register-rows {
-  }
-
-  /* Centre le bouton S'inscrire */
-  .button-group {
+  /* Style pour le formulaire */
+  .register-form {
+    //background-color: #469b88; /* couleur de fond temporaire pour le dépannage */
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center; // Centrer les éléments enfants horizontalement
+    width: 100%; // Prendre toute la largeur du conteneur .register-container
+    mat-form-field {
+      width: 350px;
+    }
 
-    button {
-      width: 150px; // Définir la largeur souhaitée pour le bouton
-      text-align: center; // Pour vous assurer que le texte du bouton reste centré
+    /* Centre le bouton S'inscrire */
+    .button-group {
+      display: flex;
+      justify-content: center;
+
+      button {
+        width: 150px; // Définir la largeur souhaitée pour le bouton
+        text-align: center; // Pour vous assurer que le texte du bouton reste centré
+      }
     }
   }
-}
-
-/* Style pour le titre */
-h2 {
-  margin-bottom: 2rem; // Ajoutez une marge en dessous du titre pour l'espacement
 }
 
 /* Lien de retour en page d'accueil - positionnement par défaut */

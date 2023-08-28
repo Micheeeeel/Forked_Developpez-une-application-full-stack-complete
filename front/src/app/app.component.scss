@@ -2,13 +2,14 @@
   box-sizing: border-box; // Change la manière dont les propriétés de dimensionnement (comme la largeur et la hauteur) sont mesurées pour inclure le padding et les bordures, et non le contenu seul.
   padding: 30px; // Ajoute un espace interne de 20px tout autour du contenu.
   //max-width: 800px; // La largeur maximale de l'élément est limitée à 800px.
-  margin: auto; // Centre l'élément horizontalement dans son conteneur.
+  //margin: auto; // Centre l'élément horizontalement dans son conteneur.
 
-  display: flex; // Applique le modèle de boîte flexible à l'élément pour aligner et positionner ses enfants de manière plus avancée.
+  // display: flex; // Applique le modèle de boîte flexible à l'élément pour aligner et positionner ses enfants de manière plus avancée.
 
-  justify-content: center; // Centre horizontalement les éléments enfants à l'intérieur du conteneur flex.
+  // justify-content: center; // Centre horizontalement les éléments enfants à l'intérieur du conteneur flex.
 
-  align-items: flex-start; // Commence à partir du haut de l'espace disponible
+  // align-items: flex-start; // Commence à partir du haut de l'espace disponible
+  // max-width: 1200px; // ou toute autre valeur que vous trouvez appropriée
 
   //align-content: start; // Commencez à partir du haut de l'espace disponible
 
@@ -20,6 +21,7 @@
   // @media (max-width: 500px) {
   //   padding: 0px; // Supprime l'espace avec le header pour les petits écrans
   // }
+  //background-color: #634848; /* couleur de fond temporaire pour le dépannage */
 }
 
 mat-sidenav {

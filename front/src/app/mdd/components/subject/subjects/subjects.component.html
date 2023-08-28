@@ -4,34 +4,6 @@
     [subject]="subject"
     (subscribeEvent)="onSubscribeSubject(subject)"
   ></app-subject-list-item>
-  <!-- <h2>Subjects</h2> -->
-  <!-- <ul>
-    <li *ngFor="let subject of subjects" class="subject-item">
-      {{ subject.name }} <br />{{ subject.description }}
-
-      <div class="buttons">
-        <button (click)="onSubjectDetail(subject.id)">Detail</button>
-        <button
-          class="edit-button"
-          (click)="onEditSubject(subject.id.toString())"
-        >
-          Editer
-        </button>
-        <button
-          class="delete-button"
-          (click)="onDeleteSubject(subject.id.toString())"
-        >
-          Delete
-        </button>
-        <button
-          class="subscribe-button"
-          (click)="onSubscribeSubject(subject.id)"
-        >
-          {{ subject.followed ? "Se désabonner" : "S'abonner" }}
-        </button>
-      </div>
-    </li>
-  </ul> -->
 </div>
 
 <ng-template #loadingTemplate>
