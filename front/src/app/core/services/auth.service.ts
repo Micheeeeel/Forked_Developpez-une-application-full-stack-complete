@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ErrorHandlingService } from './error-handling.service';
 import { Token } from '../../core/models/Token';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,8 @@ export class AuthService {
   ) {}
 
   public register(formValue: { name: string }): Observable<Token> {
+    console.log('ça envoie ce qui suit: ' + formValue.name);
+
     return this.http.post<Token>(`${this.baseUrl}/auth/register`, formValue);
   }
 
@@ -26,21 +29,7 @@ export class AuthService {
     return this.http.post<Token>(`${this.baseUrl}/auth/login`, formValue);
   }
 
-  // register(formValue: { name: string }): Observable<string> {
-  //   return this.http
-  //     .post<Token>(`${this.baseUrl}/user`, formValue, {
-  //       responseType: 'text',
-  //     })
-  //     .pipe(
-  //       map((response) => {
-  //         if (response === 'New User created') {
-  //           this.token = 'myFakeToken';
-  //           return 'User created successfully';
-  //         } else {
-  //           throw new Error('Failed to create User');
-  //         }
-  //       }),
-  //       catchError(this.errorHandlingService.handleError)
-  //     );
-  // }
+  public getCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/user/me`);
+  }
 }

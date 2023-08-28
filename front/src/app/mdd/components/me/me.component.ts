@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subject, filter, map, takeUntil, tap } from 'rxjs';
 import { Subject as MySubject } from 'src/app/core/models/Subject';
+import { User } from 'src/app/core/models/User';
+import { SessionService } from 'src/app/core/services/session.service';
 import { SubjectService } from 'src/app/core/services/subject.service';
 import { SubscriptionService } from 'src/app/core/services/subscriptionService';
 
@@ -12,16 +14,20 @@ import { SubscriptionService } from 'src/app/core/services/subscriptionService';
 export class MeComponent implements OnInit, OnDestroy {
   subjects: MySubject[] = [];
   errorMessage: string | null = null;
+  currentUser!: User;
 
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
     private subjectService: SubjectService,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit(): void {
     this.getUnsubscribedSubjects();
+
+    this.currentUser = this.sessionService.user;
   }
 
   getUnsubscribedSubjects(): void {

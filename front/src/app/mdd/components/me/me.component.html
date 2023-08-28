@@ -4,12 +4,21 @@
   <mat-card-content class="profile-form">
     <mat-form-field appearance="outline" class="profile-field">
       <mat-label>Username</mat-label>
-      <input matInput placeholder="Entrez votre username" />
+      <input
+        matInput
+        placeholder="Modifiez votre username"
+        [(ngModel)]="currentUser.username"
+      />
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="profile-field">
       <mat-label>Email</mat-label>
-      <input matInput type="email" placeholder="Entrez votre e-mail" />
+      <input
+        matInput
+        type="email"
+        placeholder="Modifiez votre e-mail"
+        [(ngModel)]="currentUser.email"
+      />
     </mat-form-field>
 
     <mat-card-actions class="profile-actions">

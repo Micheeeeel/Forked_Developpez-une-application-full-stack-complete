@@ -9,6 +9,8 @@ import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -57,5 +59,19 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+
+        // Supposons que vous ayez une méthode pour obtenir les détails de l'utilisateur par nom d'utilisateur
+        UserDTO userDTO = userService.getUserByName(username);
+        if (userDTO == null) {
+            throw new UserNotFoundException("User not found with userName: " + username); // Exception personnalisée
+        } else {
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        }
     }
 }

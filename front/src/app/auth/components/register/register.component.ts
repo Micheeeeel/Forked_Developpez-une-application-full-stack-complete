@@ -48,6 +48,8 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
 
   submit() {
     if (this.registerForm.valid) {
+      console.log('ça envoie ce qui suit: ' + this.registerForm.value);
+
       this.auth
         .register(this.registerForm.value)
         .pipe()
@@ -66,17 +68,17 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     // Sauvegardez le token dans le localStorage
     localStorage.setItem('token', token);
 
-    // // Récupérer l'utilisateur
-    // this.auth.me().subscribe((user: User) => {
-    //   this.auth.logIn(user);  // Sauvegarder l'utilisateur dans le service de session
-    // });
-
     // Affichez le message
     console.log(message);
     this.message = message;
 
-    // Redirigez vers la page désirée
-    this.router.navigateByUrl('/mdd/article');
+    // mémoriser l'utilisateur
+    this.auth.getCurrentUser().subscribe((user: User) => {
+      this.session.logIn(user);
+
+      // Redirigez vers la page désirée
+      this.router.navigateByUrl('/mdd/article');
+    });
   }
 
   handleError(message: string) {

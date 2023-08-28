@@ -8,7 +8,7 @@ import { User } from '../models/User';
 })
 export class SessionService {
   public isLogged = false;
-  public user: User | undefined;
+  public user!: User;
 
   public logIn(user: User): void {
     this.user = user;
@@ -17,7 +17,6 @@ export class SessionService {
 
   public logOut(): void {
     localStorage.removeItem('token');
-    this.user = undefined;
     this.isLogged = false;
   }
 }

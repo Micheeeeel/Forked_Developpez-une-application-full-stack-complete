@@ -40,6 +40,11 @@ public class UserService {
         return user.map(this::toDTO).orElse(null);
     }
 
+    public UserDTO getUserByName(String name) {
+        Optional<User> user = userRepository.findByUsername(name);
+        return user.map(this::toDTO).orElse(null);
+    }
+
     public UserDTO updateUser(Long id, String email, String username, String password) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isEmpty()) {
@@ -62,4 +67,6 @@ public class UserService {
     private UserDTO toDTO(User user) {
         return new UserDTO(user.getEmail(), user.getUsername(), user.getPassword());
     }
+
+
 }

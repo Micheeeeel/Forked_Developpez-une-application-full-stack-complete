@@ -11,6 +11,8 @@ import { AuthService } from '../../../core/services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { Subject } from 'rxjs';
+import { SessionService } from 'src/app/core/services/session.service';
+import { User } from 'src/app/core/models/User';
 
 @Component({
   selector: 'app-login',
@@ -29,7 +31,8 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   constructor(
     private formeBuilder: FormBuilder,
     private auth: AuthService,
-    private router: Router
+    private router: Router,
+    private session: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -67,8 +70,13 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log(message);
     this.message = message;
 
-    // Redirigez vers la page désirée
-    this.router.navigateByUrl('/mdd/article');
+    // mémoriser l'utilisateur
+    this.auth.getCurrentUser().subscribe((user: User) => {
+      this.session.logIn(user);
+
+      // Redirigez vers la page désirée
+      this.router.navigateByUrl('/mdd/article');
+    });
   }
 
   handleError(message: string) {
