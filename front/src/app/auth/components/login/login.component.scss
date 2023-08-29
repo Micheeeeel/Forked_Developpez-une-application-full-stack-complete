@@ -73,3 +73,16 @@
     top: 0; // Positionne le lien au-dessus du header
   }
 }
+
+.error-message {
+  background-color: #f8d7da; /* Couleur de fond rose pâle */
+  border-color: #f5c6cb; /* Bordure rose */
+  color: #842029; /* Couleur du texte rouge foncé */
+  padding: 5px; /* Espacement interne pour le padding */
+  border-radius: 4px; /* Bordures arrondies */
+  margin-bottom: 10px; // Ajoutez une marge en dessous du message pour l'espacement
+  font-size: 0.9em; /* Taille de la police légèrement plus petite que le texte standard */
+  font-weight: bold; /* Police en gras */
+  max-width: 400px; /* Largeur maximale pour que le message ne s'étende pas trop */
+  word-wrap: break-word; /* Permet de casser les mots longs pour ne pas dépasser la largeur maximale */
+}

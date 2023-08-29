@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { Subject } from 'rxjs';
 import { User } from 'src/app/core/models/User';
 import { SessionService } from 'src/app/core/services/session.service';
+import { PasswordValidator } from 'src/app/shared/validators/password.validator';
 
 @Component({
   selector: 'app-register',
@@ -38,7 +39,7 @@ export class RegisterComponent implements OnInit, AfterViewInit, OnDestroy {
     this.registerForm = this.formeBuilder.group({
       username: [null, [Validators.required]],
       email: [null, [Validators.required, Validators.email]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
+      password: [null, [Validators.required, PasswordValidator]],
     });
   }
 

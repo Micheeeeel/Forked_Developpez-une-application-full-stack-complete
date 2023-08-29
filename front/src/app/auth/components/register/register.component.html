@@ -41,7 +41,13 @@
           />
         </mat-form-field>
       </p>
-
+      <div
+        *ngIf="registerForm.controls['password'].errors?.['invalidPassword']"
+        class="error-message"
+      >
+        Le mot de passe doit avoir au moins 8 caractères, incluant une lettre
+        minuscule, une lettre majuscule, un chiffre et un caractère spécial.
+      </div>
       <div class="button-group">
         <button
           type="submit"

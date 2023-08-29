@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { Subject } from 'rxjs';
 import { SessionService } from 'src/app/core/services/session.service';
 import { User } from 'src/app/core/models/User';
+import { PasswordValidator } from 'src/app/shared/validators/password.validator';
 
 @Component({
   selector: 'app-login',
@@ -38,7 +39,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnInit(): void {
     this.loginForm = this.formeBuilder.group({
       login: [null, [Validators.required]],
-      password: [null, [Validators.required, Validators.minLength(6)]],
+      password: [null, [Validators.required, PasswordValidator]],
     });
   }
 
