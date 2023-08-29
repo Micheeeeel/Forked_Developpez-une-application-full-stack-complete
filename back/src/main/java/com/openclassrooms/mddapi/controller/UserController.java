@@ -57,9 +57,8 @@ public class UserController {
     public ResponseEntity<UserDTO> getCurrentUser() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
-
-        // Supposons que vous ayez une méthode pour obtenir les détails de l'utilisateur par nom d'utilisateur
         UserDTO userDTO = userService.getUserByName(username);
+
         if (userDTO == null) {
             throw new UserNotFoundException("User not found with userName: " + username); // Exception personnalisée
         } else {

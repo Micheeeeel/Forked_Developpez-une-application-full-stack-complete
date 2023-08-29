@@ -9,10 +9,8 @@ import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.model.Comment;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.model.User;
-import com.openclassrooms.mddapi.repository.ArticleRepository;
-import com.openclassrooms.mddapi.repository.CommentRepository;
-import com.openclassrooms.mddapi.repository.SubjectRepository;
-import com.openclassrooms.mddapi.repository.UserRepository;
+import com.openclassrooms.mddapi.model.Subscription;
+import com.openclassrooms.mddapi.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -28,14 +26,16 @@ public class ArticleService {
     private final SubjectRepository subjectRepository;
     private final CommentRepository commentRepository;
     private final CommentService commentService;
+        private final SubscriptionRepository subscriptionRepository;
 
     @Autowired
-    public ArticleService(ArticleRepository articleRepository, UserRepository userRepository, SubjectRepository subjectRepository, CommentRepository commentRepository, CommentService commentService) {
+    public ArticleService(ArticleRepository articleRepository, UserRepository userRepository, SubjectRepository subjectRepository, CommentRepository commentRepository, CommentService commentService, SubscriptionRepository subscriptionRepository) {
         this.articleRepository = articleRepository;
         this.userRepository = userRepository;
         this.subjectRepository = subjectRepository;
         this.commentRepository = commentRepository;
         this.commentService = commentService;
+        this.subscriptionRepository = subscriptionRepository;
     }
 
     public List<ArticleDTO> getAllArticles() {
@@ -110,5 +110,17 @@ public class ArticleService {
         return comments.stream().map(commentService:: toDTO).collect(Collectors.toList());
     }
 
+    public List<ArticleDTO> getSubscribedArticlesForUser(Long userId) {
+        List<Article> allArticles = articleRepository.findAll();
 
+        // get all subjects that the user is subscribed to
+        List<Subscription> subscriptions = subscriptionRepository.findByUserId(userId);
+
+        // then get all articles that belong to those subjects
+        List<Article> subscribedArticles = allArticles.stream()
+                .filter(article -> subscriptions.stream().anyMatch(subscription -> subscription.getSubject().getId().equals(article.getSubject().getId())))
+                .collect(Collectors.toList());
+
+        return subscribedArticles.stream().map(this::toDTO).collect(Collectors.toList());
+    }
 }

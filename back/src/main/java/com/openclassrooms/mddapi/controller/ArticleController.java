@@ -2,12 +2,16 @@ package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.ArticleDTO;
 import com.openclassrooms.mddapi.dto.ArticleWithCommentsDTO;
+import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.exception.*;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.service.ArticleService;
+import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,13 +22,24 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
     @GetMapping
-    public List<ArticleDTO> getAllArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleDTO> subscribedArticles() {
+
+        // Récupérer l'utilisateur actuellement connecté
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        UserDTO userDTO = userService.getUserByName(username);
+
+        List<ArticleDTO> subscribedArticles =  articleService.getSubscribedArticlesForUser(userDTO.getId());
+
+        return subscribedArticles;
     }
 
     @GetMapping("/{id}")
