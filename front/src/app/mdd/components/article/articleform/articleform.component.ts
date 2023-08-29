@@ -4,6 +4,7 @@ import { ArticlesService } from '../../../services/articles.service';
 import { Router } from '@angular/router';
 import { Subject as MySubject } from '../../../../core/models/Subject';
 import { SubjectService } from 'src/app/core/services/subject.service';
+import { SessionService } from 'src/app/core/services/session.service';
 
 @Component({
   selector: 'app-articleform',
@@ -19,7 +20,8 @@ export class ArticleformComponent implements OnInit {
   constructor(
     private articleService: ArticlesService,
     private router: Router,
-    private subjectService: SubjectService
+    private subjectService: SubjectService,
+    private sessionService: SessionService
   ) {}
 
   ngOnInit() {
@@ -47,7 +49,7 @@ export class ArticleformComponent implements OnInit {
   onCreateArticle(form: NgForm) {
     if (form.valid) {
       const articleData = {
-        userId: '1', // A remplacer par l'ID de l'utilisateur connecté
+        userId: this.sessionService.user.id.toString(),
         subjectId: form.value.theme,
         title: form.value.title,
         content: form.value.content,
