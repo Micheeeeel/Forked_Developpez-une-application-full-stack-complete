@@ -1,31 +1,35 @@
 <!-- Profil utilisateur -->
 <div class="profile-container">
   <mat-card-title>Profil utilisateur</mat-card-title>
-  <mat-card-content class="profile-form">
-    <mat-form-field appearance="outline" class="profile-field">
-      <mat-label>Username</mat-label>
-      <input
-        matInput
-        placeholder="Modifiez votre username"
-        [(ngModel)]="currentUser.username"
-      />
-    </mat-form-field>
+  <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-form">
+    <mat-card-content class="profile-form">
+      <mat-form-field appearance="outline" class="profile-field">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder="Modifiez votre username"
+          [(ngModel)]="currentUser.username"
+          formControlName="username"
+        />
+      </mat-form-field>
 
-    <mat-form-field appearance="outline" class="profile-field">
-      <mat-label>Email</mat-label>
-      <input
-        matInput
-        type="email"
-        placeholder="Modifiez votre e-mail"
-        [(ngModel)]="currentUser.email"
-      />
-    </mat-form-field>
+      <mat-form-field appearance="outline" class="profile-field">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          placeholder="Modifiez votre e-mail"
+          [(ngModel)]="currentUser.email"
+          formControlName="email"
+        />
+      </mat-form-field>
 
-    <mat-card-actions class="profile-actions">
-      <button mat-raised-button color="primary">Sauvegarder</button>
-      <a mat-button color="warn" (click)="onLogoutClick()">Se déconnecter</a>
-    </mat-card-actions>
-  </mat-card-content>
+      <mat-card-actions class="profile-actions">
+        <button mat-raised-button color="primary">Sauvegarder</button>
+        <a mat-button color="warn" (click)="onLogoutClick()">Se déconnecter</a>
+      </mat-card-actions>
+    </mat-card-content>
+  </form>
 </div>
 
 <mat-divider></mat-divider>
@@ -47,3 +51,7 @@
 <ng-template #loadingTemplate>
   <p>Loading...</p>
 </ng-template>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

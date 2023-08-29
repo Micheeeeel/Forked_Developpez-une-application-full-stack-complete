@@ -32,4 +32,13 @@ export class AuthService {
   public getCurrentUser(): Observable<User> {
     return this.http.get<User>(`${this.baseUrl}/user/me`);
   }
+
+  public updateUser(
+    userId: string,
+    formValue: { name: string }
+  ): Observable<string> {
+    return this.http.put(`${this.baseUrl}/user/${userId}`, formValue, {
+      responseType: 'text',
+    });
+  }
 }
