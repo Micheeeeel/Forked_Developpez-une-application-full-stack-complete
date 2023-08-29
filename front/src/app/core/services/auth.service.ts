@@ -36,9 +36,7 @@ export class AuthService {
   public updateUser(
     userId: string,
     formValue: { name: string }
-  ): Observable<string> {
-    return this.http.put(`${this.baseUrl}/user/${userId}`, formValue, {
-      responseType: 'text',
-    });
+  ): Observable<Token> {
+    return this.http.put<Token>(`${this.baseUrl}/user/${userId}`, formValue);
   }
 }

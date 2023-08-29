@@ -45,15 +45,7 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        UserDTO updatedUserDTO = userService.updateUser(id, userDTO.getEmail(), userDTO.getUsername());
-        if (updatedUserDTO != null) {
-            return ResponseEntity.ok().body("User updated");   // 200: ok
-        } else {
-            throw new UpdateUserException("Failed to update User");    // Custom exception for failure to update
-        }
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {

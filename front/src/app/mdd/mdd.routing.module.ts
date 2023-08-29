@@ -14,43 +14,43 @@ const routes = [
   {
     path: 'subjects',
     component: SubjectsComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form',
     component: SubjectFormComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'subjects/subject-form/:id',
     component: SubjectFormComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'subjects/:id',
     component: SubjectDetailComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'article',
     component: ArticleListComponent,
     resolve: { articles: ArticlesResolver },
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'article/article-form',
     component: ArticleformComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'article/article-detail/:id',
     component: ArticleDetailComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
   {
     path: 'me',
     component: MeComponent,
-    //canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
   },
 ];
 

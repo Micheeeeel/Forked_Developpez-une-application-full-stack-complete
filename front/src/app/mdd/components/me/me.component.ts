@@ -44,14 +44,14 @@ export class MeComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    if ('valeurs du formulaire: ' + this.profileForm.valid) {
+    if (this.profileForm.valid) {
       console.log(this.profileForm.value);
       this.authService
         .updateUser(this.currentUser.id.toString(), this.profileForm.value)
         .pipe()
         .subscribe({
           next: (message) => {
-            this.handleSuccess('User updated successfully');
+            this.handleSuccess('User updated successfully', message.token);
           },
           error: (error) => {
             this.handleError('Failed to update user');
@@ -60,7 +60,10 @@ export class MeComponent implements OnInit, OnDestroy {
     }
   }
 
-  handleSuccess(message: string) {
+  handleSuccess(message: string, token: string) {
+    // Sauvegardez le token dans le localStorage
+    localStorage.setItem('token', token);
+
     // Affichez le message
     console.log(message);
     this.message = message;
