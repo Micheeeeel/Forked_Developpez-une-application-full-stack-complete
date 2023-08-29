@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   message: string | null = null;
   errorMessage: string | null = null;
   @ViewChild('email', { static: false })
-  email!: ElementRef;
+  login!: ElementRef;
 
   private unsubscribe$: Subject<boolean> = new Subject<boolean>();
 
@@ -37,13 +37,13 @@ export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
 
   ngOnInit(): void {
     this.loginForm = this.formeBuilder.group({
-      email: [null, [Validators.required]],
+      login: [null, [Validators.required]],
       password: [null, [Validators.required, Validators.minLength(6)]],
     });
   }
 
   ngAfterViewInit(): void {
-    Promise.resolve().then(() => this.email.nativeElement.focus());
+    Promise.resolve().then(() => this.login.nativeElement.focus());
   }
 
   submit() {

@@ -1,7 +1,6 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.UserDTO;
-import com.openclassrooms.mddapi.exception.UpdateUserException;
 import com.openclassrooms.mddapi.model.JwtRequest;
 import com.openclassrooms.mddapi.model.JwtResponse;
 import com.openclassrooms.mddapi.model.User;
@@ -48,7 +47,7 @@ public class JwtAuthenticationController {
         userDetailsService.save(user);
 
         // Load user details
-        final CustomUserDetails userDetails = userDetailsService.loadUserByUserEmail(user.getEmail());
+        final CustomUserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
 
         // génère un jeton JWT valide en cas de succès de l'authentification
         final String token = jwtTokenUtil.generateToken(userDetails);
@@ -60,11 +59,11 @@ public class JwtAuthenticationController {
     @PostMapping("/api/auth/login")
     public ResponseEntity<?> createAuthenticationToken(@RequestBody JwtRequest authenticationRequest) throws Exception {
         // authentification
-        authenticate(authenticationRequest.getEmail(), authenticationRequest.getPassword());
+        authenticate(authenticationRequest.getLogin(), authenticationRequest.getPassword());
 
         // Génère un jeton JWT valide à partir des info utilisateur en cas de succès de l'authentification
         final CustomUserDetails userDetails = userDetailsService
-                .loadUserByUserEmail(authenticationRequest.getEmail());
+                .loadUserByLogin(authenticationRequest.getLogin());
         final String token = jwtTokenUtil.generateToken(userDetails);
         return ResponseEntity.ok(new JwtResponse(token));
     }
@@ -81,12 +80,13 @@ public class JwtAuthenticationController {
         }
     }
 
+
     @PutMapping("/api/user/{id}")
     public ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
         UserDTO updatedUserDTO = userService.updateUser(id, userDTO.getEmail(), userDTO.getUsername());
 
         // Génère un jeton JWT valide à partir des info utilisateur
-        final CustomUserDetails userDetails = userDetailsService.loadUserByUserEmail(updatedUserDTO.getEmail());
+        final CustomUserDetails userDetails = userDetailsService.loadUserByLogin(updatedUserDTO.getEmail());
         final String token = jwtTokenUtil.generateToken(userDetails);
 
         return ResponseEntity.ok(new JwtResponse(token));

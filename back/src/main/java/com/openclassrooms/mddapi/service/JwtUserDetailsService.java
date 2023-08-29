@@ -20,14 +20,25 @@ public class JwtUserDetailsService implements UserDetailsService {
     @Autowired
     private PasswordEncoder bcryptEncoder;
 
+    public CustomUserDetails loadUserByLogin(String login) throws UsernameNotFoundException {
+        Optional<User> userByEmail = userRepository.findByEmail(login);
+        if (userByEmail.isPresent()) {
+            return new CustomUserDetails(userByEmail.get());
+        }
+
+        Optional<User> userByUsername = userRepository.findByUsername(login);
+        if (userByUsername.isPresent()) {
+            return new CustomUserDetails(userByUsername.get());
+        }
+
+        throw new UsernameNotFoundException("User not found with login: " + login);
+    }
 
 
-    // encapsule les détails de l'utilisateur chargés à partir de son adresse e-mail
-    public CustomUserDetails loadUserByUserEmail(String userEmail) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException("User not found with user email: " + userEmail));;	// authentication is done by email
-
-        return new CustomUserDetails(user);
-
+    // méthode utilisé par l'authenticationManager
+    @Override
+    public CustomUserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
+        return loadUserByLogin(userName);
     }
 
     public User save(User user) {
@@ -35,9 +46,5 @@ public class JwtUserDetailsService implements UserDetailsService {
         return userRepository.save(user);
     }
 
-    @Override
-    public CustomUserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        return loadUserByUserEmail(userName);	// because I authenticate with email
 
-    }
 }

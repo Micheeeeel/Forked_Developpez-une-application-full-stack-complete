@@ -40,7 +40,7 @@ public class jwtRequestFilter extends OncePerRequestFilter {
                 if(userLoginFromToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
                     // Chargement des détails de l'utilisateur
-                    CustomUserDetails userDetails = this.jwtUserDetailsService.loadUserByUserEmail(userLoginFromToken);
+                    CustomUserDetails userDetails = this.jwtUserDetailsService.loadUserByLogin(userLoginFromToken);
 
                     // Validation finale du jeton et configuration de l'authentification
                     if(jwtTokenUtil.validateToken(token, userDetails, userLoginFromToken)){
