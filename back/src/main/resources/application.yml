@@ -1,7 +1,0 @@
-spring:
-  security:
-    user:
-      name: autourducode
-      password: demo
-
-

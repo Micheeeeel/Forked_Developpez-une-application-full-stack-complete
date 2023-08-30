@@ -21,11 +21,14 @@ public class JwtUserDetailsService implements UserDetailsService {
     private PasswordEncoder bcryptEncoder;
 
     public CustomUserDetails loadUserByLogin(String login) throws UsernameNotFoundException {
+        // on veut que l'utilisateur puisse se connecter soit avec son email, soit avec son userName
+        // on essaye d'abord avec l'email
         Optional<User> userByEmail = userRepository.findByEmail(login);
         if (userByEmail.isPresent()) {
             return new CustomUserDetails(userByEmail.get());
         }
 
+        // puis, si encore là, on essaye avec le userName
         Optional<User> userByUsername = userRepository.findByUsername(login);
         if (userByUsername.isPresent()) {
             return new CustomUserDetails(userByUsername.get());

@@ -30,7 +30,7 @@ public class JwtAuthenticationController {
     @Autowired
     private jwtTokenUtil jwtTokenUtil;
 
-    private final AuthenticationManager authenticationManager;
+    private final AuthenticationManager authenticationManager;  // remarque: on aurait pu le passer directement en @Autowired
 
     @Autowired
     public JwtAuthenticationController(AuthenticationManager authenticationManager) {

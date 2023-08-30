@@ -36,13 +36,15 @@ public class jwtRequestFilter extends OncePerRequestFilter {
                 DecodedJWT jwt = jwtTokenUtil.verifyToken(token);
                 userLoginFromToken = jwt.getSubject();
 
-                // Once we get the token, we have to validate it with the user it refer to
-                if(userLoginFromToken != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+                // Une fois qu'on a le token, on doit le valider avec l'utilisateur auquel il se réfère
+                if(
+                        userLoginFromToken != null &&
+                        SecurityContextHolder.getContext().getAuthentication() == null) {  // Si aucun utilisateur n'est actuellement authentifié, cette méthode renverra null.Le SecurityContext sera utilisé pour stocker des détails sur la sécurité concernant l'utilisateur ou la requête en cours (comme son nom d'utilisateur, ses rôles, ses privilèges, etc.).
 
                     // Chargement des détails de l'utilisateur
                     CustomUserDetails userDetails = this.jwtUserDetailsService.loadUserByLogin(userLoginFromToken);
 
-                    // Validation finale du jeton et configuration de l'authentification
+                    // On vérifie que le token n'est pas expiré et que son subjectcorrespond bien à l'email de l'utilisateur
                     if(jwtTokenUtil.validateToken(token, userDetails, userLoginFromToken)){
 
                         // une instance UsernamePasswordAuthenticationToken est créée avec les détails de l'utilisateur, ses rôles et autorisations
