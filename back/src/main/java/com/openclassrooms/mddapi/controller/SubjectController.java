@@ -1,6 +1,7 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.SubjectDTO;
+import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.exception.DeleteSubjectException;
 import com.openclassrooms.mddapi.exception.InvalidSubjectDataException;
 import com.openclassrooms.mddapi.exception.SubjectAlreadyExistsException;
@@ -8,9 +9,12 @@ import com.openclassrooms.mddapi.exception.SubjectNotFoundException;
 import com.openclassrooms.mddapi.exception.UpdateSubjectException;
 import com.openclassrooms.mddapi.model.Subject;
 import com.openclassrooms.mddapi.service.SubjectService;
+import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -26,9 +30,17 @@ public class SubjectController {
         this.subjectService = subjectService;
     }
 
+    @Autowired
+    private UserService userService;
+
     @GetMapping
     public List<SubjectDTO> getAllSubjects() {
-        return subjectService.getAllSubjects();
+        // Récupérer l'utilisateur actuellement connecté
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        UserDTO userDTO = userService.getUserByName(username);
+
+        return subjectService.getAllSubjects(userDTO.getId());
     }
 
     @GetMapping("/{id}")

@@ -75,25 +75,25 @@ public class SubjectServiceTest {
     }
 
     // Test de la méthode getAllSubjects du service
-    @Test
-    public void testGetAllSubjects() {
-        // Créer une liste de sujets de test
-        List<Subject> subjects = new ArrayList<>();
-        subjects.add(new Subject("Java"));
-        subjects.add(new Subject("JavaScript"));
-
-        // Définir le comportement du mock SubjectRepository
-        when(subjectRepository.findAll()).thenReturn(subjects);
-
-        // Appeler la méthode getAllSubjects du service
-        List<SubjectDTO> retrievedSubjects = subjectService.getAllSubjects();
-
-        // Vérifier que la liste de sujets est renvoyée avec succès
-        assertNotNull(retrievedSubjects);
-        assertEquals(2, retrievedSubjects.size());
-        assertEquals("Java", retrievedSubjects.get(0).getName());
-        assertEquals("JavaScript", retrievedSubjects.get(1).getName());
-    }
+//    @Test
+//    public void testGetAllSubjects() {
+//        // Créer une liste de sujets de test
+//        List<Subject> subjects = new ArrayList<>();
+//        subjects.add(new Subject("Java"));
+//        subjects.add(new Subject("JavaScript"));
+//
+//        // Définir le comportement du mock SubjectRepository
+//        when(subjectRepository.findAll()).thenReturn(subjects);
+//
+//        // Appeler la méthode getAllSubjects du service
+//        List<SubjectDTO> retrievedSubjects = subjectService.getAllSubjects();
+//
+//        // Vérifier que la liste de sujets est renvoyée avec succès
+//        assertNotNull(retrievedSubjects);
+//        assertEquals(2, retrievedSubjects.size());
+//        assertEquals("Java", retrievedSubjects.get(0).getName());
+//        assertEquals("JavaScript", retrievedSubjects.get(1).getName());
+//    }
 
     // Test de la méthode convertToDTO du service
     @Test

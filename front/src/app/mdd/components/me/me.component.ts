@@ -102,14 +102,20 @@ export class MeComponent implements OnInit, OnDestroy {
   onSubscribeSubject(subject: MySubject) {
     if (!subject) return; // S'assurer que le sujet existe
 
+    const userId: number = this.currentUser.id;
+
     if (subject.followed) {
-      this.subscriptionService.unsubscribeSubject(subject.id).subscribe(() => {
-        subject.followed = false;
-      });
+      this.subscriptionService
+        .unsubscribeSubject(subject.id, userId)
+        .subscribe(() => {
+          subject.followed = false;
+        });
     } else {
-      this.subscriptionService.subscribeToSubject(subject.id).subscribe(() => {
-        subject.followed = true;
-      });
+      this.subscriptionService
+        .subscribeToSubject(subject.id, userId)
+        .subscribe(() => {
+          subject.followed = true;
+        });
     }
   }
 

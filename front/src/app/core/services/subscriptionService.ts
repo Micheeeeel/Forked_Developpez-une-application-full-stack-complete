@@ -18,7 +18,7 @@ export class SubscriptionService {
     );
   }
 
-  subscribeToSubject(subjectId: number, userId: number = 1) {
+  subscribeToSubject(subjectId: number, userId: number) {
     // Appel à l'API pour s'abonner au sujet
     return this.http.post(`${this.baseUrl}/subscription/subscribe`, {
       subjectId,
@@ -26,7 +26,7 @@ export class SubscriptionService {
     });
   }
 
-  unsubscribeSubject(subjectId: number, userId: number = 1) {
+  unsubscribeSubject(subjectId: number, userId: number) {
     // Appel à l'API pour se désabonner du sujet
     return this.http.delete(
       `${this.baseUrl}/subscription/unsubscribe/${subjectId}/${userId}`

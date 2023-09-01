@@ -7,10 +7,10 @@ export function PasswordValidator(
     return null;
   }
 
-  const hasLowerCase = /[a-z]/.test(control.value);
-  const hasUpperCase = /[A-Z]/.test(control.value);
-  const hasNumber = /\d/.test(control.value);
-  const hasSpecialCharacter = /[@$!%*?&#,;:]/.test(control.value);
+  const hasLowerCase = /[a-z]/.test(control.value); // test if the password has at least one lowercase letter
+  const hasUpperCase = /[A-Z]/.test(control.value); // test if the password has at least one uppercase letter
+  const hasNumber = /\d/.test(control.value); // test if the password has at least one number
+  const hasSpecialCharacter = /[@$!%*?&#,;:]/.test(control.value); // test if the password has at least one special character
 
   const isValid =
     control.value.length >= 8 &&

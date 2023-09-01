@@ -28,7 +28,7 @@ export class ArticlesService {
     articleId: number;
   }): Observable<string> {
     const userId = 1;
-    const commnetPayload = {
+    const commentPayload = {
       userId: userId,
       authorName: null,
       articleId: articleCommnted.articleId,
@@ -36,7 +36,7 @@ export class ArticlesService {
       createdAt: null,
     };
 
-    return this.http.post<any>(`${this.baseUrl}/comment`, commnetPayload).pipe(
+    return this.http.post<any>(`${this.baseUrl}/comment`, commentPayload).pipe(
       map((response) => {
         if (response.message === 'New Comment created') {
           return 'Comment created successfully';

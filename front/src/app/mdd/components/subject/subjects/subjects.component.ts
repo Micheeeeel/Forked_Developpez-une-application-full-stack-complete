@@ -5,6 +5,7 @@ import { Observable, Subject, interval } from 'rxjs';
 import { takeUntil, tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { SubscriptionService } from 'src/app/core/services/subscriptionService';
+import { SessionService } from 'src/app/core/services/session.service';
 
 @Component({
   selector: 'app-subjects-component',
@@ -21,7 +22,8 @@ export class SubjectsComponent implements OnInit, OnDestroy {
   constructor(
     private subjectService: SubjectService,
     private router: Router,
-    private subscriptionService: SubscriptionService
+    private subscriptionService: SubscriptionService,
+    private sessionservice: SessionService
   ) {}
 
   ngOnInit(): void {
@@ -77,15 +79,19 @@ export class SubjectsComponent implements OnInit, OnDestroy {
 
   onSubscribeSubject(subject: MySubject) {
     if (!subject) return; // S'assurer que le sujet existe
-
+    const userId: number = this.sessionservice.user.id;
     if (subject.followed) {
-      this.subscriptionService.unsubscribeSubject(subject.id).subscribe(() => {
-        subject.followed = false;
-      });
+      this.subscriptionService
+        .unsubscribeSubject(subject.id, userId)
+        .subscribe(() => {
+          subject.followed = false;
+        });
     } else {
-      this.subscriptionService.subscribeToSubject(subject.id).subscribe(() => {
-        subject.followed = true;
-      });
+      this.subscriptionService
+        .subscribeToSubject(subject.id, userId)
+        .subscribe(() => {
+          subject.followed = true;
+        });
     }
   }
 
