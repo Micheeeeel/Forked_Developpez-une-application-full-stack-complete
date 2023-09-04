@@ -24,10 +24,12 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
-    @Bean
+    @Bean   // Classe de configuration de la chaine de filtre de sécurité
     public SecurityFilterChain apiSecurity(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+        http.cors() // Activer la configuration CORS (Cross-Origin Resource Sharing) pour réduire les risques de requêtes HTTP multi-origines
+                .and().  // Lie la configuration précédente à la suivante (voir ci-desous)
+                csrf().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // Désactive la protection CSRF (Cross-Site Request Forgery) pour se protéger des attaques de type CSRF
                 .and()
                 .authorizeRequests() // Commence à définir comment les requêtes doivent être sécurisées.
                 .antMatchers("/api/auth/*").permitAll()  // Autorise l'accès public pour les chemins commençant par /api/auth/.

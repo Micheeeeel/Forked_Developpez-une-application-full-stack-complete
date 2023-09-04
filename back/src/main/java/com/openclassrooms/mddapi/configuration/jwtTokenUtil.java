@@ -20,7 +20,7 @@ public class jwtTokenUtil implements Serializable {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;  // 5 minutes ?
+    public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;  // 5 heures
 
 
     // vérifie la validité du token avec les détails de l'utilisateur et l'expiration du token
@@ -29,12 +29,13 @@ public class jwtTokenUtil implements Serializable {
         return (userLoginFromToken.equals(email) && !isTokenExpired(token));    // si le login est bon et que le token n'est pas expiré
     }
 
+    // vérifie si le token à expiré
     private Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
 
-    //retrieve expiration date from jwt token
+    // renvoie la date d'expiration
     public Date getExpirationDateFromToken(String token) {
         DecodedJWT jwt = JWT.decode(token);
         return jwt.getExpiresAt();

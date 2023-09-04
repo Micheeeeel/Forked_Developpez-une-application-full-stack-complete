@@ -17,8 +17,8 @@ public class CustomUserDetails implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // In case you have roles or authorities assigned to the user, return them here.
-        // In the simplest case, you can return an empty list
+        // In case there are roles or authorities assigned to the user, return them here.
+        // In the simplest case, we can return an empty list
         return Collections.emptyList();
     }
 

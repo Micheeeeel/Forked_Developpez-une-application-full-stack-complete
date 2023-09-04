@@ -44,6 +44,7 @@ public class JwtUserDetailsService implements UserDetailsService {
         return loadUserByLogin(userName);
     }
 
+    // méthode utilisé pour encoder le password d'un nouvel utilisateur
     public User save(User user) {
         user.setPassword(bcryptEncoder.encode(user.getPassword()));
         return userRepository.save(user);

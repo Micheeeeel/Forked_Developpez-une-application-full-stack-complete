@@ -25,6 +25,8 @@ public class jwtRequestFilter extends OncePerRequestFilter {
     private JwtUserDetailsService jwtUserDetailsService;
     @Autowired
     private jwtTokenUtil jwtTokenUtil;
+
+    // filtre d'inspection des requêtes HTTP afin d'en extraire le token JWT, de le valider et de charger les détails de l'utilisateur associé
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         String header = request.getHeader("Authorization");
