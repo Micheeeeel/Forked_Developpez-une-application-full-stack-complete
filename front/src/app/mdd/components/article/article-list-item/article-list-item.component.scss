@@ -1,0 +1,35 @@
+.article-card {
+  background-color: #f5f5f5; /* Gris léger. Ajustez la couleur selon vos besoins */
+
+  cursor: pointer;
+
+  display: grid;
+  grid-template-rows: auto auto auto;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px; /* Espacement entre les rangées. Ajustez selon vos besoins */
+  grid-template-areas:
+    "title title"
+    "date author"
+    "content content";
+}
+
+mat-card-title {
+  grid-area: title;
+}
+
+.date {
+  grid-area: date;
+}
+
+.author {
+  grid-area: author;
+}
+
+mat-card-content {
+  grid-area: content;
+}
+
+mat-card-subtitle {
+  margin: 0; /* ou une autre valeur selon vos besoins */
+  padding: 0;
+}

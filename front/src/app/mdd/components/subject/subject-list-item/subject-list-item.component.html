@@ -1,0 +1,20 @@
+<mat-card class="subject-card">
+  <!-- <mat-card-header class="subject-header"> -->
+  <mat-card-title>
+    <span>{{ subject.name | titlecase }}</span>
+  </mat-card-title>
+  <!-- </mat-card-header> -->
+
+  <mat-card-content class="subject-description">
+    <span>{{ subject.description }}</span>
+  </mat-card-content>
+
+  <button
+    type="submit"
+    mat-raised-button
+    color="primary"
+    (click)="subscribeEvent.emit()"
+  >
+    {{ subject.followed ? "Se désabonner" : "S'abonner" }}
+  </button>
+</mat-card>

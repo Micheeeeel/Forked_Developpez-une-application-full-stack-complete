@@ -1,0 +1,73 @@
+@import "../../../../styles/_variables.scss";
+
+@mixin large-header-style {
+  height: $header-height;
+  background-color: white;
+  color: black;
+  border-bottom: 2px solid black;
+}
+
+.flex-header {
+  display: flex;
+  justify-content: space-between; // Cela va séparer les contenus à gauche et à droite
+
+  .logo-container {
+    display: flex;
+    align-items: center;
+  }
+
+  .navigation-content.desktop {
+    padding-right: 20px; // ou toute autre valeur que vous souhaitez
+    display: flex; // Afficher le contenu de navigation pour les grands écrans
+  }
+
+  .navigation-content.mobile {
+    display: none; // Masquer le contenu de navigation pour les petits écrans et afficher le menu hamburger
+  }
+
+  @media (max-width: 500px) {
+    /* Masquer le contenu de navigation pour les petits écrans et afficher le menu hamburger */
+    .navigation-content.desktop {
+      display: none;
+    }
+
+    .navigation-content.mobile {
+      display: flex;
+    }
+  }
+}
+
+.login-header {
+  @include large-header-style;
+}
+
+.mdd-header {
+  @include large-header-style;
+}
+
+.logo-image {
+  height: $header-height;
+  vertical-align: middle;
+}
+
+/* Media query pour les écrans de 500px ou moins */
+@media (max-width: 500px) {
+  .login-header {
+    height: calc($header-height * 2);
+    display: flex;
+    align-items: flex-end; // Place le contenu en bas de la barre
+    justify-content: center; // Centre le contenu horizontalement
+    border-bottom: 0px; //
+
+    .logo-image {
+      height: calc($header-height * 1.6);
+    }
+  }
+
+  .mdd-header {
+    .logo-image {
+      //padding-bottom: 10px;
+      height: calc($header-height * 0.8);
+    }
+  }
+}

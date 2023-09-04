@@ -1,0 +1,15 @@
+<div *ngIf="subjects; else loadingTemplate" class="subject-grid">
+  <app-subject-list-item
+    *ngFor="let subject of subjects"
+    [subject]="subject"
+    (subscribeEvent)="onSubscribeSubject(subject)"
+  ></app-subject-list-item>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

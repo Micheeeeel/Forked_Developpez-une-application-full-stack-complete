@@ -1,0 +1,65 @@
+<div class="login-container">
+  <h2>Se connecter</h2>
+  <form [formGroup]="loginForm" class="login-form">
+    <div class="login-rows">
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>E-mail ou nom d'utilisateur</mat-label>
+          <input
+            matInput
+            placeholder="Entrez votre e-mail ou nom d'utilisateur"
+            type="text"
+            id="login"
+            formControlName="login"
+            #email
+          />
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field appearance="outline">
+          <mat-label>Mot de passe</mat-label>
+          <input
+            matInput
+            placeholder="Entrez votre mot de passe"
+            type="password"
+            id="password"
+            formControlName="password"
+          />
+        </mat-form-field>
+      </p>
+      <div
+        *ngIf="loginForm.controls['password'].errors?.['invalidPassword']"
+        class="error-message"
+      >
+        Le mot de passe doit avoir au moins 8 caractères, incluant une lettre
+        minuscule, une lettre majuscule, un chiffre et un caractère spécial.
+      </div>
+
+      <div class="button-group">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          (click)="submit()"
+          [disabled]="loginForm.invalid"
+        >
+          Se connecter
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div *ngIf="message">
+  {{ message }}
+</div>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<!-- Ajoute le lien vers le HomeComponent -->
+<a routerLink="">
+  <mat-icon class="back-icon">keyboard_backspace</mat-icon>
+</a>

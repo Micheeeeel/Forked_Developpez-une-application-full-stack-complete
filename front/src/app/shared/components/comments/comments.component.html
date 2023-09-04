@@ -1,0 +1,24 @@
+<div class="comments-container">
+  <div *ngIf="comments.length" class="comment-list-container">
+    <div class="title">Commentaires</div>
+    <div *ngFor="let comment of comments" class="comment-list">
+      <div class="comment-info">
+        <span>{{ comment.authorName }}</span>
+        <span class="date">{{ comment.createdAt | date }}</span>
+      </div>
+      <mat-card class="comment-content">
+        <span [innerHTML]="comment.content.split('\n').join('<br>')"></span>
+      </mat-card>
+    </div>
+  </div>
+
+  <div class="new-comment-row">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Ajouter un commentaire...</mat-label>
+      <textarea matInput [formControl]="commentCtrl" rows="4"></textarea>
+    </mat-form-field>
+    <button mat-icon-button color="primary" (click)="onLeaveComment()">
+      <mat-icon>send</mat-icon>
+    </button>
+  </div>
+</div>

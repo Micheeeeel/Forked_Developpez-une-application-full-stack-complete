@@ -1,0 +1,20 @@
+<div *ngIf="subject$ | async as subject; else loadingTemplate">
+  <h2>Subject Details</h2>
+  <div>
+    <p><strong>ID:</strong> {{ subject.id }}</p>
+    <p><strong>Name:</strong> {{ subject.name }}</p>
+    <!-- Add more details as needed -->
+  </div>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>
+
+<div>
+  <button (click)="goBack()">Back</button>
+</div>
