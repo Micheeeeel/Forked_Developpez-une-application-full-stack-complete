@@ -1,31 +1,9 @@
-<div *ngIf="subjects; else loadingTemplate">
-  <h2>Subjects</h2>
-  <ul>
-    <li *ngFor="let subject of subjects" class="subject-item">
-      <span>{{ subject.name }}</span>
-      <div class="buttons">
-        <button (click)="onSubjectDetail(subject.id)">Detail</button>
-        <button
-          class="edit-button"
-          (click)="onEditSubject(subject.id.toString())"
-        >
-          Editer
-        </button>
-        <button
-          class="delete-button"
-          (click)="onDeleteSubject(subject.id.toString())"
-        >
-          Delete
-        </button>
-        <button
-          class="subscribe-button"
-          (click)="onSubscribeSubject(subject.id)"
-        >
-          {{ subject.followed ? "Se désabonner" : "S'abonner" }}
-        </button>
-      </div>
-    </li>
-  </ul>
+<div *ngIf="subjects; else loadingTemplate" class="subject-grid">
+  <app-subject-list-item
+    *ngFor="let subject of subjects"
+    [subject]="subject"
+    (subscribeEvent)="onSubscribeSubject(subject)"
+  ></app-subject-list-item>
 </div>
 
 <ng-template #loadingTemplate>
@@ -35,10 +13,3 @@
 <div *ngIf="errorMessage" class="error-message">
   {{ errorMessage }}
 </div>
-
-<div>
-  <button (click)="onAddSubjectForm()">Créer un nouveau thème</button>
-</div>
-
-<!-- Ajoute le lien vers le HomeComponent -->
-<a routerLink="/">Revenir vers le Home</a>

@@ -1,0 +1,43 @@
+<!-- Ajoute le lien vers le HomeComponent -->
+
+<div>
+  <div *ngIf="article$ | async as article; else loadingTemplate">
+    <div class="article-detail-container">
+      <a routerLink="/mdd/article">
+        <mat-icon class="back-icon">keyboard_backspace</mat-icon>
+      </a>
+
+      <mat-card-title class="title">
+        <span>{{ article.title | titlecase }}</span>
+      </mat-card-title>
+      <div class="metadata">
+        <div class="date">
+          <span>{{ article.publishedAt | date }}</span>
+        </div>
+
+        <div class="author">
+          <span>{{ article.userName }}</span>
+        </div>
+
+        <div class="theme">
+          <span>{{ article.subjectName }}</span>
+        </div>
+      </div>
+
+      <mat-card-content class="content">
+        <span class="article-content">{{ article.content }}</span>
+      </mat-card-content>
+
+      <div class="comments-section">
+        <!-- Vous pouvez également envelopper la section des commentaires dans un conteneur si nécessaire pour des styles ou une logique supplémentaires. -->
+        <app-comments
+          [comments]="article.comments"
+          (newComment)="handleNewComment($event)"
+        ></app-comments>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>

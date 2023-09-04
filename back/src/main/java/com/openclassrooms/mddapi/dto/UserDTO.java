@@ -14,6 +14,8 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 public class UserDTO {
 
+    private Long id;
+
     @NotBlank
     @Size(max = 50)
     @Email

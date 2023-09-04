@@ -1,5 +1,26 @@
-<mat-toolbar>
-  <a routerLink="/">
+<mat-toolbar
+  [ngClass]="{
+    'home-header': headerType === HeaderTypeEnum.HomeHeader,
+    'login-header': headerType === HeaderTypeEnum.LoginHeader,
+    'mdd-header': headerType === HeaderTypeEnum.MddHeader
+  }"
+  class="flex-header"
+>
+  <a routerLink="/" class="logo-container">
     <img src="assets/logo_p6.png" alt="Logo" class="logo-image" />
   </a>
+
+  <!-- Affichage par défaut pour les grands écrans -->
+  <div *ngIf="headerType === HeaderTypeEnum.MddHeader">
+    <div class="navigation-content desktop">
+      <app-navigation-items></app-navigation-items>
+    </div>
+
+    <!-- Affichage pour les petits écrans -->
+    <div class="navigation-content mobile">
+      <button mat-icon-button (click)="onMenuClick()">
+        <mat-icon>menu</mat-icon>
+      </button>
+    </div>
+  </div>
 </mat-toolbar>

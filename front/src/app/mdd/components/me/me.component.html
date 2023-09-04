@@ -1,0 +1,57 @@
+<!-- Profil utilisateur -->
+<div class="profile-container">
+  <mat-card-title>Profil utilisateur</mat-card-title>
+  <form [formGroup]="profileForm" (ngSubmit)="onSave()" class="profile-form">
+    <mat-card-content class="profile-form">
+      <mat-form-field appearance="outline" class="profile-field">
+        <mat-label>Username</mat-label>
+        <input
+          matInput
+          placeholder="Modifiez votre username"
+          [(ngModel)]="currentUser.username"
+          formControlName="username"
+        />
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="profile-field">
+        <mat-label>Email</mat-label>
+        <input
+          matInput
+          type="email"
+          placeholder="Modifiez votre e-mail"
+          [(ngModel)]="currentUser.email"
+          formControlName="email"
+        />
+      </mat-form-field>
+
+      <mat-card-actions class="profile-actions">
+        <button mat-raised-button color="primary">Sauvegarder</button>
+        <a mat-button color="warn" (click)="onLogoutClick()">Se déconnecter</a>
+      </mat-card-actions>
+    </mat-card-content>
+  </form>
+</div>
+
+<mat-divider></mat-divider>
+
+<div class="profile-container">
+  <mat-card-title class="subscription-title">Abonnements</mat-card-title>
+
+  <mat-card-content>
+    <div *ngIf="subjects; else loadingTemplate" class="subscription-grid">
+      <app-subject-list-item
+        *ngFor="let subject of subjects"
+        [subject]="subject"
+        (subscribeEvent)="onSubscribeSubject(subject)"
+      ></app-subject-list-item>
+    </div>
+  </mat-card-content>
+</div>
+
+<ng-template #loadingTemplate>
+  <p>Loading...</p>
+</ng-template>
+
+<div *ngIf="errorMessage" class="error-message">
+  {{ errorMessage }}
+</div>

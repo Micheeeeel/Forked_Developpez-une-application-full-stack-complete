@@ -4,10 +4,13 @@ import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.exception.UpdateSubjectException;
 import com.openclassrooms.mddapi.exception.UpdateUserException;
 import com.openclassrooms.mddapi.exception.UserNotFoundException;
+import com.openclassrooms.mddapi.model.User;
 import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,19 +45,24 @@ public class UserController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<String> updateUser(@PathVariable Long id, @RequestBody UserDTO userDTO) {
-        UserDTO updatedUserDTO = userService.updateUser(id, userDTO.getEmail(), userDTO.getUsername(), userDTO.getPassword());
-        if (updatedUserDTO != null) {
-            return ResponseEntity.ok().body("User updated");   // 200: ok
-        } else {
-            throw new UpdateUserException("Failed to update User");    // Custom exception for failure to update
-        }
-    }
+
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteUser(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/me")
+    public ResponseEntity<UserDTO> getCurrentUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        UserDTO userDTO = userService.getUserByName(username);
+
+        if (userDTO == null) {
+            throw new UserNotFoundException("User not found with userName: " + username); // Exception personnalisée
+        } else {
+            return new ResponseEntity<>(userDTO, HttpStatus.OK);
+        }
     }
 }

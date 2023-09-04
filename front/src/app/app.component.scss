@@ -1,6 +1,9 @@
 .main-content {
-  box-sizing: border-box;
-  padding: 20px;
-  max-width: 800px;
-  margin: auto;
+  box-sizing: border-box; // Change la manière dont les propriétés de dimensionnement (comme la largeur et la hauteur) sont mesurées pour inclure le padding et les bordures, et non le contenu seul.
+  padding: 30px; // Ajoute un espace interne de 20px tout autour du contenu.
+}
+
+mat-sidenav {
+  width: 250px;
+  height: 100vh;
 }

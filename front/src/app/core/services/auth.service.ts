@@ -3,6 +3,8 @@ import { Observable, catchError, map, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { ErrorHandlingService } from './error-handling.service';
+import { Token } from '../../core/models/Token';
+import { User } from '../models/User';
 
 @Injectable({
   providedIn: 'root',
@@ -10,36 +12,31 @@ import { ErrorHandlingService } from './error-handling.service';
 export class AuthService {
   public baseUrl = environment.baseUrl;
 
-  private token!: string;
+  // private token!: string;
 
   constructor(
     private http: HttpClient,
     private errorHandlingService: ErrorHandlingService
   ) {}
 
-  createUser(formValue: { name: string }): Observable<string> {
-    return this.http
-      .post(`${this.baseUrl}/user`, formValue, {
-        responseType: 'text',
-      })
-      .pipe(
-        map((response) => {
-          if (response === 'New User created') {
-            this.token = 'myFakeToken';
-            return 'User created successfully';
-          } else {
-            throw new Error('Failed to create User');
-          }
-        }),
-        catchError(this.errorHandlingService.handleError)
-      );
+  public register(formValue: { name: string }): Observable<Token> {
+    console.log('ça envoie ce qui suit: ' + formValue.name);
+
+    return this.http.post<Token>(`${this.baseUrl}/auth/register`, formValue);
   }
 
-  login(): void {
-    this.token = 'myFakeToken';
+  public login(formValue: { name: string }): Observable<Token> {
+    return this.http.post<Token>(`${this.baseUrl}/auth/login`, formValue);
   }
 
-  getToken(): string {
-    return this.token;
+  public getCurrentUser(): Observable<User> {
+    return this.http.get<User>(`${this.baseUrl}/user/me`);
+  }
+
+  public updateUser(
+    userId: string,
+    formValue: { name: string }
+  ): Observable<Token> {
+    return this.http.put<Token>(`${this.baseUrl}/user/${userId}`, formValue);
   }
 }

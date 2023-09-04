@@ -40,7 +40,12 @@ public class UserService {
         return user.map(this::toDTO).orElse(null);
     }
 
-    public UserDTO updateUser(Long id, String email, String username, String password) {
+    public UserDTO getUserByName(String name) {
+        Optional<User> user = userRepository.findByUsername(name);
+        return user.map(this::toDTO).orElse(null);
+    }
+
+    public UserDTO updateUser(Long id, String email, String username) {
         Optional<User> existingUser = userRepository.findById(id);
         if (existingUser.isEmpty()) {
             throw new UserNotFoundException("User not found with ID: " + id);
@@ -49,7 +54,6 @@ public class UserService {
         User user = existingUser.get();
         user.setEmail(email);
         user.setUsername(username);
-        user.setPassword(password);
         userRepository.save(user);
         return toDTO(user);
     }
@@ -60,6 +64,8 @@ public class UserService {
     }
 
     private UserDTO toDTO(User user) {
-        return new UserDTO(user.getEmail(), user.getUsername(), user.getPassword());
+        return new UserDTO(user.getId(),user.getEmail(), user.getUsername(), user.getPassword());
     }
+
+
 }

@@ -27,6 +27,10 @@ public class Subject {
         this.name = name;
     }
 
+    @Lob    // permet de stocker de longs textes
+    @Column(nullable = false, length = 5000) // adjust length as needed
+    private String description;
+
     // Override toString() method for better debugging
     @Override
     public String toString() {

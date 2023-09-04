@@ -22,8 +22,7 @@ public class SubjectService {
         this.subscriptionRepository = subscriptionRepository;
     }
 
-    public List<SubjectDTO> getAllSubjects() {
-        Long userId = 1L; // Utilisateur mocké
+    public List<SubjectDTO> getAllSubjects(Long userId) {
         List<Subject> subjects = subjectRepository.findAll();
         return subjects.stream().map(subject -> {
             SubjectDTO dto = this.toDTO(subject);
@@ -38,7 +37,7 @@ public class SubjectService {
     }
 
     public SubjectDTO toDTO(Subject subject) {
-        return new SubjectDTO(subject.getId(), subject.getName());
+        return new SubjectDTO(subject.getId(), subject.getName(), subject.getDescription());
     }
 
     public Subject createSubject(SubjectDTO subjectDTO) {

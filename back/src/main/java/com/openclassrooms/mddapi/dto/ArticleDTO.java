@@ -17,7 +17,11 @@ public class ArticleDTO {
 
     private Long userId;
 
+    private String userName;
+
     private Long subjectId;
+
+    private String subjectName;
 
     @NotBlank
     @Size(max = 100)
@@ -28,7 +32,5 @@ public class ArticleDTO {
     private String content;
 
     private Date publishedAt;
-
-    private List<CommentDTO> comments;
 
 }

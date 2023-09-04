@@ -1,4 +1,15 @@
-<app-header></app-header>
-<div class="main-content">
-  <router-outlet></router-outlet>
-</div>
+<mat-sidenav-container class="sidenav-container">
+  <app-header
+    *ngIf="headerType !== HeaderTypeEnum.HomeHeader"
+    [headerType]="headerType"
+    (toggleSidenav)="sidenav.toggle()"
+  ></app-header>
+
+  <mat-sidenav #sidenav position="end">
+    <app-navigation-items></app-navigation-items>
+  </mat-sidenav>
+
+  <div class="main-content">
+    <router-outlet></router-outlet>
+  </div>
+</mat-sidenav-container>

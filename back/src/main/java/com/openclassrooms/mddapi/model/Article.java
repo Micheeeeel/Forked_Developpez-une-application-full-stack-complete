@@ -35,12 +35,12 @@ public class Article {
     @Column(nullable = false, length = 5000) // adjust length as needed
     private String content;
 
-    @Temporal(TemporalType.TIMESTAMP)
+    @Temporal(TemporalType.TIMESTAMP)   //spécifie que la propriété publishedAt doit être persistée en tant que TIMESTAMP SQL
     private Date publishedAt;
 
-    @PrePersist
+    @PrePersist //méthode de rappel qui sera exécutée juste avant qu'une entité soit initialement persistée
     protected void onCreate() {
-        publishedAt = new Date();
+        publishedAt = new Date();   //appelée pour définir la valeur de publishedAt à la date et heure actuelles.
     }
 
     public static Article createNewArticle(String title, String content, Subject subject, User author) {

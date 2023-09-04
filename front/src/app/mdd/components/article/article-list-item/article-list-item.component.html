@@ -1,19 +1,19 @@
-<mat-card>
-  <mat-card-header>
-    <mat-card-title>
-      <span>{{ article.title | titlecase }}</span>
-    </mat-card-title>
-    <mat-card-subtitle>
-      <span>{{ article.publishedAt | date }}</span>
-    </mat-card-subtitle>
-  </mat-card-header>
+<mat-card (click)="showArticleDetails()" class="article-card">
+  <!-- <mat-card-header class="article-header"> -->
+  <mat-card-title>
+    <span>{{ article.title | titlecase }}</span>
+  </mat-card-title>
+
+  <mat-card-subtitle class="date">
+    <span>{{ article.publishedAt | date }}</span>
+  </mat-card-subtitle>
+
+  <mat-card-subtitle class="author">
+    <span>{{ article.userName }}</span>
+  </mat-card-subtitle>
+  <!-- </mat-card-header> -->
+
   <mat-card-content>
     <span class="article-content">{{ article.content }}</span>
   </mat-card-content>
-  <mat-card-actions>
-    <app-comments
-      [comments]="article.comments"
-      (newComment)="onNewComment($event)"
-    ></app-comments>
-  </mat-card-actions>
 </mat-card>

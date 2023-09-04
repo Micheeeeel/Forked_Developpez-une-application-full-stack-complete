@@ -1,12 +1,17 @@
 package com.openclassrooms.mddapi.controller;
 
 import com.openclassrooms.mddapi.dto.ArticleDTO;
+import com.openclassrooms.mddapi.dto.ArticleWithCommentsDTO;
+import com.openclassrooms.mddapi.dto.UserDTO;
 import com.openclassrooms.mddapi.exception.*;
 import com.openclassrooms.mddapi.model.Article;
 import com.openclassrooms.mddapi.service.ArticleService;
+import com.openclassrooms.mddapi.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,22 +22,33 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     public ArticleController(ArticleService articleService) {
         this.articleService = articleService;
     }
 
     @GetMapping
-    public List<ArticleDTO> getAllArticles() {
-        return articleService.getAllArticles();
+    public List<ArticleDTO> subscribedArticles() {
+
+        // Récupérer l'utilisateur actuellement connecté
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        UserDTO userDTO = userService.getUserByName(username);
+
+        List<ArticleDTO> subscribedArticles =  articleService.getSubscribedArticlesForUser(userDTO.getId());
+
+        return subscribedArticles;
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ArticleDTO> getArticleById(@PathVariable Long id) {
-        ArticleDTO articleDTO = articleService.getArticleById(id);
-        if (articleDTO == null) {
+    public ResponseEntity<ArticleWithCommentsDTO> getArticleById(@PathVariable Long id) {
+        ArticleWithCommentsDTO articleWithCommentsDTO = articleService.getArticleById(id);
+        if (articleWithCommentsDTO == null) {
             throw new ArticleNotFoundException("Article with ID " + id + " not found");
         }
-        return ResponseEntity.ok(articleDTO);
+        return ResponseEntity.ok(articleWithCommentsDTO);
     }
 
     @PostMapping
@@ -55,7 +71,7 @@ public class ArticleController {
             throw new InvalidArticleDataException("Invalid article data");
         }
 
-        ArticleDTO existingArticle = articleService.getArticleById(id);
+        ArticleWithCommentsDTO existingArticle = articleService.getArticleById(id);
         if (existingArticle == null) {
             throw new ArticleNotFoundException("Article with ID " + id + " not found"); // 404: not found
         }
@@ -70,8 +86,8 @@ public class ArticleController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteArticleById(@PathVariable Long id) {
-        ArticleDTO articleDTO = articleService.getArticleById(id);
-        if (articleDTO == null) {
+        ArticleWithCommentsDTO articleWithCommentsDTO = articleService.getArticleById(id);
+        if (articleWithCommentsDTO == null) {
             throw new ArticleNotFoundException("Article with ID " + id + " not found"); // 404: not found
         }
 

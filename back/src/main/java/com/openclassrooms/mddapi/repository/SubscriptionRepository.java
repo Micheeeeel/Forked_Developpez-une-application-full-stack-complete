@@ -7,6 +7,7 @@ import com.openclassrooms.mddapi.model.Subject;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Repository
@@ -17,4 +18,6 @@ public interface SubscriptionRepository extends JpaRepository<Subscription, Long
     boolean existsByUserIdAndSubjectId(Long userId, Long subjectId);
 
     Optional<Subscription> findByUserIdAndSubjectId(Long userId, Long subjectId);
+
+    List<Subscription> findByUserId(Long userId);
 }

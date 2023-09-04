@@ -6,6 +6,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './pages/home/home.component';
 import { CoreModule } from './core/core.module';
+import { MaterialModule } from './shared/material.module';
 
 @NgModule({
   declarations: [AppComponent, HomeComponent],
@@ -15,6 +16,7 @@ import { CoreModule } from './core/core.module';
     BrowserAnimationsModule,
     MatButtonModule,
     CoreModule,
+    MaterialModule,
   ],
   bootstrap: [AppComponent],
 })
