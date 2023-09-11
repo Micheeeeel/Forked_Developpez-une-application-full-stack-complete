@@ -24,6 +24,7 @@ public class jwtTokenUtil implements Serializable {
 
 
     // vérifie la validité du token avec les détails de l'utilisateur et l'expiration du token
+    // remarque: la partie qui compare l'email n'a d'intéret que si l'utilisateur se connecte avec son username (et non son email)
     public Boolean validateToken(String token, CustomUserDetails userDetails, String userLoginFromToken) {
         String email = userDetails.getEmail();
         return (userLoginFromToken.equals(email) && !isTokenExpired(token));    // si le login est bon et que le token n'est pas expiré
