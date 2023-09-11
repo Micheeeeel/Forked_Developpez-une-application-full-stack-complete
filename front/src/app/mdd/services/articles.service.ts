@@ -5,6 +5,7 @@ import { Observable, catchError, map } from 'rxjs';
 import { Article } from 'src/app/core/models/Article';
 import { ErrorHandlingService } from 'src/app/core/services/error-handling.service';
 import { ArticleWithComments } from 'src/app/core/models/ArticleWithComments';
+import { SessionService } from 'src/app/core/services/session.service';
 
 @Injectable()
 export class ArticlesService {
@@ -12,7 +13,8 @@ export class ArticlesService {
 
   constructor(
     private http: HttpClient,
-    private errorHandlingService: ErrorHandlingService
+    private errorHandlingService: ErrorHandlingService,
+    private sessionService: SessionService
   ) {}
 
   getArticles(): Observable<Article[]> {
@@ -27,7 +29,7 @@ export class ArticlesService {
     comment: string;
     articleId: number;
   }): Observable<string> {
-    const userId = 1;
+    const userId = this.sessionService.user.id;
     const commentPayload = {
       userId: userId,
       authorName: null,
